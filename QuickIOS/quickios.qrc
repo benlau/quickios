@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="/QuickIOS">
+    <file>qmldir</file>
+    <file>ViewController.qml</file>
+    <file>NavigationBar.qml</file>
+    <file>TabBar.qml</file>
+    <file>res.js</file>
+    <file>util.js</file>
+  </qresource>
+</RCC>
