@@ -4,7 +4,7 @@ import QtQuick.Window 2.1
 Rectangle {
   id: naivgationBar
 
-  width: Screen.width
+  width: parent.width
   height: 44
 
   color: "#f8f8f8"

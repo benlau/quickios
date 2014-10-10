@@ -1,8 +1,9 @@
 import QtQuick 2.2
+import QtQuick.Window 2.1
 
 Rectangle {
   id: viewController
-  width: Screen.width
-  height: Screen.height
+  width: A.screenWidth
+  height: A.screenHeight
   color: "#ffffff"
 }

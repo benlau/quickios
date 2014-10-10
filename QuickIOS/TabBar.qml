@@ -4,13 +4,13 @@ import QtQuick.Window 2.1
 Rectangle {
   id: tabBar
 
-  width: Screen.width
+  width: parent.width
   height: 49
 
   color: "#f8f8f8"
 
-  x: 0
-  y: Screen.height - 49 - 20
+  anchors.bottom: parent.bottom
+  anchors.bottomMargin: 0
   anchors.right: parent.right
   anchors.rightMargin: 0
   anchors.left: parent.left
