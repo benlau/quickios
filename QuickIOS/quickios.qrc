@@ -4,6 +4,7 @@
     <file>ViewController.qml</file>
     <file>NavigationBar.qml</file>
     <file>TabBar.qml</file>
+    <file>TabBarItem.qml</file>
     <file>res.js</file>
     <file>util.js</file>
   </qresource>
