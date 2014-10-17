@@ -1,5 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
+import QtGraphicalEffects 1.0
 
 Rectangle {
   id: tabBar
@@ -51,10 +52,17 @@ Rectangle {
       color: "transparent"
 
       Image {
+        id: tabImage
         source: tabsModel.children[index].icon
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 5
+      }
+
+      ColorOverlay {
+        anchors.fill: tabImage
+        source: tabImage
+        color: tabsModel.children[index].selected ? "#007aff" : "#9c9c9c"
       }
 
       Text {
@@ -62,7 +70,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 1
-        color: "black"
+        color: tabsModel.children[index].selected ? "#007aff" : "#929292"
         text: tabsModel.children[index].name
       }
     }
@@ -86,5 +94,8 @@ Rectangle {
     }
   }
 
+  Component.onCompleted: {
+    tabsModel.children[0].selected = true
+  }
 
 }

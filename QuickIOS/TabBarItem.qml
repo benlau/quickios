@@ -6,5 +6,7 @@ Rectangle {
 
   property string icon
 
+  property bool selected: false
+
   anchors.fill: parent
 }
