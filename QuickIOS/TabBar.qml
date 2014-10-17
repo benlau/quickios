@@ -73,6 +73,14 @@ Rectangle {
         color: tabsModel.children[index].selected ? "#007aff" : "#929292"
         text: tabsModel.children[index].name
       }
+
+      MouseArea {
+        anchors.fill: parent
+        onClicked: {
+          for (var i = 0; i < tabsModel.count; i++) tabsModel.children[i].selected = false;
+          tabsModel.children[index].selected = true;
+        }
+      }
     }
   }
 
