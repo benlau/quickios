@@ -26,6 +26,7 @@ Rectangle {
 
   Text {
     id: navigationTitle
+    font.family: "Helvetica Neue"
     text: ""
     font.weight: Font.Bold
     width: parent.width
@@ -84,6 +85,7 @@ Rectangle {
     anchors.bottom: parent.bottom
     width: parent.height
     height: parent.height
+    font.family: "Helvetica Neue"
     text: ""
     font.pixelSize: 16
     color: "#007aff"

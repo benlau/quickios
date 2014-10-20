@@ -66,6 +66,7 @@ Rectangle {
       }
 
       Text {
+        font.family: "Helvetica Neue"
         font.pixelSize: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
