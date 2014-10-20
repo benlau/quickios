@@ -1,3 +1,5 @@
+QT += qml quick widgets
+
 QML_IMPORT_PATH += $$PWD
 
 INCLUDEPATH += $$PWD

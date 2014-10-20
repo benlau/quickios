@@ -3,3 +3,4 @@ ViewController 0.1 ViewController.qml
 NavigationBar 0.1 NavigationBar.qml
 TabBar 0.1 TabBar.qml
 TabBarItem 0.1 TabBarItem.qml
+ITextField 0.1 ITextField.qml
