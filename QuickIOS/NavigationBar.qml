@@ -27,6 +27,7 @@ Rectangle {
   Text {
     id: navigationTitle
     font.family: "Helvetica Neue"
+    renderType: Text.NativeRendering
     text: ""
     font.weight: Font.Bold
     width: parent.width
@@ -49,6 +50,8 @@ Rectangle {
     width: parent.height
     height: parent.height
     text: ""
+    font.family: "Helvetica Neue"
+    renderType: Text.NativeRendering
     font.pixelSize: 16
     color: "#007aff"
     verticalAlignment: Text.AlignVCenter
@@ -86,6 +89,7 @@ Rectangle {
     width: parent.height
     height: parent.height
     font.family: "Helvetica Neue"
+    renderType: Text.NativeRendering
     text: ""
     font.pixelSize: 16
     color: "#007aff"

@@ -67,6 +67,7 @@ Rectangle {
 
       Text {
         font.family: "Helvetica Neue"
+        renderType: Text.NativeRendering
         font.pixelSize: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
