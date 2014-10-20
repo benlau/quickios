@@ -7,5 +7,7 @@
     <file>TabBarItem.qml</file>
     <file>res.js</file>
     <file>util.js</file>
+    <file>images/back.png</file>
+    <file>images/back@2x.png</file>
   </qresource>
 </RCC>
