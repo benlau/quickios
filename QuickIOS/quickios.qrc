@@ -7,6 +7,7 @@
     <file>TabBarItem.qml</file>
     <file>ITextField.qml</file>
     <file>IButton.qml</file>
+    <file>ProgressHUD.qml</file>
     <file>res.js</file>
     <file>util.js</file>
     <file>images/back.png</file>

@@ -5,3 +5,4 @@ TabBar 0.1 TabBar.qml
 TabBarItem 0.1 TabBarItem.qml
 ITextField 0.1 ITextField.qml
 IButton 0.1 IButton.qml
+ProgressHUD 0.1 ProgressHUD.qml
