@@ -6,4 +6,7 @@ Rectangle {
   width: A.screenWidth
   height: A.screenHeight
   color: "#ffffff"
+
+  signal pageChanged(var dstItem)
+
 }
