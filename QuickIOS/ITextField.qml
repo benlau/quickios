@@ -8,6 +8,8 @@ Rectangle {
   height: 30
 
   property alias placeHolder: placeHolderText.text
+  property alias text: inner.text
+  property bool passwordMode: false
 
   TextField {
     id: inner
@@ -16,6 +18,7 @@ Rectangle {
     anchors.right: parent.right
     width: parent.width
     height: parent.height
+    echoMode: passwordMode ? TextInput.Password : TextInput.Normal
 
     style: TextFieldStyle {
       font.family: "Helvetica Neue"
@@ -36,7 +39,7 @@ Rectangle {
       color: "#cccccc"
       renderType: Text.NativeRendering
       text: ""
-      visible: parent.text.length > 0 ? false : true 
+      visible: parent.text.length > 0 ? false : true
     }
 
     Rectangle {
