@@ -7,6 +7,16 @@ Rectangle {
   color: "#a0000000"
   radius: 20
 
+//  property bool animation: anim.running
+
+  function start() {
+    anim.start();
+  }
+
+  function stop() {
+    anim.stop();
+  }
+
   Canvas {
     id: canvas
 
@@ -61,6 +71,7 @@ Rectangle {
     }
 
     RotationAnimation {
+      id: anim
       target: canvas
       property: "rotation"
       from: 0
@@ -68,7 +79,7 @@ Rectangle {
       duration: 1200
       direction: RotationAnimation.Clockwise
       loops: Animation.Infinite
-      running: true
+      running: false
     }
   }
 }
