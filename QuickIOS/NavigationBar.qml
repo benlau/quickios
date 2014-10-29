@@ -11,6 +11,8 @@ Rectangle {
   property alias leftIcon: leftIconButton.source
   property alias leftText: leftTextButton.text
 
+  signal leftClicked()
+  signal rightClicked()
 
   width: parent.width
   height: 44
@@ -56,6 +58,12 @@ Rectangle {
     color: "#007aff"
     verticalAlignment: Text.AlignVCenter
     horizontalAlignment: Text.AlignHCenter
+    MouseArea {
+      anchors.fill: parent
+      onClicked: {
+        navigationBar.leftClicked();
+      }
+    }
   }
 
   Image {
@@ -69,6 +77,12 @@ Rectangle {
     height: 21
     source: "qrc:///QuickIOS/images/back.png"
     fillMode: Image.PreserveAspectFit
+    MouseArea {
+      anchors.fill: parent
+      onClicked: {
+        navigationBar.leftClicked();
+      }
+    }
   }
 
   Image {
@@ -78,6 +92,12 @@ Rectangle {
     anchors.bottom: parent.bottom
     width: parent.height
     height: parent.height
+    MouseArea {
+      anchors.fill: parent
+      onClicked: {
+        navigationBar.leftClicked();
+      }
+    }
   }
 
   Text {
@@ -95,6 +115,12 @@ Rectangle {
     color: "#007aff"
     verticalAlignment: Text.AlignVCenter
     horizontalAlignment: Text.AlignHCenter
+    MouseArea {
+      anchors.fill: parent
+      onClicked: {
+        navigationBar.rightClicked();
+      }
+    }
   }
 
   Image {
@@ -104,6 +130,12 @@ Rectangle {
     anchors.bottom: parent.bottom
     width: parent.height
     height: parent.height
+    MouseArea {
+      anchors.fill: parent
+      onClicked: {
+        navigationBar.rightClicked();
+      }
+    }
   }
 
   Rectangle {
