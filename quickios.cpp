@@ -2,6 +2,7 @@
 #include <QtGui>
 #include <QVariantMap>
 #include "quickios.h"
+#include "qialertview.h"
 
 static QJSValue aProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
@@ -17,4 +18,5 @@ static QJSValue aProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 void QuickIOS::registerTypes()
 {
   qmlRegisterSingletonType("QuickIOS", 0, 1, "A", aProvider);
+  qmlRegisterType<QIAlertView>("QuickIOS",0,1,"IAlertView");
 }

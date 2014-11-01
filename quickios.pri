@@ -8,9 +8,11 @@ RESOURCES += $$PWD/QuickIOS/quickios.qrc
 
 HEADERS += $$PWD/quickios.h \
     $$PWD/qisystemutils.h \
-    $$PWD/qiviewdelegate.h
+    $$PWD/qiviewdelegate.h \
+    $$PWD/qialertview.h
 
-SOURCES += $$PWD/quickios.cpp
+SOURCES += $$PWD/quickios.cpp \
+    $$PWD/qialertview.cpp
 
 OBJECTIVE_SOURCES += \
     $$PWD/qisystemutils.mm \

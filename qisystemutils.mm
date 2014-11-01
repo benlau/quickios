@@ -7,7 +7,7 @@ typedef bool (*handler)(QVariantMap data);
 static QMap<QString,handler> handlers;
 static QISystemUtils * m_instance = 0;
 
-static bool createAlertView(QVariantMap data) {
+static bool alertViewCreate(QVariantMap data) {
     Q_UNUSED(data);
 
     QIViewDelegate *delegate = [QIViewDelegate alloc];
@@ -21,13 +21,23 @@ static bool createAlertView(QVariantMap data) {
                                   Q_ARG(QVariantMap,data));
     };
 
+    NSString* title = data["title"].toString().toNSString();
+    NSString* message = data["message"].toString().toNSString();
+    QStringList buttons = data["buttons"].toStringList();
+
     UIAlertView *alert = [UIAlertView alloc ] ;
-    [alert initWithTitle:@"OK Dailog"
-        message:@"This is OK dialog"
+    [alert initWithTitle:title
+        message:message
         delegate:delegate
-        cancelButtonTitle:@"Ok"
+        cancelButtonTitle:nil
         otherButtonTitles:nil
         ];
+
+    for (int i = 0 ; i < buttons.size();i++) {
+        NSString *btn = buttons.at(i).toNSString();
+        [alert addButtonWithTitle:btn];
+    }
+
     [alert show];
 
     return true;
@@ -39,7 +49,7 @@ QISystemUtils *QISystemUtils::instance()
         QCoreApplication* app = QCoreApplication::instance();
         m_instance = new QISystemUtils(app);
 
-        handlers["createAlertView"]  = createAlertView;
+        handlers["alertViewCreate"]  = alertViewCreate;
 
     }
     return m_instance;

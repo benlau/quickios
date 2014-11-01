@@ -13,12 +13,22 @@ Window {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            System.sendMessage("createAlertView",{});
+            alert.open();
         }
     }
 
     Text {
         text: qsTr("Hello World")
         anchors.centerIn: parent
+    }
+
+    IAlertView {
+        id: alert
+        title : "Example Dialog"
+        message: "It is an example dialog. Press any button to quit."
+        buttons : ["Cancel","OK"]
+        onClicked : {
+            console.log("Clicked button : ",buttonIndex);
+        }
     }
 }
