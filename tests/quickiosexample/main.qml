@@ -13,7 +13,7 @@ Window {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            Qt.quit();
+            System.sendMessage("createAlertView",{});
         }
     }
 

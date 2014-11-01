@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include "qisystemutils.h"
 #include "quickios.h"
 
 int main(int argc, char *argv[])
@@ -12,6 +14,8 @@ int main(int argc, char *argv[])
     engine.addImportPath("qrc:///");
     QuickIOS::registerTypes(); // It must be called before loaded any scene
     // End of Quick iOS Initialization
+
+    engine.rootContext()->setContextProperty("System",QISystemUtils::instance());
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
