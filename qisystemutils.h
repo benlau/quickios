@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QVariantMap>
 
+/// QISystemUtils provides an interface for Qt/QML to access the iOS system service and function call.
+
 class QISystemUtils : public QObject {
     Q_OBJECT
 
