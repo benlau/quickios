@@ -6,10 +6,15 @@
 
 @implementation QIViewDelegate
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertViewClickedButtonAtIndex)
+        alertViewClickedButtonAtIndex(buttonIndex);
+}
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    __attribute__((alertView));
     if (alertViewDismissWithButtonIndex)
         alertViewDismissWithButtonIndex(buttonIndex);
+    [alertView release];
 }
 
 @end

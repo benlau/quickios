@@ -8,6 +8,7 @@
 
     @public
 
+    void ( ^ alertViewClickedButtonAtIndex )( int );
     void ( ^ alertViewDismissWithButtonIndex )( int );
 
 }

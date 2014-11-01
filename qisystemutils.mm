@@ -12,8 +12,8 @@ static bool alertViewCreate(QVariantMap data) {
 
     QIViewDelegate *delegate = [QIViewDelegate alloc];
 
-    delegate->alertViewDismissWithButtonIndex = ^(NSInteger buttonIndex) {
-        QString name = "alertViewDismissWithButtonIndex";
+    delegate->alertViewClickedButtonAtIndex = ^(NSInteger buttonIndex) {
+        QString name = "alertViewClickedButtonAtIndex";
         QVariantMap data;
         data["buttonIndex"] = buttonIndex;
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,

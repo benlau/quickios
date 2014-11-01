@@ -53,7 +53,7 @@ void QIAlertView::open()
 
 void QIAlertView::onReceived(QString name, QVariantMap data)
 {
-    if (name != "alertViewDismissWithButtonIndex"){
+    if (name != "alertViewClickedButtonAtIndex"){
         return;
     }
 
