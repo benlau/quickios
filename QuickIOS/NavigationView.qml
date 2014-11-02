@@ -17,8 +17,10 @@ Item {
     }
 
     function pop() {
-        if (stack.count > 0)
-            stack.remove(stack.count - 1);
+//        if (stack.count > 0) // Non animated removal
+//            stack.remove(stack.count - 1);
+        if (repeater.count > 0) // Animated remove
+            repeater.itemAt(repeater.count - 1).alive = false;
     }
 
     ListModel {
@@ -42,10 +44,33 @@ Item {
             property bool alive : true
 
             Loader {
+                id: entryAnim
+                source: Qt.resolvedUrl("anims/MoveInFromRight.qml");
+            }
+
+            Loader {
+                id: exitAnim
+                source: Qt.resolvedUrl("anims/MoveOutToRight.qml");
+            }
+
+            Loader {
                 id: content
                 active: true
                 source: model.source
                 anchors.fill: parent
+            }
+
+            Binding { target: entryAnim.item;property: "running";when: item.alive; value: true;}
+            Binding { target: entryAnim.item;property: "target";when: true; value: item;}
+
+            Binding { target: exitAnim.item;property: "running";when: !item.alive; value: true;}
+            Binding { target: exitAnim.item;property: "target";when: true; value: item;}
+
+            Connections {
+                target: exitAnim.item
+                onStopped: {
+                    stack.remove(stack.count -1);
+                }
             }
         }
     }

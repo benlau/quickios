@@ -14,5 +14,7 @@
         <file>images/back.png</file>
         <file>images/back@2x.png</file>
         <file>NavigationView.qml</file>
+        <file>anims/MoveInFromRight.qml</file>
+        <file>anims/MoveOutToRight.qml</file>
     </qresource>
 </RCC>
