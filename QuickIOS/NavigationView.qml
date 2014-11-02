@@ -8,7 +8,7 @@ Item {
     width: 100
     height: 62
 
-//    property alias views : stack
+    property var views : new Array
 
     function push(content,animated) {
         var data = {
@@ -94,6 +94,18 @@ Item {
                 onStopped: {
                     stack.remove(stack.count -1);
                 }
+            }
+
+            Connections {
+                target: content
+                onLoaded: {
+                    views.push(content.item);
+                    viewsChanged();
+                }
+            }
+            Component.onDestruction: {
+                views.splice(views.count - 1,1);
+                viewsChanged();
             }
         }
     }

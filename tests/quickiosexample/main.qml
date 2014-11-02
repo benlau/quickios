@@ -11,6 +11,8 @@ Window {
     NavigationBar{
         id : navBar
         title: "Quick iOS Example Program"
+        backStage: navigation.views.length > 1
+        onLeftClicked: navigation.pop(true);
     }
 
     Component {
