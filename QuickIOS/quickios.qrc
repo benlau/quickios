@@ -1,17 +1,18 @@
 <RCC>
-  <qresource prefix="/QuickIOS">
-    <file>qmldir</file>
-    <file>ViewController.qml</file>
-    <file>NavigationBar.qml</file>
-    <file>TabBar.qml</file>
-    <file>TabBarItem.qml</file>
-    <file>ITextField.qml</file>
-    <file>IButton.qml</file>
-    <file>ProgressHUD.qml</file>
-    <file>ProgressView.qml</file>
-    <file>res.js</file>
-    <file>util.js</file>
-    <file>images/back.png</file>
-    <file>images/back@2x.png</file>
-  </qresource>
+    <qresource prefix="/QuickIOS">
+        <file>qmldir</file>
+        <file>ViewController.qml</file>
+        <file>NavigationBar.qml</file>
+        <file>TabBar.qml</file>
+        <file>TabBarItem.qml</file>
+        <file>ITextField.qml</file>
+        <file>IButton.qml</file>
+        <file>ProgressHUD.qml</file>
+        <file>ProgressView.qml</file>
+        <file>res.js</file>
+        <file>util.js</file>
+        <file>images/back.png</file>
+        <file>images/back@2x.png</file>
+        <file>NavigationView.qml</file>
+    </qresource>
 </RCC>

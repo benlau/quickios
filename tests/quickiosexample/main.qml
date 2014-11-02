@@ -3,32 +3,33 @@ import QtQuick.Window 2.2
 import QuickIOS 0.1
 
 Window {
+    id: window
+    visible: true
 
     NavigationBar{
+        id : navBar
         title: "Quick iOS Example Program"
     }
-
-    visible: true
 
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            alert.open();
+            navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
         }
     }
 
     Text {
-        text: qsTr("Hello World")
+        text: qsTr("Press for next content view")
         anchors.centerIn: parent
     }
 
-    IAlertView {
-        id: alert
-        title : "Example Dialog"
-        message: "It is an example dialog. Press any button to quit."
-        buttons : ["Cancel","OK"]
-        onClicked : {
-            console.log("Clicked button : ",buttonIndex);
-        }
+    NavigationView {
+        id : navigation
+        anchors.top: navBar.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
     }
+
 }
