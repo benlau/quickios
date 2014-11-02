@@ -10,12 +10,14 @@ Item {
 
 //    property alias views : stack
 
-    function push(content) {
+    function push(content,animated) {
         var data = {
             source : "",
             instance : {
-            }
+            },
+            animated: true
         };
+
 
         if (typeof content === "string") {
             data.source = content;
@@ -24,14 +26,22 @@ Item {
                 sourceComponent : content
             }
         }
+
+        if (animated !== undefined)
+            data.animated = animated;
+
         stack.append(data);
     }
 
-    function pop() {
-//        if (stack.count > 0) // Non animated removal
-//            stack.remove(stack.count - 1);
-        if (repeater.count > 0) // Animated remove
+    function pop(animated) {
+        if (stack.count == 0)
+            return;
+
+        if (animated === undefined || animated)  {
             repeater.itemAt(repeater.count - 1).alive = false;
+        } else {
+            stack.remove(stack.count - 1);
+        }
     }
 
     ListModel {
@@ -72,7 +82,8 @@ Item {
                 anchors.fill: parent
             }
 
-            Binding { target: entryAnim.item;property: "running";when: item.alive; value: true;}
+            Binding { target: entryAnim.item;property: "running";
+                      when: item.alive && model.animated; value: true;}
             Binding { target: entryAnim.item;property: "target";when: true; value: item;}
 
             Binding { target: exitAnim.item;property: "running";when: !item.alive; value: true;}

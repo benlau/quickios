@@ -40,7 +40,7 @@ Window {
     }
 
     Component.onCompleted: {
-        navigation.push(rootView)
+        navigation.push(rootView,false);
     }
 
 }
