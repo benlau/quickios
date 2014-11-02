@@ -13,16 +13,21 @@ Window {
         title: "Quick iOS Example Program"
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
-        }
-    }
+    Component {
+        id: rootView
+        Item {
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
+                }
+            }
 
-    Text {
-        text: qsTr("Press for next content view")
-        anchors.centerIn: parent
+            Text {
+                text: qsTr("Press for next content view")
+                anchors.centerIn: parent
+            }
+        }
     }
 
     NavigationView {
@@ -32,6 +37,10 @@ Window {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
+    }
+
+    Component.onCompleted: {
+        navigation.push(rootView)
     }
 
 }

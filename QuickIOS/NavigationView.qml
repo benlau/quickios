@@ -11,9 +11,20 @@ Item {
 //    property alias views : stack
 
     function push(content) {
-        // Only string source is supportd now.
-        stack.append({ source: content
-                     })
+        var data = {
+            source : "",
+            instance : {
+            }
+        };
+
+        if (typeof content === "string") {
+            data.source = content;
+        } else {
+            data.instance = {
+                sourceComponent : content
+            }
+        }
+        stack.append(data);
     }
 
     function pop() {
@@ -57,6 +68,7 @@ Item {
                 id: content
                 active: true
                 source: model.source
+                sourceComponent: model.instance.sourceComponent
                 anchors.fill: parent
             }
 
