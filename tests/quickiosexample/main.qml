@@ -4,6 +4,8 @@ import QuickIOS 0.1
 
 Window {
     id: window
+    height: 640 // For desktop
+    width: 480
     visible: true
 
     NavigationBar{

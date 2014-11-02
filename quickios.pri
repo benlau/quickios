@@ -14,6 +14,11 @@ HEADERS += $$PWD/quickios.h \
 SOURCES += $$PWD/quickios.cpp \
     $$PWD/qialertview.cpp
 
-OBJECTIVE_SOURCES += \
-    $$PWD/qisystemutils.mm \
-    $$PWD/qiviewdelegate.mm
+ios {
+    OBJECTIVE_SOURCES += \
+        $$PWD/qisystemutils.mm \
+        $$PWD/qiviewdelegate.mm
+} else {
+
+    SOURCES += $$PWD/qisystemutils.cpp
+}
