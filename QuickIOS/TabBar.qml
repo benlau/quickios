@@ -10,6 +10,8 @@ Rectangle {
 
   property VisualItemModel tabsModel
 
+  signal tabItemClicked(int index)
+
   width: parent.width
   height: 49
 
@@ -81,6 +83,7 @@ Rectangle {
         onClicked: {
           for (var i = 0; i < tabsModel.count; i++) tabsModel.children[i].selected = false;
           tabsModel.children[index].selected = true;
+          tabBar.tabItemClicked(index);
         }
       }
     }

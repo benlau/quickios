@@ -5,6 +5,7 @@
         <file>NavigationBar.qml</file>
         <file>TabBar.qml</file>
         <file>TabBarItem.qml</file>
+        <file>TabView.qml</file>
         <file>ITextField.qml</file>
         <file>IButton.qml</file>
         <file>ProgressHUD.qml</file>
