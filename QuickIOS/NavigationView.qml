@@ -8,6 +8,8 @@ Item {
     width: 100
     height: 62
 
+    // The title of current view
+    property string title : ""
     property var views : new Array
 
     function push(content,animated) {
@@ -110,4 +112,10 @@ Item {
         }
     }
 
+    Binding {
+        target: navigationView
+        property : "title"
+        value : views[views.length - 1].title
+        when: views.length > 0
+    }
 }

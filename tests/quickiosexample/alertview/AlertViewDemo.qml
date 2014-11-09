@@ -6,6 +6,8 @@ Rectangle {
     height: 62
     color : "#ffffff"
 
+    property string title: "Alert Example Code"
+
     MouseArea {
         anchors.fill: parent
         onClicked: {

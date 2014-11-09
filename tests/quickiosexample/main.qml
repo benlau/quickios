@@ -10,7 +10,7 @@ Window {
 
     NavigationBar{
         id : navBar
-        title: "Quick iOS Example Program"
+        title: navigation.title
         backStage: navigation.views.length > 1
         onLeftClicked: navigation.pop(true);
     }
@@ -18,6 +18,7 @@ Window {
     Component {
         id: rootView
         Item {
+            property string title : "Quick iOS Example Program"
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
