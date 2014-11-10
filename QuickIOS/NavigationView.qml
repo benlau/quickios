@@ -3,6 +3,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import "./priv"
 
 Item {
     id: navigationView
@@ -36,6 +37,7 @@ Item {
     StackView {
         id : stack
         anchors.fill: parent
+        delegate: NavigationViewDelegate {}
     }
 
     /*

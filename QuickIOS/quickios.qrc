@@ -17,5 +17,6 @@
         <file>NavigationView.qml</file>
         <file>anims/MoveInFromRight.qml</file>
         <file>anims/MoveOutToRight.qml</file>
+        <file>priv/NavigationViewDelegate.qml</file>
     </qresource>
 </RCC>
