@@ -6,8 +6,8 @@ import "./priv"
 Rectangle {
   id: navigationBar
 
-  property bool backStage: false
-//  property alias title: navigationTitle.text
+//  property bool backStage: false
+//  property var title: navigationItem.text
 //  property alias rightIcon: rightIconButton.source
 //  property alias rightText: rightTextButton.text
 //  property alias leftIcon: leftIconButton.source
@@ -17,7 +17,8 @@ Rectangle {
   property ListModel views : ListModel{}
 
   // The top most navigation item
-  property NavigationItem navigationItem : NavigationItem {}
+  property NavigationItem navigationItem : dummyNavigationItem
+  property ListModel navigationItems : ListModel{}
 
   signal leftClicked()
   signal rightClicked()
@@ -34,6 +35,9 @@ Rectangle {
   anchors.left: parent.left
   anchors.leftMargin: 0
 
+  NavigationItem {
+    id : dummyNavigationItem
+  }
   StackView {
       id : stack
       anchors.fill: parent
@@ -77,14 +81,22 @@ Rectangle {
               if (model.object.hasOwnProperty("navigationItem"))
                   navigationItem = model.object.navigationItem;
 
+              navigationItems.append({ object: navigationItem});
+              navigationBar.navigationItem = navigationItem;
               var object = creator.createObject(stack);
               stack.push(object);
           }
 
           Component.onDestruction: {
               stack.pop();
+              navigationItems.remove(navigationItems.count - 1);
+              if (navigationItems.count > 0)
+                navigationBar.navigationItem = navigationItems.get(navigationItems.count - 1).object;
+              else
+                navigationBar.navigationItem = dummyNavigationItem;
           }
       }
   }
+
 
 }

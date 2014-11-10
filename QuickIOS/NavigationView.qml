@@ -10,8 +10,6 @@ Item {
     width: 100
     height: 62
 
-    // The title of current view
-    property string title : ""
     property ListModel views : ListModel {}
 
     function push(source) {
@@ -102,10 +100,4 @@ Item {
         }
     }
 */
-    Binding {
-        target: navigationView
-        property : "title"
-        value : views.get(views.count - 1).object.title
-        when: views.count > 0
-    }
 }
