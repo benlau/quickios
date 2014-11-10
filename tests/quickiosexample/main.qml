@@ -11,7 +11,7 @@ Window {
     NavigationBar{
         id : navBar
         title: navigation.title
-        backStage: navigation.views.length > 1
+        backStage: navigation.views.count > 1
         onLeftClicked: navigation.pop(true);
     }
 

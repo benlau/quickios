@@ -12,7 +12,7 @@ Item {
 
     // The title of current view
     property string title : ""
-    property var views : new Array
+    property ListModel views : ListModel {}
 
     function push(source) {
         var view;
@@ -23,15 +23,14 @@ Item {
             view = source;
         }
         stack.push(view);
-        views.push(view);
-        viewsChanged();
+        views.append({object: view});
     }
 
     function pop() {
         if (stack.depth == 1)
             return;
         stack.pop();
-        views.splice(views.count - 1,1);
+        views.remove(views.count - 1,1);
     }
 
     StackView {
@@ -106,7 +105,7 @@ Item {
     Binding {
         target: navigationView
         property : "title"
-        value : views[views.length - 1].title
-        when: views.length > 0
+        value : views.get(views.count - 1).object.title
+        when: views.count > 0
     }
 }
