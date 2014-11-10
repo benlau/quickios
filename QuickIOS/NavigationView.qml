@@ -36,7 +36,7 @@ Item {
     StackView {
         id : stack
         anchors.fill: parent
-        delegate: NavigationViewDelegate {}
+        delegate: NavigationViewTransition {}
     }
 
     /*

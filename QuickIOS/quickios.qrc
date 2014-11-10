@@ -17,7 +17,7 @@
         <file>NavigationView.qml</file>
         <file>anims/MoveInFromRight.qml</file>
         <file>anims/MoveOutToRight.qml</file>
-        <file>priv/NavigationViewDelegate.qml</file>
+        <file>priv/NavigationViewTransition.qml</file>
         <file>priv/NavigationBarItem.qml</file>
         <file>NavigationItem.qml</file>
         <file>priv/NavigationBarTransition.qml</file>
