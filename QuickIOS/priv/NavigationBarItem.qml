@@ -1,9 +1,10 @@
+// NavigationBarItem is a children of NavigationBar to display the navigation controls
+// for the top view.
 import QtQuick 2.2
 import QtQuick.Window 2.1
-import "./priv"
 
 Rectangle {
-  id: navigationBar
+  id: navigationBarItem
 
   property bool backStage: false
   property alias title: navigationTitle.text
@@ -62,26 +63,7 @@ Rectangle {
     MouseArea {
       anchors.fill: parent
       onClicked: {
-        navigationBar.leftClicked();
-      }
-    }
-  }
-
-  Image {
-    id: backButton
-    anchors.left: parent.left
-    anchors.leftMargin: 8
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    visible: backStage
-    width: 13
-    height: 21
-    source: "qrc:///QuickIOS/images/back.png"
-    fillMode: Image.PreserveAspectFit
-    MouseArea {
-      anchors.fill: parent
-      onClicked: {
-        navigationBar.leftClicked();
+        navigationBarItem.leftClicked();
       }
     }
   }
@@ -96,7 +78,7 @@ Rectangle {
     MouseArea {
       anchors.fill: parent
       onClicked: {
-        navigationBar.leftClicked();
+        navigationBarItem.leftClicked();
       }
     }
   }
@@ -119,7 +101,7 @@ Rectangle {
     MouseArea {
       anchors.fill: parent
       onClicked: {
-        navigationBar.rightClicked();
+        navigationBarItem.rightClicked();
       }
     }
   }
@@ -134,7 +116,7 @@ Rectangle {
     MouseArea {
       anchors.fill: parent
       onClicked: {
-        navigationBar.rightClicked();
+        navigationBarItem.rightClicked();
       }
     }
   }

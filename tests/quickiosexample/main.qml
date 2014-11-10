@@ -18,7 +18,10 @@ Window {
     Component {
         id: rootView
         Item {
-            property string title : "Quick iOS Example Program"
+            property var navigationItem : NavigationItem {
+                title : "Quick iOS Example Program"
+            }
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: {

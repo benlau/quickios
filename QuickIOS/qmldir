@@ -9,3 +9,4 @@ ProgressHUD 0.1 ProgressHUD.qml
 ProgressView 0.1 ProgressView.qml
 NavigationView 0.1 NavigationView.qml
 TabView 0.1 TabView.qml
+NavigationItem 0.1 NavigationItem.qml
