@@ -12,4 +12,5 @@ Item {
     property string title : ""
 
     property bool backButtonVisible : true
+    property var rightBar
 }

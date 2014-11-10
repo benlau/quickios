@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QuickIOS 0.1
+import QtQuick.Controls 1.2
 
 Rectangle {
     width: 100
@@ -8,6 +9,12 @@ Rectangle {
 
     property var navigationItem : NavigationItem {
         title : "Alert Example Code"
+        rightBar : BarButtonItem {
+            title: "Alert"
+            onClicked: {
+                alert.open();
+            }
+        }
     }
 
     MouseArea {

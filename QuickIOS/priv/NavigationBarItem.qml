@@ -10,8 +10,10 @@ Rectangle {
   property alias title: navigationTitle.text
   property alias titleView : navigationTitle
 
-  property alias rightIcon: rightIconButton.source
-  property alias rightText: rightTextButton.text
+//  property alias rightIcon: rightIconButton.source
+//  property alias rightText: rightTextButton.text
+  property alias rightBar: rightBarArea
+
   property alias leftIcon: leftIconButton.source
   property alias leftText: leftTextButton.text
 
@@ -75,6 +77,16 @@ Rectangle {
     }
   }
 
+  Item {
+      // The area reserved for right bar.
+      id : rightBarArea
+      width: childrenRect.width
+      anchors.right: parent.right
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+  }
+
+  /*
   Text {
     id: rightTextButton
     anchors.right: parent.right
@@ -112,6 +124,7 @@ Rectangle {
       }
     }
   }
+  */
 
   Rectangle {
     x: 0

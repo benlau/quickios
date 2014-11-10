@@ -83,7 +83,14 @@ Rectangle {
 
               navigationItems.append({ object: navigationItem});
               navigationBar.navigationItem = navigationItem;
+
               var object = creator.createObject(stack);
+
+              if (navigationItem.rightBar) {
+                  navigationItem.rightBar.parent = object.rightBar
+                  navigationItem.rightBar.anchors.centerIn = object.rightBar;
+              }
+
               stack.push(object);
           }
 
