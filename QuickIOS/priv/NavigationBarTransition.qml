@@ -4,8 +4,9 @@ import QtQuick.Controls 1.2
 StackViewDelegate {
     id: root
 
-    readonly property int fastDuration : 300
-    readonly property int slowDuration : 500
+    readonly property int fastDuration : 250
+    readonly property int slowDuration : 300
+    readonly property int duration : 300
 
     function transitionFinished(properties)
     {
@@ -20,13 +21,14 @@ StackViewDelegate {
            from: target.width
            to: 0
            duration: root.fastDuration
+//           easing.type: Easing.InCubic
        }
        PropertyAnimation {
            target: exitItem
            property: "x"
            from: 0
            to: -target.width
-           duration: root.slowDuration
+           duration: root.fastDuration
        }
 
        PropertyAnimation {
@@ -34,7 +36,7 @@ StackViewDelegate {
            property : "opacity"
            from : 1
            to : 0
-           duration: root.slowDuration
+           duration: root.fastDuration
        }
     }
 
@@ -44,7 +46,7 @@ StackViewDelegate {
            property: "x"
            from: -target.width
            to: 0
-           duration: root.fastDuration
+           duration: root.slowDuration
        }
 
        PropertyAnimation {

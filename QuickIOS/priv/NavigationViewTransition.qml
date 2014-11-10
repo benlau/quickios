@@ -5,7 +5,7 @@ StackViewDelegate {
     id: root
 
     readonly property int fastDuration : 300
-    readonly property int slowDuration : 500
+    readonly property int slowDuration : 600
 
     function transitionFinished(properties)
     {
@@ -20,6 +20,7 @@ StackViewDelegate {
            from: target.width
            to: 0
            duration: root.fastDuration
+           easing.type: Easing.OutQuad
        }
        PropertyAnimation {
            target: exitItem
