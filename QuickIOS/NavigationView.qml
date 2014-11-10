@@ -13,44 +13,32 @@ Item {
     property string title : ""
     property var views : new Array
 
-    function push(content,animated) {
-        var data = {
-            source : "",
-            instance : {
-            },
-            animated: true
-        };
-
-
-        if (typeof content === "string") {
-            data.source = content;
+    function push(source) {
+        var view;
+        if (typeof source === "string") {
+            var comp = Qt.createComponent(source);
+            view = comp.createObject(navigationView);
         } else {
-            data.instance = {
-                sourceComponent : content
-            }
+            view = source;
         }
-
-        if (animated !== undefined)
-            data.animated = animated;
-
-        stack.append(data);
+        stack.push(view);
+        views.push(view);
+        viewsChanged();
     }
 
-    function pop(animated) {
-        if (stack.count == 0)
+    function pop() {
+        if (stack.depth == 1)
             return;
-
-        if (animated === undefined || animated)  {
-            repeater.itemAt(repeater.count - 1).alive = false;
-        } else {
-            stack.remove(stack.count - 1);
-        }
+        stack.pop();
+        views.splice(views.count - 1,1);
     }
 
-    ListModel {
+    StackView {
         id : stack
+        anchors.fill: parent
     }
 
+    /*
     Repeater {
         anchors.fill: parent
         id : repeater
@@ -112,7 +100,7 @@ Item {
             }
         }
     }
-
+*/
     Binding {
         target: navigationView
         property : "title"
