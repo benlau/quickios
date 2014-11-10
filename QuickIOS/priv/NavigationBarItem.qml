@@ -16,17 +16,10 @@ Rectangle {
   signal leftClicked()
   signal rightClicked()
 
-  width: parent.width
-  height: 44
+//  width: parent.width
+//  height: 44
 
   color: "#f8f8f8"
-
-  anchors.top: parent.top
-  anchors.topMargin: 0
-  anchors.right: parent.right
-  anchors.rightMargin: 0
-  anchors.left: parent.left
-  anchors.leftMargin: 0
 
   Text {
     id: navigationTitle

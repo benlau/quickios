@@ -20,7 +20,7 @@ Item {
             var comp = Qt.createComponent(source);
             view = comp.createObject(navigationView);
         } else {
-            view = source;
+            view = source.createObject(navigationView);
         }
         stack.push(view);
         views.append({object: view});
