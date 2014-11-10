@@ -8,6 +8,8 @@ Rectangle {
 
   property bool backStage: false
   property alias title: navigationTitle.text
+  property alias titleView : navigationTitle
+
   property alias rightIcon: rightIconButton.source
   property alias rightText: rightTextButton.text
   property alias leftIcon: leftIconButton.source
@@ -15,9 +17,6 @@ Rectangle {
 
   signal leftClicked()
   signal rightClicked()
-
-//  width: parent.width
-//  height: 44
 
   color: "#f8f8f8"
 
