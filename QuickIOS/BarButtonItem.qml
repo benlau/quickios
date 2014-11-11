@@ -7,6 +7,8 @@ MouseArea {
     property alias title : textItem.text
     property alias image : imageItem.source
 
+    opacity: pressed ? 0.2 : 1
+
     width: textItem.contentWidth + 16
     height: textItem.contentHeight
 
@@ -37,4 +39,5 @@ MouseArea {
         value: imageItem.height
         when: imageItem.status === Image.Ready
     }
+
 }
