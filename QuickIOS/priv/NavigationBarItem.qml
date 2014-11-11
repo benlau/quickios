@@ -10,12 +10,8 @@ Rectangle {
   property alias title: navigationTitle.text
   property alias titleView : navigationTitle
 
-//  property alias rightIcon: rightIconButton.source
-//  property alias rightText: rightTextButton.text
+  property alias leftBar: leftBarArea
   property alias rightBar: rightBarArea
-
-  property alias leftIcon: leftIconButton.source
-  property alias leftText: leftTextButton.text
 
   signal leftClicked()
   signal rightClicked()
@@ -38,6 +34,7 @@ Rectangle {
     font.pixelSize: 17
   }
 
+  /*
   Text {
     id: leftTextButton
     anchors.left: parent.left
@@ -75,6 +72,17 @@ Rectangle {
         navigationBarItem.leftClicked();
       }
     }
+  }
+  */
+
+  Item {
+      // The area reserved for right bar.
+      id : leftBarArea
+      width: childrenRect.width
+      anchors.left: parent.left
+      anchors.leftMargin: backStage ? 22 + 8 : 0
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
   }
 
   Item {

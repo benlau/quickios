@@ -12,5 +12,10 @@ Item {
     property string title : ""
 
     property bool backButtonVisible : true
+
+    // The content that should be placed at the right of navigation bar
     property var rightBar
+
+    // The content that should be placed at the left of navigation bar
+    property var leftBar
 }

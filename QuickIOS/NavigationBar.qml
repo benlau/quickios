@@ -74,6 +74,7 @@ Rectangle {
               id: creator
               NavigationBarItem {
                   title: navigationItem.title
+                  backStage: index > 0
               }
           }
 
@@ -89,6 +90,11 @@ Rectangle {
               if (navigationItem.rightBar) {
                   navigationItem.rightBar.parent = object.rightBar
                   navigationItem.rightBar.anchors.centerIn = object.rightBar;
+              }
+
+              if (navigationItem.leftBar) {
+                  navigationItem.leftBar.parent = object.leftBar
+                  navigationItem.leftBar.anchors.centerIn = object.leftBar;
               }
 
               stack.push(object);

@@ -15,6 +15,12 @@ Rectangle {
                 alert.open();
             }
         }
+        leftBar : BarButtonItem {
+            title: "Alert"
+            onClicked: {
+                alert.open();
+            }
+        }
     }
 
     MouseArea {
