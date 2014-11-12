@@ -10,10 +10,8 @@ Window {
 
     NavigationBar{
         id : navBar
-//        title: navigation.title
-//        backStage: navigation.views.count > 1
-        onLeftClicked: navigation.pop(true);
         views: navigation.views
+        onLeftClicked: navigation.pop(true);
     }
 
     Component {

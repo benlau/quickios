@@ -73,6 +73,7 @@ Rectangle {
                   backStage: index > 0
                   leftBarButtonItems: navigationItem.leftBarButtonItems
                   rightBarButtonItems: navigationItem.rightBarButtonItems
+                  tintColor : navigationBar.tintColor
               }
           }
 
