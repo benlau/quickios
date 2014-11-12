@@ -2,6 +2,7 @@
 // for the top view.
 import QtQuick 2.2
 import QtQuick.Window 2.1
+import QtQuick.Layouts 1.1
 
 Rectangle {
   id: navigationBarItem
@@ -12,6 +13,10 @@ Rectangle {
 
   property alias leftBar: leftBarArea
   property alias rightBar: rightBarArea
+
+  property VisualItemModel leftBarButtonItems : VisualItemModel {}
+
+  property VisualItemModel rightBarButtonItems : VisualItemModel {}
 
   signal leftClicked()
   signal rightClicked()
@@ -83,6 +88,14 @@ Rectangle {
       anchors.leftMargin: backStage ? 22 + 8 : 0
       anchors.top: parent.top
       anchors.bottom: parent.bottom
+
+      Row {
+          spacing : 8
+          anchors.centerIn: parent
+          Repeater {
+              model : leftBarButtonItems
+          }
+      }
   }
 
   Item {
@@ -92,47 +105,15 @@ Rectangle {
       anchors.right: parent.right
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-  }
 
-  /*
-  Text {
-    id: rightTextButton
-    anchors.right: parent.right
-    anchors.top: parent.top
-    anchors.topMargin: 1
-    anchors.bottom: parent.bottom
-    width: parent.height
-    height: parent.height
-    font.family: "Helvetica Neue"
-    renderType: Text.NativeRendering
-    text: ""
-    font.pixelSize: 16
-    color: "#007aff"
-    verticalAlignment: Text.AlignVCenter
-    horizontalAlignment: Text.AlignHCenter
-    MouseArea {
-      anchors.fill: parent
-      onClicked: {
-        navigationBarItem.rightClicked();
+      Row {
+          spacing : 8
+          anchors.centerIn: parent
+          Repeater {
+              model : rightBarButtonItems
+          }
       }
-    }
   }
-
-  Image {
-    id: rightIconButton
-    anchors.right: parent.right
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    width: parent.height
-    height: parent.height
-    MouseArea {
-      anchors.fill: parent
-      onClicked: {
-        navigationBarItem.rightClicked();
-      }
-    }
-  }
-  */
 
   Rectangle {
     x: 0

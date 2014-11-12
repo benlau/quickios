@@ -9,13 +9,29 @@ Rectangle {
 
     property var navigationItem : NavigationItem {
         title : "Alert Example Code"
-        rightBar : BarButtonItem {
-            title: "Alert"
-            onClicked: {
-                alert.open();
+//        rightBar : BarButtonItem {
+//            title: "Alert"
+//            onClicked: {
+//                alert.open();
+//            }
+//        }
+        rightBarButtonItems : VisualItemModel {
+            BarButtonItem {
+                title: "Btn1"
+                onClicked: {
+                    alert.open();
+                }
             }
+
+            BarButtonItem {
+                title: "Btn2"
+                onClicked: {
+                    alert.open();
+                }
+            }
+
         }
-        leftBar : BarButtonItem {
+        leftBarButtonItem : BarButtonItem {
             title: "Alert"
             onClicked: {
                 alert.open();

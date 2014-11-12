@@ -18,4 +18,15 @@ Item {
 
     // The content that should be placed at the left of navigation bar
     property var leftBar
+
+    // Same as leftBar
+    property var leftBarButtonItem
+
+    property var leftBarButtonItems : VisualItemModel {}
+
+    // Same as rightBar
+    property var rightBarButtonItem
+
+    property var rightBarButtonItems : VisualItemModel {}
+
 }

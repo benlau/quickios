@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.1
 import "./priv"
 
 Rectangle {
@@ -17,7 +18,6 @@ Rectangle {
   property ListModel navigationItems : ListModel{}
 
   signal leftClicked()
-  signal rightClicked()
 
   width: parent.width
   height: 44
@@ -71,7 +71,14 @@ Rectangle {
               NavigationBarItem {
                   title: navigationItem.title
                   backStage: index > 0
+                  leftBarButtonItems: navigationItem.leftBarButtonItems
+                  rightBarButtonItems: navigationItem.rightBarButtonItems
               }
+          }
+
+          function place(parent,item) {
+              item.parent = parent;
+              item.anchors.centerIn = parent;
           }
 
           Component.onCompleted: {
@@ -83,14 +90,20 @@ Rectangle {
 
               var object = creator.createObject(stack);
 
+              if (navigationItem.leftBarButtonItem) {
+                   navigationItem.leftBar = navigationItem.leftBarButtonItem;
+              }
+
+              if (navigationItem.rightBarButtonItem) {
+                   navigationItem.rightBar = navigationItem.rightBarButtonItem;
+              }
+
               if (navigationItem.rightBar) {
-                  navigationItem.rightBar.parent = object.rightBar
-                  navigationItem.rightBar.anchors.centerIn = object.rightBar;
+                  place(object.rightBar,navigationItem.rightBar);
               }
 
               if (navigationItem.leftBar) {
-                  navigationItem.leftBar.parent = object.leftBar
-                  navigationItem.leftBar.anchors.centerIn = object.leftBar;
+                  place(object.leftBar,navigationItem.leftBar);
               }
 
               stack.push(object);
