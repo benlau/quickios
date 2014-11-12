@@ -6,12 +6,8 @@ import "./priv"
 Rectangle {
   id: navigationBar
 
-//  property bool backStage: false
-//  property var title: navigationItem.text
-//  property alias rightIcon: rightIconButton.source
-//  property alias rightText: rightTextButton.text
-//  property alias leftIcon: leftIconButton.source
-//  property alias leftText: leftTextButton.text
+  // The tint color to apply to the navigation bar background. It is equivalent to color. It apply the naming convenient of UIKit
+  property alias tintColor : navigationBar.color
 
   // The view objects within NavigationView
   property ListModel views : ListModel{}
@@ -26,7 +22,7 @@ Rectangle {
   width: parent.width
   height: 44
 
-  color: "#f8f8f8"
+  color : "#f8f8f8"
 
   anchors.top: parent.top
   anchors.topMargin: 0
