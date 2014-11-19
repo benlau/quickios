@@ -1,11 +1,14 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import QtGraphicalEffects 1.0
 
 MouseArea {
     id : barButtonItem
 
     property alias title : textItem.text
     property alias image : imageItem.source
+
+    property alias tintColor : overlay.color
 
     opacity: pressed ? 0.2 : 1
 
@@ -25,6 +28,14 @@ MouseArea {
     Image {
         id : imageItem
         anchors.centerIn: parent
+    }
+
+    ColorOverlay {
+        id : overlay
+        source: imageItem
+        anchors.fill: imageItem
+        color: tintColor
+        visible: image !== undefined
     }
 
     Binding {

@@ -8,7 +8,9 @@ Rectangle {
   id: navigationBar
 
   // The tint color to apply to the navigation bar background. It is equivalent to color. It apply the naming convenient of UIKit
-  property alias tintColor : navigationBar.color
+  property string tintColor : "#007aff"
+
+  property alias barTintColor : navigationBar.color
 
   // The view objects within NavigationView
   property ListModel views : ListModel{}
@@ -50,6 +52,7 @@ Rectangle {
     anchors.bottom: parent.bottom
     visible: views.count > 1
     image: "qrc:///QuickIOS/images/back.png"
+    tintColor: navigationBar.tintColor
     onClicked: {
       navigationBar.leftClicked();
     }
@@ -69,7 +72,7 @@ Rectangle {
                   backStage: index > 0
                   leftBarButtonItems: navigationItem.leftBarButtonItems
                   rightBarButtonItems: navigationItem.rightBarButtonItems
-                  tintColor : navigationBar.tintColor
+                  barTintColor : navigationBar.barTintColor
                   titleView.color: titleAttributes.textColor
               }
           }

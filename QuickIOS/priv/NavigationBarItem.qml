@@ -9,7 +9,7 @@ Rectangle {
 
   property bool backStage: false
 
-  property alias tintColor : navigationBarItem.color
+  property alias barTintColor : navigationBarItem.color
 
   property alias title: navigationTitle.text
   property alias titleView : navigationTitle
