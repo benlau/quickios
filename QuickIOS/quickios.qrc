@@ -22,5 +22,6 @@
         <file>NavigationItem.qml</file>
         <file>priv/NavigationBarTransition.qml</file>
         <file>BarButtonItem.qml</file>
+        <file>NavigationBarTitleAttributes.qml</file>
     </qresource>
 </RCC>

@@ -17,6 +17,8 @@ Rectangle {
   property NavigationItem navigationItem : dummyNavigationItem
   property ListModel navigationItems : ListModel{}
 
+  property NavigationBarTitleAttributes titleAttributes : NavigationBarTitleAttributes {}
+
   signal leftClicked()
 
   width: parent.width
@@ -74,6 +76,7 @@ Rectangle {
                   leftBarButtonItems: navigationItem.leftBarButtonItems
                   rightBarButtonItems: navigationItem.rightBarButtonItems
                   tintColor : navigationBar.tintColor
+                  titleView.color: titleAttributes.textColor
               }
           }
 

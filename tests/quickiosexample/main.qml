@@ -12,6 +12,9 @@ Window {
         id : navBar
         views: navigation.views
         onLeftClicked: navigation.pop(true);
+        titleAttributes: NavigationBarTitleAttributes {
+            textColor : "#ff0000"
+        }
     }
 
     Component {
