@@ -24,6 +24,7 @@ MouseArea {
 
     Image {
         id : imageItem
+        anchors.centerIn: parent
     }
 
     Binding {

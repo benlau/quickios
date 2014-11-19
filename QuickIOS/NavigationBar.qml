@@ -42,22 +42,16 @@ Rectangle {
       delegate: NavigationBarTransition {}
   }
 
-  Image {
+  BarButtonItem {
     id: backButton
     anchors.left: parent.left
     anchors.leftMargin: 8
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     visible: views.count > 1
-    width: 13
-    height: 21
-    source: "qrc:///QuickIOS/images/back.png"
-    fillMode: Image.PreserveAspectFit
-    MouseArea {
-      anchors.fill: parent
-      onClicked: {
-        navigationBar.leftClicked();
-      }
+    image: "qrc:///QuickIOS/images/back.png"
+    onClicked: {
+      navigationBar.leftClicked();
     }
   }
 
