@@ -10,14 +10,22 @@ Window {
 
     NavigationBar{
         id : navBar
-        title: "Quick iOS Example Program"
-        backStage: navigation.views.length > 1
+        views: navigation.views
         onLeftClicked: navigation.pop(true);
+        titleAttributes: NavigationBarTitleAttributes {
+            textColor : "#ff0000"
+        }
     }
 
     Component {
         id: rootView
         Item {
+            property var navigationItem : NavigationItem {
+                title : "Quick iOS Example Program"
+            }
+
+            property string title : "Title"
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: {

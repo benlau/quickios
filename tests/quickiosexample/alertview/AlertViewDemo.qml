@@ -1,10 +1,43 @@
 import QtQuick 2.0
 import QuickIOS 0.1
+import QtQuick.Controls 1.2
 
 Rectangle {
     width: 100
     height: 62
     color : "#ffffff"
+
+    property var navigationItem : NavigationItem {
+        title : "Alert Example Code"
+//        rightBar : BarButtonItem {
+//            title: "Alert"
+//            onClicked: {
+//                alert.open();
+//            }
+//        }
+        rightBarButtonItems : VisualItemModel {
+            BarButtonItem {
+                title: "Btn1"
+                onClicked: {
+                    alert.open();
+                }
+            }
+
+            BarButtonItem {
+                title: "Btn2"
+                onClicked: {
+                    alert.open();
+                }
+            }
+
+        }
+        leftBarButtonItem : BarButtonItem {
+            title: "Alert"
+            onClicked: {
+                alert.open();
+            }
+        }
+    }
 
     MouseArea {
         anchors.fill: parent

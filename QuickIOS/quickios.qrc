@@ -17,7 +17,11 @@
         <file>images/back.png</file>
         <file>images/back@2x.png</file>
         <file>NavigationView.qml</file>
-        <file>anims/MoveInFromRight.qml</file>
-        <file>anims/MoveOutToRight.qml</file>
+        <file>priv/NavigationViewTransition.qml</file>
+        <file>priv/NavigationBarItem.qml</file>
+        <file>NavigationItem.qml</file>
+        <file>priv/NavigationBarTransition.qml</file>
+        <file>BarButtonItem.qml</file>
+        <file>NavigationBarTitleAttributes.qml</file>
     </qresource>
 </RCC>

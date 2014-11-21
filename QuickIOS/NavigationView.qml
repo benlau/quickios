@@ -2,52 +2,42 @@
 // Author: Ben Lau (benlau)
 
 import QtQuick 2.0
+import QtQuick.Controls 1.2
+import "./priv"
 
 Item {
     id: navigationView
     width: 100
     height: 62
 
-    property var views : new Array
+    property ListModel views : ListModel {}
 
-    function push(content,animated) {
-        var data = {
-            source : "",
-            instance : {
-            },
-            animated: true
-        };
-
-
-        if (typeof content === "string") {
-            data.source = content;
+    function push(source) {
+        var view;
+        if (typeof source === "string") {
+            var comp = Qt.createComponent(source);
+            view = comp.createObject(navigationView);
         } else {
-            data.instance = {
-                sourceComponent : content
-            }
+            view = source.createObject(navigationView);
         }
-
-        if (animated !== undefined)
-            data.animated = animated;
-
-        stack.append(data);
+        stack.push(view);
+        views.append({object: view});
     }
 
-    function pop(animated) {
-        if (stack.count == 0)
+    function pop() {
+        if (stack.depth == 1)
             return;
-
-        if (animated === undefined || animated)  {
-            repeater.itemAt(repeater.count - 1).alive = false;
-        } else {
-            stack.remove(stack.count - 1);
-        }
+        stack.pop();
+        views.remove(views.count - 1,1);
     }
 
-    ListModel {
+    StackView {
         id : stack
+        anchors.fill: parent
+        delegate: NavigationViewTransition {}
     }
 
+    /*
     Repeater {
         anchors.fill: parent
         id : repeater
@@ -109,5 +99,5 @@ Item {
             }
         }
     }
-
+*/
 }
