@@ -1,6 +1,8 @@
 Quick iOS - QML Theme and Component Library for iOS
 ===================================================
 
+[![Build Status](https://api.travis-ci.org/hilarycheng/quickios.svg)](https://travis-ci.org/hilarycheng/quickios)
+
 The project is still under development.
 
 Application Delegate
