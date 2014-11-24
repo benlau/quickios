@@ -21,4 +21,5 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 include(../../quickios.pri)
 
 OTHER_FILES += \
-    tst_NavigationView.qml
+    tst_NavigationView.qml \
+    tst_SegmentedControlTabView.qml

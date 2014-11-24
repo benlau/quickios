@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     QString executable = args.at(0);
 
     QFileInfo info(SRCDIR);
-    char **s = (char**) malloc(sizeof(char*) * (10 + args.size() ) );
+    char **s = (char**) malloc(sizeof(char*) * (20 + args.size() ) );
     int idx = 0;
 
     QByteArray srcdir = info.absoluteFilePath().toLocal8Bit();

@@ -23,5 +23,7 @@
         <file>priv/NavigationBarTransition.qml</file>
         <file>BarButtonItem.qml</file>
         <file>NavigationBarTitleAttributes.qml</file>
+        <file>priv/SegmentedControlTabViewStyle.qml</file>
+        <file>priv/qmldir</file>
     </qresource>
 </RCC>
