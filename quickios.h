@@ -4,6 +4,7 @@
 
 #ifdef Q_OS_IOS
 Q_IMPORT_PLUGIN(QtQuickControlsPlugin)
+Q_IMPORT_PLUGIN(QtQmlModelsPlugin)
 #endif
 
 class QuickIOS

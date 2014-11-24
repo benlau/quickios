@@ -20,11 +20,12 @@ ios {
         $$PWD/qiviewdelegate.mm
 
     #Qt Quick Controls
-    QTPLUGIN += qtquickcontrolsplugin
+    QTPLUGIN += qtquickcontrolsplugin modelsplugin
 
     # Fix for linking issues for Qt 5.3.2
     QTQUICKCONTROLS_LIBS = -L$$clean_path($$QMAKESPEC/../../qml/QtQuick/Controls)
-    LIBS += $$QTQUICKCONTROLS_LIBS
+    QTQMLMODELS_LIBS = -L$$clean_path($$QMAKESPEC/../../qml/QtQml/Models.2)
+    LIBS += $$QTQUICKCONTROLS_LIBS $$QTQMLMODELS_LIBS
 
 } else {
 
