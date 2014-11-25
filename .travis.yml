@@ -17,4 +17,10 @@ script:
     - make
     - ls
     - ./tst_quickiosunittests
+    - cd ../../
+    - cd tests/quickiosqmlunittests
+    - qmake
+    - make
+    - ls
+    - ./tst_quickiosqmlunittests
 
