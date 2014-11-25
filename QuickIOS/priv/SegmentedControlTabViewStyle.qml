@@ -58,7 +58,7 @@ TabViewStyle {
         Rectangle {
             antialiasing: true
 
-            x: -22
+            x: -width + radius
             radius : style.radius
             border.width: 1
             border.color: tintColor

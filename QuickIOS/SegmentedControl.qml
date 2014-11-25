@@ -9,6 +9,8 @@ Item {
 
     property ObjectModel items : ObjectModel {}
     property color tintColor : "#007aff"
+    property alias count : tabView.count
+    property alias currentIndex : tabView.currentIndex
 
     TabView {
         id: tabView
