@@ -25,5 +25,6 @@
         <file>NavigationBarTitleAttributes.qml</file>
         <file>priv/SegmentedControlTabViewStyle.qml</file>
         <file>priv/qmldir</file>
+        <file>SegmentedControl.qml</file>
     </qresource>
 </RCC>

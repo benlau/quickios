@@ -12,6 +12,11 @@ Qt was implemented the Application Delegate in order to handle the iOS Entry Poi
  1. Use the idea from [colede/qt-app-delegate](https://github.com/colede/qt-app-delegate) to overwrite the Application Delegate. But you cannot get the information from didFinishLaunchingWithOptions.
  2. Simply copy the required source from qtbase/src/plugins/platforms/ios/. It don't need to copy all the source from it. Since iOS are static ELF. It simply overwrite the original object file during linking.
 
+Simulted iOS Components
+-----------------------
+
+    UINavigationViewController , UITabViewController, UINavigationItem , UIBarButtonItem
+
 
 Reference
 ---------

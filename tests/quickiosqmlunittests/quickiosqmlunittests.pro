@@ -22,4 +22,5 @@ include(../../quickios.pri)
 
 OTHER_FILES += \
     tst_NavigationView.qml \
-    tst_SegmentedControlTabView.qml
+    tst_SegmentedControlTabView.qml \
+    tst_SegmentedControl.qml

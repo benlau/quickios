@@ -3,8 +3,6 @@ import QtQuick.Controls.Styles 1.2
 
 TabViewStyle {
     id : style
-    // No. of tabs available
-    property int count;
     property color tintColor : "#007aff";
 
     readonly property int contentHeight: 50
@@ -17,6 +15,7 @@ TabViewStyle {
         implicitHeight: contentHeight
         implicitWidth : 22 + radius
         clip: true
+        visible: control.count > 0
         Rectangle {
             antialiasing: true
             x: 22
@@ -34,6 +33,7 @@ TabViewStyle {
                 radius : style.radius
                 border.color: tintColor
                 anchors.fill: parent
+                opacity: 0
 
                 Behavior on opacity {
                     NumberAnimation {
@@ -53,6 +53,8 @@ TabViewStyle {
         implicitHeight: contentHeight
         implicitWidth : 22 + radius
         clip: true
+        visible: control.count > 0
+
         Rectangle {
             antialiasing: true
 
