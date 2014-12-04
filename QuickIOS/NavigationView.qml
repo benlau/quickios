@@ -40,7 +40,8 @@ Item {
     }
 
     onInitialViewChanged: {
-        views.append({ object: initialView })
+        if (initialView)
+            views.append({ object: initialView })
     }
 
 }
