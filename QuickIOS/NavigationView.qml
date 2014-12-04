@@ -7,10 +7,9 @@ import "./priv"
 
 Item {
     id: navigationView
-    width: 100
-    height: 62
 
     property ListModel views : ListModel {}
+    property alias initialView : stack.initialItem
 
     function push(source) {
         var view;
@@ -31,73 +30,17 @@ Item {
         views.remove(views.count - 1,1);
     }
 
+    width: 100
+    height: 62
+
     StackView {
         id : stack
         anchors.fill: parent
         delegate: NavigationViewTransition {}
     }
 
-    /*
-    Repeater {
-        anchors.fill: parent
-        id : repeater
-        model: stack
-        z: 100000
-
-        delegate: Item {
-            id: item
-            enabled: index === stack.count - 1 ; // Only the top page is enabled
-            x: 0; // Don't use anchors for animation
-            y: 0;
-            width: repeater.width;
-            height: repeater.height;
-
-            property bool alive : true
-
-            Loader {
-                id: entryAnim
-                source: Qt.resolvedUrl("anims/MoveInFromRight.qml");
-            }
-
-            Loader {
-                id: exitAnim
-                source: Qt.resolvedUrl("anims/MoveOutToRight.qml");
-            }
-
-            Loader {
-                id: content
-                active: true
-                source: model.source
-                sourceComponent: model.instance.sourceComponent
-                anchors.fill: parent
-            }
-
-            Binding { target: entryAnim.item;property: "running";
-                      when: item.alive && model.animated; value: true;}
-            Binding { target: entryAnim.item;property: "target";when: true; value: item;}
-
-            Binding { target: exitAnim.item;property: "running";when: !item.alive; value: true;}
-            Binding { target: exitAnim.item;property: "target";when: true; value: item;}
-
-            Connections {
-                target: exitAnim.item
-                onStopped: {
-                    stack.remove(stack.count -1);
-                }
-            }
-
-            Connections {
-                target: content
-                onLoaded: {
-                    views.push(content.item);
-                    viewsChanged();
-                }
-            }
-            Component.onDestruction: {
-                views.splice(views.count - 1,1);
-                viewsChanged();
-            }
-        }
+    onInitialViewChanged: {
+        views.append({ object: initialView })
     }
-*/
+
 }

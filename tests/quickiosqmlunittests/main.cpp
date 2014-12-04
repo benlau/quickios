@@ -26,7 +26,9 @@ int main(int argc, char **argv)
     s[idx++] = qrc.toLocal8Bit().data();
 
     for (int i = 1 ; i < args.size();i++) {
-        s[idx++] = strdup(args.at(i).toLocal8Bit().data());
+        QString arg = args.at(i);
+        qDebug() << arg;
+        s[idx++] = strdup(arg.toLocal8Bit().data());
     }
 
     s[idx++] = 0;

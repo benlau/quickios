@@ -18,44 +18,48 @@ Rectangle {
         }
     }
 
-    Component {
-        id: rootView
-        Item {
-            property var navigationItem : NavigationItem {
-                title : "Quick iOS Example Program"
-            }
-
-            property string title : "Title"
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
-                }
-            }
-
-            Text {
-                text: qsTr("Press for next content view")
-                anchors.centerIn: parent
-            }
-        }
-    }
-
     NavigationView {
         id : navigation
         anchors.top: navBar.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+
+        initialView : Item {
+                id: rootView
+
+                property var navigationItem : NavigationItem {
+                    title : "Quick iOS Example Program"
+                }
+
+                property string title : "Title"
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
+                    }
+                }
+
+                Text {
+                    text: qsTr("Press for next content view")
+                    anchors.centerIn: parent
+                }
+            }
     }
 
-    Component.onCompleted: {
-        navigation.push(rootView,false);
-    }
+//    Component.onCompleted: {
+//        navigation.push(rootView,false);
+//    }
 
     TestCase {
-        name: "NavigationView"
+        name: "NavigationViewTests"
         when : windowShown
+
+        function test_initialView() {
+            compare(navBar.views.count , 1);
+//            wait(60000);
+        }
 
         function test_demo() {
             // Just demo the look and feel.
