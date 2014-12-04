@@ -9,6 +9,14 @@ int main(int argc, char **argv)
     QApplication a(argc, argv);
     QuickIOS::registerTypes();
 
+    QEventLoop loop;
+    QTimer timer;
+    QObject::connect(&timer,SIGNAL(timeout()),
+                     &loop,SLOT(quit()));
+    timer.setInterval(500);
+    timer.start();
+    loop.exec();
+
     QStringList args = a.arguments();
     QString executable = args.at(0);
 
