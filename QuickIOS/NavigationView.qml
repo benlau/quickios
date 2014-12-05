@@ -16,6 +16,12 @@ Item {
 
     property alias navigationBar : navBar
 
+    /* The first view that should be shown when the NavigationView is created.
+       It should be an object. Component and string source is not allowed. It is
+       just a convenience for writing Component.onCompleted: push()
+
+       Moreover, don't change the value after created or your have pushed any view already.
+     */
     property alias initialView : stack.initialView
 
     property alias views : stack.views

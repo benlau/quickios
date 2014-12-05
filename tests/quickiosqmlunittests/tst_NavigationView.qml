@@ -52,6 +52,11 @@ Rectangle {
         }
     }
 
+    NavigationView {
+        id : navigationView2
+        visible : false;
+        anchors.fill: parent
+    }
 
     TestCase {
         name: "NavigationViewTests"
@@ -74,6 +79,14 @@ Rectangle {
 
         function test_pushUnknownView() {
             navigationView.push("not-existed.qml");
+        }
+
+        function test_pushFirstPage() {
+            compare(navigationView2.views.count , 0);
+
+            navigationView2.push(secondView);
+            compare(navigationView2.views.count , 1);
+            compare(navigationView2.navigationBar.views.count , 1);
         }
 
         function test_demo() {

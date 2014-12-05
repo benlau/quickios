@@ -26,7 +26,11 @@ Item {
             view = comp.createObject(navigationView,options);
         } else {            
             // It is a component object
-            view = source.createObject(navigationView,options);
+            view = source.createObject(navigationView,options || {});
+            if (view === null) {
+                console.warn(source.errorString());
+                return;
+            }
         }
         stack.push(view);
         views.append({object: view});
