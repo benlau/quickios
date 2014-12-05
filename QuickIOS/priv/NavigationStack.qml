@@ -23,7 +23,7 @@ Item {
                 console.warn(comp.errorString());
                 return;
             }
-            view = comp.createObject(navigationView,options);
+            view = comp.createObject(navigationView,options || {});
         } else {            
             // It is a component object
             view = source.createObject(navigationView,options || {});

@@ -89,6 +89,10 @@ Rectangle {
             compare(navigationView2.navigationBar.views.count , 1);
             var view = navigationView2.views.get(0).object;
             compare(view.navigationView,navigationView2);
+
+            navigationView2.push(secondView);
+            compare(navigationView2.views.count , 2);
+            compare(navigationView2.navigationBar.views.count , 2);
         }
 
         function test_demo() {
