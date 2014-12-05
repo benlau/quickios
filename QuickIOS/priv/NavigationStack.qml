@@ -34,6 +34,7 @@ Item {
         }
         stack.push(view);
         views.append({object: view});
+        pushed(view);
     }
 
     function pop() {
