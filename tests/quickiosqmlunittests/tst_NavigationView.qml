@@ -10,7 +10,7 @@ Rectangle {
     visible: true
 
     NavigationView {
-        id : navigation
+        id : navigationView
         anchors.fill: parent
         navigationBar.titleAttributes: NavigationBarTitleAttributes {
             textColor : "#ff0000"
@@ -18,6 +18,9 @@ Rectangle {
 
         initialView : Item {
                 id: rootView
+
+                // It will be set automatically
+                property var navigationView;
 
                 property var navigationItem : NavigationItem {
                     title : "Quick iOS Example Program"
@@ -45,7 +48,8 @@ Rectangle {
         when : windowShown
 
         function test_initialView() {
-            compare(navigation.navigationBar.views.count , 1);
+            compare(navigationView.navigationBar.views.count , 1);
+            compare(rootView.navigationView , navigationView);
 //            wait(60000);
         }
 

@@ -14,13 +14,13 @@ Window {
             property var navigationItem : NavigationItem {
                 title : "Quick iOS Example Program"
             }
-
+na
             property string title : "Title"
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
+                    rootView.navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
                 }
             }
 

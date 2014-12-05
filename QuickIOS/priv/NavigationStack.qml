@@ -12,12 +12,15 @@ Item {
     property ListModel views : ListModel {}
     property alias initialView : stack.initialItem
 
+    signal pushed(var view)
+
     function push(source) {
         var view;
         if (typeof source === "string") {
             var comp = Qt.createComponent(source);
             view = comp.createObject(navigationView);
-        } else {
+        } else {            
+            // It is a component object
             view = source.createObject(navigationView);
         }
         stack.push(view);
@@ -41,8 +44,10 @@ Item {
     }
 
     onInitialViewChanged: {
-        if (initialView)
+        if (initialView) {
             views.append({ object: initialView })
+            pushed(initialView);
+        }
     }
 
 }
