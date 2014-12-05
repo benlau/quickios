@@ -72,6 +72,10 @@ Rectangle {
             compare(navigationView.views.count , 1);
         }
 
+        function test_pushUnknownView() {
+            navigationView.push("not-existed.qml");
+        }
+
         function test_demo() {
             // Just demo the look and feel.
             // It don't do any checking yet

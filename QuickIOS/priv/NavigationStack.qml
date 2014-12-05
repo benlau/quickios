@@ -18,6 +18,11 @@ Item {
         var view;
         if (typeof source === "string") {
             var comp = Qt.createComponent(source);
+            if (comp.status === Component.Error) {
+                console.warn("Error loading QML source: ",source);
+                console.warn(comp.errorString());
+                return;
+            }
             view = comp.createObject(navigationView,options);
         } else {            
             // It is a component object
