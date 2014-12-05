@@ -9,6 +9,7 @@ import QtQuick 2.2
 import "./priv"
 
 Item {
+    id : view
 
     // The tint color to apply to the navigation bar background. It is equivalent to color. It apply the naming convenient of UIKit
     property string tintColor : "#007aff"
@@ -28,6 +29,7 @@ Item {
     NavigationBar {
         id : navBar
         views: stack.views
+        tintColor: view.tintColor
         onLeftClicked: stack.pop(true);
     }
 
