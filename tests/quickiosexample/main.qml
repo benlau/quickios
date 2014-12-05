@@ -8,15 +8,6 @@ Window {
     width: 480
     visible: true
 
-    NavigationBar{
-        id : navBar
-        views: navigation.views
-        onLeftClicked: navigation.pop(true);
-        titleAttributes: NavigationBarTitleAttributes {
-            textColor : "#ff0000"
-        }
-    }
-
     Component {
         id: rootView
         Item {
@@ -42,11 +33,10 @@ Window {
 
     NavigationView {
         id : navigation
-        anchors.top: navBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-
+        navigationBar.titleAttributes: NavigationBarTitleAttributes {
+            textColor : "#ff0000"
+        }
+        anchors.fill: parent
     }
 
     Component.onCompleted: {

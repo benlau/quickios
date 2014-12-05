@@ -9,21 +9,12 @@ Rectangle {
     width: 480
     visible: true
 
-    NavigationBar {
-        id : navBar
-        views: navigation.views
-        onLeftClicked: navigation.pop(true);
-        titleAttributes: NavigationBarTitleAttributes {
-            textColor : "#ff0000"
-        }
-    }
-
     NavigationView {
         id : navigation
-        anchors.top: navBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
+        navigationBar.titleAttributes: NavigationBarTitleAttributes {
+            textColor : "#ff0000"
+        }
 
         initialView : Item {
                 id: rootView
@@ -48,16 +39,13 @@ Rectangle {
             }
     }
 
-//    Component.onCompleted: {
-//        navigation.push(rootView,false);
-//    }
 
     TestCase {
         name: "NavigationViewTests"
         when : windowShown
 
         function test_initialView() {
-            compare(navBar.views.count , 1);
+            compare(navigation.navigationBar.views.count , 1);
 //            wait(60000);
         }
 

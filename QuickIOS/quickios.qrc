@@ -27,5 +27,6 @@
         <file>priv/qmldir</file>
         <file>SegmentedControl.qml</file>
         <file>OverlayView.qml</file>
+        <file>priv/NavigationStack.qml</file>
     </qresource>
 </RCC>

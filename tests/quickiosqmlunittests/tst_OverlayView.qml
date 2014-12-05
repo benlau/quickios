@@ -11,21 +11,13 @@ Rectangle {
 
     z: 100
 
-    NavigationBar {
-        id : navBar
-        views: navigation.views
-        onLeftClicked: navigation.pop(true);
-        titleAttributes: NavigationBarTitleAttributes {
-            textColor : "#ff0000"
-        }
-    }
-
     NavigationView {
         id : navigation
-        anchors.top: navBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
+
+        navigationBar.titleAttributes: NavigationBarTitleAttributes {
+            textColor : "#ff0000"
+        }
 
         initialView: Item {
                 property var navigationItem : NavigationItem {
@@ -53,22 +45,9 @@ Rectangle {
         width: parent.width
         height:parent.height
 
-
-        NavigationBar {
-            id: overlayNavBar
-            views: overlayNavigation.views
-            onLeftClicked: navigation.pop(true);
-            titleAttributes: NavigationBarTitleAttributes {
-                textColor : "#ff0000"
-            }
-        }
-
         NavigationView {
             id: overlayNavigation
-            anchors.top: overlayNavBar.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
+            anchors.fill: parent
 
             initialView: Item {
                 property var navigationItem : NavigationItem {
@@ -92,8 +71,8 @@ Rectangle {
         function test_demo() {
             // Just demo the look and feel.
             // It don't do any checking yet
-            wait(60000);
-//            wait(1000);
+//            wait(60000);
+            wait(1000);
         }
     }
 
