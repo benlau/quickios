@@ -22,11 +22,9 @@ Rectangle {
                 // It will be set automatically
                 property var navigationView;
 
-                property var navigationItem : NavigationItem {
+                property NavigationItem navigationItem : NavigationItem {
                     title : "Quick iOS Example Program"
                 }
-
-                property string title : "Title"
 
                 MouseArea {
                     anchors.fill: parent
@@ -42,6 +40,18 @@ Rectangle {
             }
     }
 
+    Component {
+        id: secondView
+        Item {
+            property int fieldA : 0
+            property var navigationView;
+
+            property NavigationItem navigationItem : NavigationItem {
+                title : "Second View"
+            }
+        }
+    }
+
 
     TestCase {
         name: "NavigationViewTests"
@@ -50,7 +60,16 @@ Rectangle {
         function test_initialView() {
             compare(navigationView.navigationBar.views.count , 1);
             compare(rootView.navigationView , navigationView);
-//            wait(60000);
+
+            navigationView.push(secondView,{fieldA : 10});
+            wait(500);
+            compare(navigationView.views.count , 2);
+            var view = navigationView.views.get(1).object;
+            compare(view.hasOwnProperty("fieldA"),true);
+            compare(view.fieldA, 10);
+
+            navigationView.pop();
+            compare(navigationView.views.count , 1);
         }
 
         function test_demo() {

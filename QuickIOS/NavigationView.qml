@@ -18,8 +18,10 @@ Item {
 
     property alias initialView : stack.initialView
 
-    function push(source) {
-        stack.push(source);
+    property alias views : stack.views
+
+    function push(source,options) {
+        stack.push(source,options);
     }
 
     function pop() {

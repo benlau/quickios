@@ -14,14 +14,14 @@ Item {
 
     signal pushed(var view)
 
-    function push(source) {
+    function push(source,options) {
         var view;
         if (typeof source === "string") {
             var comp = Qt.createComponent(source);
-            view = comp.createObject(navigationView);
+            view = comp.createObject(navigationView,options);
         } else {            
             // It is a component object
-            view = source.createObject(navigationView);
+            view = source.createObject(navigationView,options);
         }
         stack.push(view);
         views.append({object: view});
