@@ -9,6 +9,14 @@ int main(int argc, char **argv)
     QApplication a(argc, argv);
     QuickIOS::registerTypes();
 
+    QEventLoop loop;
+    QTimer timer;
+    QObject::connect(&timer,SIGNAL(timeout()),
+                     &loop,SLOT(quit()));
+    timer.setInterval(500);
+    timer.start();
+    loop.exec();
+
     QStringList args = a.arguments();
     QString executable = args.at(0);
 
@@ -26,7 +34,9 @@ int main(int argc, char **argv)
     s[idx++] = qrc.toLocal8Bit().data();
 
     for (int i = 1 ; i < args.size();i++) {
-        s[idx++] = strdup(args.at(i).toLocal8Bit().data());
+        QString arg = args.at(i);
+        qDebug() << arg;
+        s[idx++] = strdup(arg.toLocal8Bit().data());
     }
 
     s[idx++] = 0;

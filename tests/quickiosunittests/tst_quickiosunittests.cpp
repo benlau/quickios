@@ -34,7 +34,7 @@ void QuickIOSUnitTests::cleanupTestCase()
 void QuickIOSUnitTests::resourceChecking()
 {
     QQueue<QString> queue;
-    queue.enqueue(":/QuickIOS");
+    queue.enqueue(":/");
 
     QQmlEngine engine;
     engine.addImportPath("qrc:///");

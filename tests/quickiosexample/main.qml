@@ -8,15 +8,6 @@ Window {
     width: 480
     visible: true
 
-    NavigationBar{
-        id : navBar
-        views: navigation.views
-        onLeftClicked: navigation.pop(true);
-        titleAttributes: NavigationBarTitleAttributes {
-            textColor : "#ff0000"
-        }
-    }
-
     Component {
         id: rootView
         Item {
@@ -29,7 +20,7 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
+                    rootView.navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
                 }
             }
 
@@ -42,11 +33,10 @@ Window {
 
     NavigationView {
         id : navigation
-        anchors.top: navBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-
+        navigationBar.titleAttributes: NavigationBarTitleAttributes {
+            textColor : "#ff0000"
+        }
+        anchors.fill: parent
     }
 
     Component.onCompleted: {
