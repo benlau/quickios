@@ -40,6 +40,18 @@ Rectangle {
             }
     }
 
+    Ruler {
+        id: ruler1
+        anchors.fill: parent
+        orientation : Qt.Horizontal
+    }
+
+    Ruler {
+        id: ruler2
+        anchors.fill: parent
+        orientation : Qt.Vertical
+    }
+
     Component {
         id: secondView
         Item {
