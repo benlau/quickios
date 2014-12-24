@@ -1,4 +1,6 @@
 // A ruler component that show a ruler visually and provide the value of the length
+// Project: QuickIOS
+// Author: benlau
 
 import QtQuick 2.0
 
@@ -53,7 +55,7 @@ Item {
         font.pixelSize: ruler.labelPixelSize
     }
 
-    Item {
+    QtObject {
         id: defaults
         property int offsetX : 0
         property int offsetY : 0

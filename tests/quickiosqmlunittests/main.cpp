@@ -2,12 +2,25 @@
 #include <QtQuickTest/quicktest.h>
 #include <QFileInfo>
 #include <QtCore>
+#include <QtQml>
+#include <QtGui>
+#include <QVariantMap>
 #include "quickios.h"
+
+int waitTime = 1000;
+
+static QJSValue envProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
+{
+  QJSValue value = scriptEngine->newObject();
+  value.setProperty("waitTime", waitTime);
+  return value;
+}
 
 int main(int argc, char **argv)
 {
     QApplication a(argc, argv);
     QuickIOS::registerTypes();
+    qmlRegisterSingletonType("QuickIOS", 0, 1, "TestEnv", envProvider);
 
     QEventLoop loop;
     QTimer timer;
@@ -32,6 +45,9 @@ int main(int argc, char **argv)
     s[idx++] = srcdir.data();
     s[idx++] = strdup("-import");
     s[idx++] = qrc.toLocal8Bit().data();
+
+    if (args.size() > 1)
+        waitTime = 60000; // The wait time should be longer if user asked to run specific test case
 
     for (int i = 1 ; i < args.size();i++) {
         QString arg = args.at(i);
