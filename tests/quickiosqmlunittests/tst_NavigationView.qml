@@ -28,9 +28,6 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: {
-                        navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
-                    }
                 }
 
                 Text {
@@ -40,35 +37,75 @@ Rectangle {
             }
     }
 
-    Ruler {
-        id: ruler1
+    NavigationView {
+        id : navigationView2
+        visible : false;
         anchors.fill: parent
-        orientation : Qt.Horizontal
+    }
+
+
+    Ruler {
+        anchors.top:parent.top
+        anchors.right: parent.right
+        anchors.rightMargin: 80
+        width: 20
+        height: 44
+        orientation: Qt.Vertical
     }
 
     Ruler {
-        id: ruler2
-        anchors.fill: parent
-        orientation : Qt.Vertical
+        anchors.top:parent.top
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        width: 12
+        height: 44
+        orientation: Qt.Horizontal
+    }
+
+    Ruler {
+        anchors.top:parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: 120
+        orientation: Qt.Horizontal
+        height: 44
     }
 
     Component {
-        id: secondView
+        id: viewWithTitleOnly
         Item {
             property int fieldA : 0
-            property var navigationView;
+            property NavigationView navigationView
 
             property NavigationItem navigationItem : NavigationItem {
                 title : "Second View"
+            }            
+        }
+    }
+
+    Component {
+        id: viewWithTitleAndLeftRightButton
+        Item {
+            property NavigationItem navigationItem : NavigationItem {
+                title : "Example View"
+                leftBarButtonItem: BarButtonItem {
+                    title: "Cancel"
+                    Ruler {
+                        anchors.fill: parent
+                        orientation: Qt.Horizontal
+                    }
+                }
+                rightBarButtonItem: BarButtonItem {
+                    title: "OK"
+                    Ruler {
+                        anchors.fill: parent
+                        orientation: Qt.Horizontal
+                    }
+                }
+
             }
         }
     }
 
-    NavigationView {
-        id : navigationView2
-        visible : false;
-        anchors.fill: parent        
-    }
 
     TestCase {
         name: "NavigationViewTests"
@@ -78,7 +115,7 @@ Rectangle {
             compare(navigationView.navigationBar.views.count , 1);
             compare(rootView.navigationView , navigationView);
 
-            navigationView.push(secondView,{fieldA : 10});
+            navigationView.push(viewWithTitleOnly,{fieldA : 10});
             wait(500);
             compare(navigationView.views.count , 2);
             var view = navigationView.views.get(1).object;
@@ -90,21 +127,33 @@ Rectangle {
         }
 
         function test_pushUnknownView() {
+            console.log("Expected fail condition: ")
             navigationView.push("not-existed.qml");
         }
 
         function test_pushFirstPage() {
             compare(navigationView2.views.count , 0);
 
-            navigationView2.push(secondView);
+            navigationView2.push(viewWithTitleOnly);
             compare(navigationView2.views.count , 1);
             compare(navigationView2.navigationBar.views.count , 1);
             var view = navigationView2.views.get(0).object;
             compare(view.navigationView,navigationView2);
 
-            navigationView2.push(secondView);
+            navigationView2.push(viewWithTitleOnly);
             compare(navigationView2.views.count , 2);
             compare(navigationView2.navigationBar.views.count , 2);
+
+            wait(TestEnv.waitTime);
+        }
+
+        function test_viewWithTitleAndLeftRightButton() {
+            navigationView2.push(viewWithTitleAndLeftRightButton);
+            navigationView2.visible = true;
+            wait(TestEnv.waitTime);
+            navigationView2.pop();
+            navigationView2.visible = false;
+
         }
 
         function test_demo() {

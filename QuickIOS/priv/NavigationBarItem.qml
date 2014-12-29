@@ -7,6 +7,7 @@ import QtQuick.Layouts 1.1
 Rectangle {
   id: navigationBarItem
 
+  // TRUE if the back button should be visible
   property bool backStage: false
 
   property alias barTintColor : navigationBarItem.color
@@ -42,53 +43,12 @@ Rectangle {
     font.pixelSize: 17
   }
 
-  /*
-  Text {
-    id: leftTextButton
-    anchors.left: parent.left
-    anchors.leftMargin: backStage ? 22 : 0
-    anchors.top: parent.top
-    anchors.topMargin: 1
-    anchors.bottom: parent.bottom
-    width: parent.height
-    height: parent.height
-    text: ""
-    font.family: "Helvetica Neue"
-    renderType: Text.NativeRendering
-    font.pixelSize: 16
-    color: "#007aff"
-    verticalAlignment: Text.AlignVCenter
-    horizontalAlignment: Text.AlignHCenter
-    MouseArea {
-      anchors.fill: parent
-      onClicked: {
-        navigationBarItem.leftClicked();
-      }
-    }
-  }
-
-  Image {
-    id: leftIconButton
-    anchors.left: parent.left
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    width: parent.height
-    height: parent.height
-    MouseArea {
-      anchors.fill: parent
-      onClicked: {
-        navigationBarItem.leftClicked();
-      }
-    }
-  }
-  */
-
   Item {
       // The area reserved for right bar.
       id : leftBarArea
       width: childrenRect.width
       anchors.left: parent.left
-      anchors.leftMargin: backStage ? 22 + 8 : 0
+      anchors.leftMargin: backStage ? 22 + 12 : 12
       anchors.top: parent.top
       anchors.bottom: parent.bottom
 
@@ -106,6 +66,7 @@ Rectangle {
       id : rightBarArea
       width: childrenRect.width
       anchors.right: parent.right
+      anchors.rightMargin: 12
       anchors.top: parent.top
       anchors.bottom: parent.bottom
 
