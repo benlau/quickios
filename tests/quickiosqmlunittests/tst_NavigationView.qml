@@ -19,10 +19,7 @@ Rectangle {
         initialView : ViewController {
                 id: rootView
 
-                // It will be set automatically
-                property var navigationView;
-
-                property NavigationItem navigationItem : NavigationItem {
+                navigationItem : NavigationItem {
                     title : "Quick iOS Example Program"
                 }
 

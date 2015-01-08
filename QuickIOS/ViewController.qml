@@ -5,6 +5,10 @@ import "appdelegate.js" as AppDelegate
 Rectangle {
   property string objectName: "ViewController"
 
+  property var navigationView;
+
+  property NavigationItem navigationItem : NavigationItem {}
+
   signal viewWillAppear(bool animated)
   signal viewDidAppear(bool animated)
   signal viewWillDisappear(bool animated)
