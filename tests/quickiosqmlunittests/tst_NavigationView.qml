@@ -16,7 +16,7 @@ Rectangle {
             textColor : "#ff0000"
         }
 
-        initialView : Item {
+        initialView : ViewController {
                 id: rootView
 
                 // It will be set automatically
@@ -33,6 +33,15 @@ Rectangle {
                 Text {
                     text: qsTr("Press for next content view")
                     anchors.centerIn: parent
+                }
+
+                property int willAppearCount : 0
+                onViewWillAppear: {
+                    willAppearCount++;
+                }
+                property int didAppearCount : 0
+                onViewDidAppear: {
+                    didAppearCount++;
                 }
             }
     }
@@ -114,6 +123,8 @@ Rectangle {
         function test_initialView() {
             compare(navigationView.navigationBar.views.count , 1);
             compare(rootView.navigationView , navigationView);
+            compare(rootView.willAppearCount , 1);
+            compare(rootView.didAppearCount , 1);
 
             navigationView.push(viewWithTitleOnly,{fieldA : 10});
             wait(500);

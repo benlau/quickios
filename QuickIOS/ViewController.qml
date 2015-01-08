@@ -4,8 +4,15 @@ import "appdelegate.js" as AppDelegate
 
 Rectangle {
   property string objectName: "ViewController"
+
+  signal viewWillAppear(bool animated)
+  signal viewDidAppear(bool animated)
+  signal viewWillDisappear(bool animated)
+  signal viewDidDisappear(bool animated)
+
   id: viewController
   color: "#ffffff"
+
 
   signal pageChanged(var dstItem)
 

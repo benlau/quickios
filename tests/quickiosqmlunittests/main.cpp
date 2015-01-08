@@ -40,11 +40,11 @@ int main(int argc, char **argv)
     QByteArray srcdir = info.absoluteFilePath().toLocal8Bit();
     QString qrc = QString("qrc:///");
 
-    s[idx++] = executable.toLocal8Bit().data();
+    s[idx++] = strdup(executable.toLocal8Bit().data());
     s[idx++] = strdup("-import");
     s[idx++] = srcdir.data();
     s[idx++] = strdup("-import");
-    s[idx++] = qrc.toLocal8Bit().data();
+    s[idx++] = strdup(qrc.toLocal8Bit().data());
 
     if (args.size() > 1)
         waitTime = 60000; // The wait time should be longer if user asked to run specific test case

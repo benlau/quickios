@@ -1,6 +1,9 @@
 /**
-    NavigationStack is a part of NavgiationView
+    NavigationStack provides a stackbased navigation model used within NavigationView
+
     Author: Ben Lau (benlau)
+    License: Apache License
+    Project: https://github.com/hilarycheng/quickios
  */
 
 import QtQuick 2.0
@@ -10,12 +13,14 @@ Item {
     id: navigationView
 
     property ListModel views : ListModel {}
-    property alias initialView : stack.initialItem
+    property var initialView
 
     signal pushed(var view)
 
     function push(source,options) {
         var view;
+        var container = containerFactory.createObject(navigationView)
+
         if (typeof source === "string") {
             var comp = Qt.createComponent(source);
             if (comp.status === Component.Error) {
@@ -23,16 +28,16 @@ Item {
                 console.warn(comp.errorString());
                 return;
             }
-            view = comp.createObject(navigationView,options || {});
+            view = comp.createObject(container,options || {});
         } else {            
             // It is a component object
-            view = source.createObject(navigationView,options || {});
+            view = source.createObject(container,options || {});
             if (view === null) {
                 console.warn(source.errorString());
                 return;
             }
         }
-        stack.push(view);
+        stack.push(container);
         views.append({object: view});
         pushed(view);
     }
@@ -50,11 +55,45 @@ Item {
     StackView {
         id : stack
         anchors.fill: parent
-        delegate: NavigationViewTransition {}
+        delegate: NavigationViewTransition {}        
+    }
+
+    Component {
+        id: containerFactory
+
+        Item {
+
+            Stack.onStatusChanged:  {
+                var child = children[0];
+                switch (Stack.status) {
+                case Stack.Inactive :
+                    if (child.hasOwnProperty("viewDidDisappear"))
+                        child.viewDidDisappear(true);
+                    break;
+                case Stack.Activating :
+                    if (child.hasOwnProperty("viewWillAppear"))
+                        child.viewWillAppear(true);
+                    break;
+                case Stack.Active :
+                    if (child.hasOwnProperty("viewDidAppear"))
+                        child.viewDidAppear(true);
+                    break;
+                case Stack.Deactivating :
+                    if (child.hasOwnProperty("viewWillDisappear"))
+                        child.viewDidDisappear(true);
+                    break;
+                }
+            }
+
+        }
     }
 
     onInitialViewChanged: {
         if (initialView) {
+            var container = containerFactory.createObject(navigationView);
+            initialView.parent = container;
+            initialView.anchors.fill = container;
+            stack.initialItem = container;
             views.append({ object: initialView })
             pushed(initialView);
         }
