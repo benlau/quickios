@@ -24,7 +24,6 @@ OTHER_FILES += \
     tst_NavigationView.qml \
     tst_SegmentedControlTabView.qml \
     tst_SegmentedControl.qml \
-    tst_OverlayView.qml \
     Ruler.qml
 
 DISTFILES += \
