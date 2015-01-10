@@ -62,13 +62,15 @@ Rectangle {
       id: viewsListener
       model : navigationBar.views
       delegate: Item {
+          id: item
 
           property var navigationItem : NavigationItem {}
+          property string title;
 
           Component {
               id: creator
               NavigationBarItem {
-                  title: navigationItem.title
+                  title: item.title
                   backStage: index > 0
                   leftBarButtonItems: navigationItem.leftBarButtonItems
                   rightBarButtonItems: navigationItem.rightBarButtonItems
@@ -86,6 +88,8 @@ Rectangle {
               if (model.object.hasOwnProperty("navigationItem"))
                   navigationItem = model.object.navigationItem;
 
+              if (model.object.hasOwnProperty("title"))
+                  title = model.object.title;
               navigationItems.append({ object: navigationItem});
               navigationBar.navigationItem = navigationItem;
 

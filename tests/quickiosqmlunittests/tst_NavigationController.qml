@@ -18,9 +18,9 @@ Rectangle {
 
         initialView : ViewController {
                 id: rootView
+                title : "Quick iOS Example Program"
 
                 navigationItem : NavigationItem {
-                    title : "Quick iOS Example Program"
                 }
 
                 MouseArea {
@@ -80,9 +80,9 @@ Rectangle {
         id: viewWithTitleOnly
         ViewController {
             property int fieldA : 0
+            title : "Second View"
 
             property NavigationItem navigationItem : NavigationItem {
-                title : "Second View"
             }
 
             Rectangle {
@@ -95,8 +95,9 @@ Rectangle {
     Component {
         id: viewWithTitleAndLeftRightButton
         ViewController {
+            title : "Example View"
+
             property NavigationItem navigationItem : NavigationItem {
-                title : "Example View"
                 leftBarButtonItem: BarButtonItem {
                     title: "Cancel"
                     Ruler {

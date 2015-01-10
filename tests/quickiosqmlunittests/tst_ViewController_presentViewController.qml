@@ -14,8 +14,9 @@ Rectangle {
         anchors.fill: parent
         initialView: ViewController {
             id: rootView
+            title: "Root View"
+
             navigationItem: NavigationItem {
-                title: "Root View"
             }
         }
     }

@@ -4,6 +4,7 @@ import "appdelegate.js" as AppDelegate
 import "util.js" as Util
 
 Rectangle {
+  property string title : ""
 
   property NavigationController navigationController
 

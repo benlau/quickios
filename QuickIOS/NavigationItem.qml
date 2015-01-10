@@ -9,8 +9,6 @@
 import QtQuick 2.0
 
 Item {
-    property string title : ""
-
     property bool backButtonVisible : true
 
     // The content that should be placed at the right of navigation bar
