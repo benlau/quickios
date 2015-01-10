@@ -1,5 +1,5 @@
 // NavigationItem object manages the buttons and views to be displayed in a NavigationBar object.
-// Each view pushed into the NavigationView object may contains a NavigationItem object
+// Each view pushed into the NavigationController object may contains a NavigationItem object
 // with buttons and views wants displayed in the navigation bar
 
 // The NavigationItem simulates the behavior like the UINavigationItem in UIKit.

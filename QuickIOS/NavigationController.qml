@@ -1,5 +1,5 @@
 /*
- NavigationView provides views management like UINavigationController in iOS
+ NavigationController provides views management like UINavigationController in iOS
 
   Author: Ben Lau (benlau)
   License: Apache License
@@ -52,8 +52,8 @@ Item {
 
         onPushed: {
             // Attach navigationView to a newly created view
-            if (view.hasOwnProperty("navigationView"))
-                view.navigationView = navigationView;
+            if (view.hasOwnProperty("navigationController"))
+                view.navigationController = navigationView;
         }
     }
 

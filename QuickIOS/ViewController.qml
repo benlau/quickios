@@ -5,8 +5,7 @@ import "util.js" as Util
 
 Rectangle {
 
-  property var navigationView;
-  property var navigationController : navigationView
+  property NavigationController navigationController
 
   property NavigationItem navigationItem : NavigationItem {}
 

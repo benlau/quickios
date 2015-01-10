@@ -123,7 +123,7 @@ Rectangle {
 
         function test_initialView() {
             compare(navigationView.navigationBar.views.count , 1);
-            compare(rootView.navigationView , navigationView);
+            compare(rootView.navigationController , navigationView);
             compare(rootView.willAppearCount , 1);
             compare(rootView.didAppearCount , 1);
 
@@ -152,7 +152,7 @@ Rectangle {
             compare(navigationView2.navigationBar.views.count , 1);
 
             var view = navigationView2.views.get(0).object;
-            compare(view.navigationView,navigationView2);
+            compare(view.navigationController,navigationView2);
             compare(view.width,480);
             compare(view.height,640 - 44);
             compare(view.navigationController,navigationView2);
