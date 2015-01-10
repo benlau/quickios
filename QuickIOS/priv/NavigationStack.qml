@@ -8,6 +8,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import "../util.js" as Util
 
 Item {
     id: navigationView
@@ -18,25 +19,13 @@ Item {
     signal pushed(var view)
 
     function push(source,options) {
-        var view;
-        var container = containerFactory.createObject(navigationView)
-
-        if (typeof source === "string") {
-            var comp = Qt.createComponent(source);
-            if (comp.status === Component.Error) {
-                console.warn("Error loading QML source: ",source);
-                console.warn(comp.errorString());
-                return;
-            }
-            view = comp.createObject(container,options || {});
-        } else {            
-            // It is a component object
-            view = source.createObject(container,options || {});
-            if (view === null) {
-                console.warn(source.errorString());
-                return;
-            }
+        var container = containerFactory.createObject(navigationView);
+        var view = Util.createObject(source,container,options);
+        if (view === undefined) {
+            container.destroy();
+            return;
         }
+
         stack.push(container);
         views.append({object: view});
         pushed(view);

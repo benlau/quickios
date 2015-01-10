@@ -39,8 +39,7 @@ Rectangle {
         function test_demo() {
             // Just demo the look and feel.
             // It don't do any checking yet
-//            wait(60000);
-            wait(1000);
+            wait(TestEnv.waitTime);
         }
     }
 
