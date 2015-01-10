@@ -9,7 +9,7 @@ Rectangle {
     width: 480
     visible: true
 
-    NavigationView {
+    NavigationController {
         id : navigationView
         anchors.fill: parent
         navigationBar.titleAttributes: NavigationBarTitleAttributes {
@@ -43,7 +43,7 @@ Rectangle {
             }
     }
 
-    NavigationView {
+    NavigationController {
         id : navigationView2
         visible : false;
         anchors.fill: parent
@@ -78,19 +78,23 @@ Rectangle {
 
     Component {
         id: viewWithTitleOnly
-        Item {
+        ViewController {
             property int fieldA : 0
-            property NavigationView navigationView
 
             property NavigationItem navigationItem : NavigationItem {
                 title : "Second View"
-            }            
+            }
+
+            Rectangle {
+                color : "red"
+                anchors.fill: parent
+            }
         }
     }
 
     Component {
         id: viewWithTitleAndLeftRightButton
-        Item {
+        ViewController {
             property NavigationItem navigationItem : NavigationItem {
                 title : "Example View"
                 leftBarButtonItem: BarButtonItem {
@@ -114,7 +118,7 @@ Rectangle {
 
 
     TestCase {
-        name: "NavigationViewTests"
+        name: "NavigationController"
         when : windowShown
 
         function test_initialView() {
@@ -140,19 +144,23 @@ Rectangle {
         }
 
         function test_pushFirstPage() {
+            navigationView2.visible = true;
             compare(navigationView2.views.count , 0);
 
             navigationView2.push(viewWithTitleOnly);
             compare(navigationView2.views.count , 1);
             compare(navigationView2.navigationBar.views.count , 1);
+
             var view = navigationView2.views.get(0).object;
             compare(view.navigationView,navigationView2);
+//            compare(view.width,480);
 
             navigationView2.push(viewWithTitleOnly);
             compare(navigationView2.views.count , 2);
             compare(navigationView2.navigationBar.views.count , 2);
 
             wait(TestEnv.waitTime);
+            navigationView2.visible = false;
         }
 
         function test_viewWithTitleAndLeftRightButton() {

@@ -15,7 +15,7 @@ public:
 private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
-    void resourceChecking();
+    void resourceLoading();
 };
 
 QuickIOSUnitTests::QuickIOSUnitTests()
@@ -31,7 +31,7 @@ void QuickIOSUnitTests::cleanupTestCase()
 {
 }
 
-void QuickIOSUnitTests::resourceChecking()
+void QuickIOSUnitTests::resourceLoading()
 {
     QQueue<QString> queue;
     queue.enqueue(":/");

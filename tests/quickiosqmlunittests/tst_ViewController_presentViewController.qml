@@ -10,7 +10,7 @@ Rectangle {
     width: 480
     height: 640
 
-    NavigationView {
+    NavigationController {
         anchors.fill: parent
         initialView: ViewController {
             id: rootView

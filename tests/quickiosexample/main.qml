@@ -10,7 +10,7 @@ Window {
 
     Component {
         id: rootView
-        Item {
+        ViewController {
             property var navigationItem : NavigationItem {
                 title : "Quick iOS Example Program"
             }
@@ -31,7 +31,7 @@ Window {
         }
     }
 
-    NavigationView {
+    NavigationController {
         id : navigation
         navigationBar.titleAttributes: NavigationBarTitleAttributes {
             textColor : "#ff0000"
