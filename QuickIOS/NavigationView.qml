@@ -1,7 +1,9 @@
 /*
  NavigationView provides views management like UINavigationController in iOS
 
- Author: Ben Lau (benlau)
+  Author: Ben Lau (benlau)
+  License: Apache License
+  Project: https://github.com/hilarycheng/quickios
 
  */
 

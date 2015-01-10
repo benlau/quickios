@@ -26,3 +26,6 @@ OTHER_FILES += \
     tst_SegmentedControl.qml \
     tst_OverlayView.qml \
     Ruler.qml
+
+DISTFILES += \
+    tst_ViewController_presentViewController.qml
