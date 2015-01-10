@@ -23,7 +23,7 @@ Rectangle {
 
     Component {
         id : overlayView
-        ViewController {
+        NavigationController {
             color: "black"
         }
     }

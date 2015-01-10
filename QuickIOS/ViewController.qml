@@ -6,7 +6,8 @@ import "util.js" as Util
 Rectangle {
   property string title : ""
 
-  property NavigationController navigationController
+  property var navigationController
+  // It can't set type to NavigationController. It will create cyclic dependenices.
 
   property NavigationItem navigationItem : NavigationItem {}
 

@@ -10,7 +10,7 @@
 import QtQuick 2.2
 import "./priv"
 
-Item {
+ViewController {
     id : navigationView
 
     // The tint color to apply to the navigation bar background. It is equivalent to color. It apply the naming convenient of UIKit

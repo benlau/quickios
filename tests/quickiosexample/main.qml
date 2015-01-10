@@ -11,11 +11,10 @@ Window {
     Component {
         id: rootView
         ViewController {
-            navigationItem : NavigationItem {
-                title : "Quick iOS Example Program"
-            }
+            title : "Quick iOS Example Program"
 
-            property string title : "Title"
+            navigationItem : NavigationItem {
+            }
 
             MouseArea {
                 anchors.fill: parent
