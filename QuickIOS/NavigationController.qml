@@ -13,9 +13,6 @@ import "./priv"
 ViewController {
     id : navigationView
 
-    // The tint color to apply to the navigation bar background. It is equivalent to color. It apply the naming convenient of UIKit
-    property string tintColor : "#007aff"
-
     property alias navigationBar : navBar
 
     /* The first view that should be shown when the NavigationView is created.
@@ -49,6 +46,7 @@ ViewController {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        tintColor : navigationView.tintColor
 
         onPushed: {
             // Attach navigationView to a newly created view

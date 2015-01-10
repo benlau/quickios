@@ -10,8 +10,12 @@ Rectangle {
     visible: true
 
     NavigationController {
+        // NavigationController with initial view
         id : navigationView
         anchors.fill: parent
+
+        tintColor: "#00ff00"
+
         navigationBar.titleAttributes: NavigationBarTitleAttributes {
             textColor : "#ff0000"
         }
@@ -127,6 +131,7 @@ Rectangle {
             compare(rootView.navigationController , navigationView);
             compare(rootView.willAppearCount , 1);
             compare(rootView.didAppearCount , 1);
+            compare(rootView.tintColor , "#00ff00");
 
             navigationView.push(viewWithTitleOnly,{fieldA : 10});
             wait(500);

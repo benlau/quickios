@@ -11,6 +11,8 @@ Rectangle {
 
   property NavigationItem navigationItem : NavigationItem {}
 
+  property string tintColor : "#007aff"
+
   signal viewWillAppear(bool animated)
   signal viewDidAppear(bool animated)
   signal viewWillDisappear(bool animated)
@@ -57,7 +59,7 @@ Rectangle {
       viewController._modelTransition.dismissTransition.start();
   }
 
-  Component {
+  Component { // Create a container for the view added by presentViewController
       id: viewContainer
       Item {
           id: container
@@ -67,6 +69,7 @@ Rectangle {
           height: parent.height
           property var view;
           property var transition;
+          property string tintColor : viewController.tintColor
 
           function present() {
               view._modelTransition.presentTransition.start();
@@ -82,6 +85,12 @@ Rectangle {
                   container.destroy();
               }
           }
+      }
+  }
+
+  onParentChanged: {
+      if (parent && parent.hasOwnProperty("tintColor")) {
+          tintColor = parent.tintColor;
       }
   }
 

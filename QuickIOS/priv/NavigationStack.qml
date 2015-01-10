@@ -16,6 +16,8 @@ Item {
     property ListModel views : ListModel {}
     property var initialView
 
+    property var tintColor
+
     signal pushed(var view)
 
     function push(source,options) {        
@@ -46,13 +48,14 @@ Item {
     StackView {
         id : stack
         anchors.fill: parent
-        delegate: NavigationViewTransition {}        
+        delegate: NavigationViewTransition {}
     }
 
-    Component {
+    Component { // Create the container for the pushed ViewController
         id: containerFactory
 
         Item {
+            property var tintColor : navigationView.tintColor;
 
             Stack.onStatusChanged:  {
                 var child = children[0];

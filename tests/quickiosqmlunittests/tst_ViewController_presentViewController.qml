@@ -12,6 +12,7 @@ Rectangle {
 
     NavigationController {
         anchors.fill: parent
+        tintColor : "#00ff00"
         initialView: ViewController {
             id: rootView
             title: "Root View"
@@ -40,6 +41,7 @@ Rectangle {
             compare(view.height,640);
             compare(view.x,0);
             compare(view.y,640);
+            compare(view.tintColor,"#00ff00");
             wait(1000);
             compare(view.x,0);
             compare(view.y,0);
