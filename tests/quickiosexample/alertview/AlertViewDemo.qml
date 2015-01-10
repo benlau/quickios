@@ -2,13 +2,13 @@ import QtQuick 2.0
 import QuickIOS 0.1
 import QtQuick.Controls 1.2
 
-Rectangle {
+ViewController {
     width: 100
     height: 62
     color : "#ffffff"
+    title : "Alert Example Code"
 
     property var navigationItem : NavigationItem {
-        title : "Alert Example Code"
 //        rightBar : BarButtonItem {
 //            title: "Alert"
 //            onClicked: {

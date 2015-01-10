@@ -26,6 +26,14 @@ Rectangle {
   // The transition component for presentViewController and dismissViewController
   property var _modelTransition;
 
+  // present is a wrapper of presentViewController that accept multiple data type include string , Component etc.
+  function present(source,options,animated) {
+      var view = Util.createObject(source,viewController,options);
+      if (view)
+          presentViewController(view,animated);
+      return view;
+  }
+
   function presentViewController(view,animated) {
       var root = viewController;
       if (navigationController)
@@ -52,6 +60,7 @@ Rectangle {
   Component {
       id: viewContainer
       Item {
+          id: container
           x: 0
           y: 0
           width: parent.width
@@ -70,7 +79,7 @@ Rectangle {
           Connections {
               target: transition
               onDismissed: {
-                  viewContainer.destroy();
+                  container.destroy();
               }
           }
       }

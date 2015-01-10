@@ -53,7 +53,32 @@ Rectangle {
             compare(view.x,0);
             compare(view.y,640);
 
-            wait(TestEnv.waitTime);
+            wait(500);
+
+            var view2 = rootView.present(Qt.resolvedUrl("./SampleView.qml"),{ color : "red"}) ;
+            compare(view2 !== undefined,true);
+            compare(view2!==view , true);
+
+            compare(view2.width,480);
+            compare(view2.height,640);
+            compare(view2.x,0);
+            compare(view2.y,640);
+            wait(1000);
+            compare(view2.x,0);
+            compare(view2.y,0);
+            compare(view2.width,480);
+            compare(view2.height,640);
+            view2.dismissViewController();
+
+            wait(500);
+            compare(view2.width,480);
+            compare(view2.height,640);
+            compare(view2.x,0);
+            compare(view2.y,640);
+            view2= null;
+
+//            wait(TestEnv.waitTime);
+
         }
     }
 

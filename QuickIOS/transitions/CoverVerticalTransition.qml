@@ -14,11 +14,13 @@ QtObject {
     signal dismissed
     signal presented
 
+    property int _height : view ? view.height : 0
+
     property ViewControllerTransition presentTransition: ViewControllerTransition {
         PropertyAnimation {
             target: view
             property: "y"
-            from: target.height
+            from: _height
             to: 0
             duration: duration
             easing.type: Easing.Linear
@@ -34,7 +36,7 @@ QtObject {
             target: view
             property: "y"
             from: 0
-            to: target.height
+            to: _height
             duration: duration
             easing.type: Easing.Linear
         }
