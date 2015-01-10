@@ -20,7 +20,7 @@ Rectangle {
             textColor : "#ff0000"
         }
 
-        initialView : ViewController {
+        initialViewController : ViewController {
                 id: rootView
                 title : "Quick iOS Example Program"
 

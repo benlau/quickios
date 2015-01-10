@@ -13,7 +13,7 @@ Rectangle {
     NavigationController {
         anchors.fill: parent
         tintColor : "#00ff00"
-        initialView: ViewController {
+        initialViewController: ViewController {
             id: rootView
             title: "Root View"
 

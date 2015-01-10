@@ -21,7 +21,7 @@ ViewController {
 
        Moreover, don't change the value after created or your have pushed any view already.
      */
-    property alias initialView : stack.initialView
+    property alias initialViewController : stack.initialViewController
 
     property alias views : stack.views
 
