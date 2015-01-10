@@ -153,7 +153,9 @@ Rectangle {
 
             var view = navigationView2.views.get(0).object;
             compare(view.navigationView,navigationView2);
-//            compare(view.width,480);
+            compare(view.width,480);
+            compare(view.height,640 - 44);
+            compare(view.navigationController,navigationView2);
 
             navigationView2.push(viewWithTitleOnly);
             compare(navigationView2.views.count , 2);

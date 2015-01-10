@@ -11,7 +11,7 @@ Window {
     Component {
         id: rootView
         ViewController {
-            property var navigationItem : NavigationItem {
+            navigationItem : NavigationItem {
                 title : "Quick iOS Example Program"
             }
 
@@ -20,7 +20,7 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    rootView.navigation.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
+                    navigationController.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
                 }
             }
 

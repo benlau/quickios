@@ -18,13 +18,15 @@ Item {
 
     signal pushed(var view)
 
-    function push(source,options) {
+    function push(source,options) {        
         var container = containerFactory.createObject(navigationView);
         var view = Util.createObject(source,container,options);
         if (view === undefined) {
             container.destroy();
             return;
         }
+
+        view.anchors.fill = container;
 
         stack.push(container);
         views.append({object: view});
