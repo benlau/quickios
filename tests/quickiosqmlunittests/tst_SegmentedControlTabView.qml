@@ -36,7 +36,7 @@ Rectangle {
         name: "SegmentedControlTabViewStyle"
         when : windowShown
 
-        function test_demo() {
+        function test_preview() {
             // Just demo the look and feel.
             // It don't do any checking yet
             wait(TestEnv.waitTime);

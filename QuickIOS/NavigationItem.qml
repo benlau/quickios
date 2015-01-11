@@ -7,6 +7,7 @@
 // Author: Ben Lau (benlau)
 
 import QtQuick 2.0
+import QtQml.Models 2.1
 
 Item {
     property bool backButtonVisible : true
@@ -14,14 +15,14 @@ Item {
     // Same as leftBar
     property alias leftBarButtonItem : leftBarButtonItemModel.children
 
-    property var leftBarButtonItems : VisualItemModel {
+    property var leftBarButtonItems : ObjectModel {
         id: leftBarButtonItemModel
     }
 
     // Same as rightBar
     property alias rightBarButtonItem : rightBarButtonItemModel.children
 
-    property var rightBarButtonItems : VisualItemModel {
+    property var rightBarButtonItems : ObjectModel {
         id: rightBarButtonItemModel
     }
 

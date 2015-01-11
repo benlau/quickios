@@ -25,7 +25,10 @@ ViewController {
 
     property alias views : stack.views
 
+    // Create ViewController from source file or Component then push it into the stack.
     function push(source,options) {
+        // Just like the present() and presentViewController() in ViewController. QuickIOS offer a solution
+        // that will create the component for you. Those functions will not has suffix of "viewController"
         stack.push(source,options);
     }
 

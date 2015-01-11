@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.2
 import QuickIOS 0.1
 import QtTest 1.0
+import QtQml.Models 2.1
 
 Rectangle {
     id: window
@@ -127,28 +128,30 @@ Rectangle {
             title : "Example View"
 
             property NavigationItem navigationItem : NavigationItem {
-                leftBarButtonItems: VisualItemModel{
+                leftBarButtonItems: ObjectModel {
                     BarButtonItem {
-                    title: "Cancel1"
-                    Ruler {
-                        anchors.fill: parent
-                        orientation: Qt.Horizontal
+                        title: "Cancel1"
+                        Ruler {
+                            anchors.fill: parent
+                            orientation: Qt.Horizontal
+                        }
                     }
-                }
                     BarButtonItem {
                         title: "Cancel2"
                         Ruler {
                             anchors.fill: parent
                             orientation: Qt.Horizontal
                         }
-                }}
-                rightBarButtonItems:VisualItemModel{ BarButtonItem {
-                    title: "OK1"
-                    Ruler {
-                        anchors.fill: parent
-                        orientation: Qt.Horizontal
                     }
                 }
+                rightBarButtonItems: VisualItemModel { // VisualItemModel also works
+                    BarButtonItem {
+                        title: "OK1"
+                        Ruler {
+                            anchors.fill: parent
+                            orientation: Qt.Horizontal
+                        }
+                    }
                     BarButtonItem {
                         title: "OK2"
                         Ruler {
