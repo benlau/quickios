@@ -126,7 +126,7 @@ Rectangle {
         name: "NavigationController"
         when : windowShown
 
-        function test_initialView() {
+        function test_initialViewController() { // Test NavigationController with initialViewController
             compare(navigationView.navigationBar.views.count , 1);
             compare(rootView.navigationController , navigationView);
             compare(rootView.willAppearCount , 1);
@@ -139,9 +139,25 @@ Rectangle {
             var view = navigationView.views.get(1).object;
             compare(view.hasOwnProperty("fieldA"),true);
             compare(view.fieldA, 10);
+            compare(view.tintColor , "#00ff00");
 
             navigationView.pop();
+            wait(500);
             compare(navigationView.views.count , 1);
+
+            navigationView.push(viewWithTitleAndLeftRightButton);
+            wait(500);
+            compare(navigationView.views.count , 2);
+
+            view = navigationView.views.get(1).object;
+            var leftItem = view.navigationItem.leftBarButtonItem;
+            var rightItem = view.navigationItem.rightBarButtonItem;
+
+            compare(leftItem.tintColor,"#00ff00");
+            compare(rightItem.tintColor,"#00ff00");
+
+
+            wait(TestEnv.waitTime);
         }
 
         function test_pushUnknownView() {

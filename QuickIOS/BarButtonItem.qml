@@ -21,7 +21,7 @@ MouseArea {
       font.family: "Helvetica Neue"
       renderType: Text.NativeRendering
       font.pixelSize: 16
-      color: "#007aff"
+      color: barButtonItem.tintColor
       verticalAlignment: Text.AlignVCenter
       horizontalAlignment: Text.AlignHCenter
     }

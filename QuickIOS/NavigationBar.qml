@@ -97,10 +97,12 @@ Rectangle {
 
               if (navigationItem.leftBarButtonItem) {
                    navigationItem.leftBar = navigationItem.leftBarButtonItem;
+                   navigationItem.leftBar.tintColor = navigationBar.tintColor
               }
 
               if (navigationItem.rightBarButtonItem) {
                    navigationItem.rightBar = navigationItem.rightBarButtonItem;
+                   navigationItem.rightBar.tintColor = navigationBar.tintColor
               }
 
               if (navigationItem.rightBar) {
