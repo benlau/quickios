@@ -89,8 +89,11 @@ Rectangle {
   }
 
   onParentChanged: {
+      // @TODO Extract this function
       if (parent && parent.hasOwnProperty("tintColor")) {
-          tintColor = parent.tintColor;
+          tintColor = Qt.binding(function() {
+             return parent ? parent.tintColor : "#007aff";
+          });
       }
   }
 
