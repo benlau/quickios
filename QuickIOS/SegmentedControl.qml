@@ -33,4 +33,11 @@ Item {
             model : items
         }
     }
+
+    onParentChanged: {
+        if (parent && parent.hasOwnProperty("tintColor")) {
+            tintColor = parent.tintColor;
+        }
+    }
+
 }

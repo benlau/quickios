@@ -6,15 +6,16 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls 1.2 as Quick
 import QtQml.Models 2.1
 
-Rectangle {
+ViewController {
     id: window
     height: 640 // For desktop
     width: 480
     visible: true
+    tintColor : "#000000"
 
     SegmentedControl {
+        id: segmentedControl
         anchors.fill: parent
-        tintColor : "#000000"
 
         items : ObjectModel {
 
@@ -38,9 +39,11 @@ Rectangle {
         name: "SegmentedControl"
         when : windowShown
 
-        function test_demo() {
+        function test_preview() {
             // Just demo the look and feel.
             // It don't do any checking yet
+            compare(segmentedControl.tintColor,"#000000");
+
             wait(TestEnv.waitTime);
         }
     }
