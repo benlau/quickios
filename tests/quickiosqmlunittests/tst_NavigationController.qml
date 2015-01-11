@@ -121,6 +121,47 @@ Rectangle {
         }
     }
 
+    Component {
+        id: viewWithTitleAndLeftRightButtons
+        ViewController {
+            title : "Example View"
+
+            property NavigationItem navigationItem : NavigationItem {
+                leftBarButtonItems: VisualItemModel{
+                    BarButtonItem {
+                    title: "Cancel1"
+                    Ruler {
+                        anchors.fill: parent
+                        orientation: Qt.Horizontal
+                    }
+                }
+                    BarButtonItem {
+                        title: "Cancel2"
+                        Ruler {
+                            anchors.fill: parent
+                            orientation: Qt.Horizontal
+                        }
+                }}
+                rightBarButtonItems:VisualItemModel{ BarButtonItem {
+                    title: "OK1"
+                    Ruler {
+                        anchors.fill: parent
+                        orientation: Qt.Horizontal
+                    }
+                }
+                    BarButtonItem {
+                        title: "OK2"
+                        Ruler {
+                            anchors.fill: parent
+                            orientation: Qt.Horizontal
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
 
     TestCase {
         name: "NavigationController"
@@ -150,12 +191,14 @@ Rectangle {
             compare(navigationView.views.count , 2);
 
             view = navigationView.views.get(1).object;
-            var leftItem = view.navigationItem.leftBarButtonItem;
-            var rightItem = view.navigationItem.rightBarButtonItem;
+            var leftItem = view.navigationItem.leftBarButtonItems.children[0];
+            var rightItem = view.navigationItem.rightBarButtonItems.children[0];
 
             compare(leftItem.tintColor,"#00ff00");
             compare(rightItem.tintColor,"#00ff00");
 
+            wait(500);
+            navigationView.pop();
 
             wait(TestEnv.waitTime);
         }
@@ -193,6 +236,19 @@ Rectangle {
             wait(TestEnv.waitTime);
             navigationView2.pop();
             navigationView2.visible = false;
+        }
+
+        function test_viewWithTitleAndLeftRightButtons() {
+            compare(navigationView.navigationBar.views.count , 1);
+            navigationView.push(viewWithTitleAndLeftRightButtons);
+            wait(500);
+
+            var view = navigationView.views.get(1).object;
+
+            wait(TestEnv.waitTime);
+
+            navigationView.pop();
+            wait(TestEnv.waitTime);
 
         }
 

@@ -11,20 +11,18 @@ import QtQuick 2.0
 Item {
     property bool backButtonVisible : true
 
-    // The content that should be placed at the right of navigation bar
-    property var rightBar
-
-    // The content that should be placed at the left of navigation bar
-    property var leftBar
-
     // Same as leftBar
-    property var leftBarButtonItem
+    property alias leftBarButtonItem : leftBarButtonItemModel.children
 
-    property var leftBarButtonItems : VisualItemModel {}
+    property var leftBarButtonItems : VisualItemModel {
+        id: leftBarButtonItemModel
+    }
 
     // Same as rightBar
-    property var rightBarButtonItem
+    property alias rightBarButtonItem : rightBarButtonItemModel.children
 
-    property var rightBarButtonItems : VisualItemModel {}
+    property var rightBarButtonItems : VisualItemModel {
+        id: rightBarButtonItemModel
+    }
 
 }

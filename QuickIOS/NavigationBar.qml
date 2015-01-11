@@ -38,6 +38,7 @@ Rectangle {
   NavigationItem {
     id : dummyNavigationItem
   }
+
   StackView {
       id : stack
       anchors.fill: parent
@@ -84,6 +85,15 @@ Rectangle {
               item.anchors.centerIn = parent;
           }
 
+          function setTintColor(model) {
+              for (var i = 0 ; i < model.children.length; i++) {
+                  var child = model.children[i];
+                  if (child.hasOwnProperty("tintColor")) {
+                      child.tintColor = navigationBar.tintColor;
+                  }
+              }
+          }
+
           Component.onCompleted: {
               if (model.object.hasOwnProperty("navigationItem"))
                   navigationItem = model.object.navigationItem;
@@ -95,23 +105,9 @@ Rectangle {
 
               var object = creator.createObject(stack);
 
-              if (navigationItem.leftBarButtonItem) {
-                   navigationItem.leftBar = navigationItem.leftBarButtonItem;
-                   navigationItem.leftBar.tintColor = navigationBar.tintColor
-              }
+              setTintColor(navigationItem.rightBarButtonItems);
 
-              if (navigationItem.rightBarButtonItem) {
-                   navigationItem.rightBar = navigationItem.rightBarButtonItem;
-                   navigationItem.rightBar.tintColor = navigationBar.tintColor
-              }
-
-              if (navigationItem.rightBar) {
-                  place(object.rightBar,navigationItem.rightBar);
-              }
-
-              if (navigationItem.leftBar) {
-                  place(object.leftBar,navigationItem.leftBar);
-              }
+              setTintColor(navigationItem.leftBarButtonItems);
 
               stack.push(object);
           }

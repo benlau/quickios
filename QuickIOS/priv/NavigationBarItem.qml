@@ -15,9 +15,6 @@ Rectangle {
   property alias title: navigationTitle.text
   property alias titleView : navigationTitle
 
-  property alias leftBar: leftBarArea
-  property alias rightBar: rightBarArea
-
   property VisualItemModel leftBarButtonItems : VisualItemModel {}
 
   property VisualItemModel rightBarButtonItems : VisualItemModel {}
@@ -46,7 +43,6 @@ Rectangle {
   Item {
       // The area reserved for right bar.
       id : leftBarArea
-      width: childrenRect.width
       anchors.left: parent.left
       anchors.leftMargin: backStage ? 22 + 12 : 12
       anchors.top: parent.top
@@ -54,7 +50,7 @@ Rectangle {
 
       Row {
           spacing : 8
-          anchors.centerIn: parent
+          anchors.verticalCenter: parent.verticalCenter
           Repeater {
               model : leftBarButtonItems
           }
@@ -64,15 +60,14 @@ Rectangle {
   Item {
       // The area reserved for right bar.
       id : rightBarArea
-      width: childrenRect.width
-      anchors.right: parent.right
-      anchors.rightMargin: 12
+      x: parent.width - rightBarRepeater.width - 12
       anchors.top: parent.top
       anchors.bottom: parent.bottom
 
       Row {
+          id: rightBarRepeater
           spacing : 8
-          anchors.centerIn: parent
+          anchors.verticalCenter: parent.verticalCenter
           Repeater {
               model : rightBarButtonItems
           }
