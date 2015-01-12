@@ -85,12 +85,18 @@ Rectangle {
               item.anchors.centerIn = parent;
           }
 
-          function setTintColor(model) {
+          function setup(model) {
               for (var i = 0 ; i < model.children.length; i++) {
                   var child = model.children[i];
                   if (child.hasOwnProperty("tintColor")) {
                       child.tintColor = navigationBar.tintColor;
                   }
+
+                  (function(item) {
+                      item.anchors.verticalCenter = Qt.binding(function() {
+                          return item.parent.verticalCenter;
+                      });
+                  })(child);
               }
           }
 
@@ -105,9 +111,9 @@ Rectangle {
 
               var object = creator.createObject(stack);
 
-              setTintColor(navigationItem.rightBarButtonItems);
+              setup(navigationItem.rightBarButtonItems);
 
-              setTintColor(navigationItem.leftBarButtonItems);
+              setup(navigationItem.leftBarButtonItems);
 
               stack.push(object);
           }
