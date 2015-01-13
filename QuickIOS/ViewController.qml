@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Window 2.1
 import "appdelegate.js" as AppDelegate
 import "util.js" as Util
+import "./priv"
 
 Rectangle {
   property string title : ""
@@ -88,6 +89,7 @@ Rectangle {
       }
   }
 
+  /*
   onParentChanged: {
       // @TODO Extract this function
       if (parent && parent.hasOwnProperty("tintColor")) {
@@ -96,5 +98,7 @@ Rectangle {
           });
       }
   }
+  */
 
+  InheritTintColor {}
 }

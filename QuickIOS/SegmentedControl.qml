@@ -34,10 +34,12 @@ Item {
         }
     }
 
-    onParentChanged: {
-        if (parent && parent.hasOwnProperty("tintColor")) {
-            tintColor = parent.tintColor;
-        }
-    }
+//    onParentChanged: {
+//        if (parent && parent.hasOwnProperty("tintColor")) {
+//            tintColor = parent.tintColor;
+//        }
+//    }
+
+    InheritTintColor {}
 
 }

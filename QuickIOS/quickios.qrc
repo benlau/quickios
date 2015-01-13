@@ -29,5 +29,6 @@
         <file>priv/NavigationStack.qml</file>
         <file>priv/ViewControllerTransition.qml</file>
         <file>transitions/CoverVerticalTransition.qml</file>
+        <file>priv/InheritTintColor.qml</file>
     </qresource>
 </RCC>
