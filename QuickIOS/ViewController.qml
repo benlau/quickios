@@ -54,6 +54,7 @@ Rectangle {
       view.parent = container;
 
       container.present();
+      viewController.enabled = false;
   }
 
   function dismissViewController(animated) {
@@ -83,7 +84,8 @@ Rectangle {
           Connections {
               target: transition
               onDismissed: {
-                  container.destroy();
+                  viewController.enabled = true;
+                  container.destroy();                  
               }
           }
       }

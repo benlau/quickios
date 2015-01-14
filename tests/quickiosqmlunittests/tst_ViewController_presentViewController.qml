@@ -11,6 +11,7 @@ Rectangle {
     height: 640
 
     NavigationController {
+        id: navigationController
         anchors.fill: parent
         tintColor : "#00ff00"
         initialViewController: ViewController {
@@ -34,7 +35,7 @@ Rectangle {
         when : windowShown
 
         function test_preview() {
-            wait(1000);
+            wait(500);
             var view = overlayView.createObject();
             rootView.presentViewController(view);
             compare(view.width,480);
@@ -42,14 +43,20 @@ Rectangle {
             compare(view.x,0);
             compare(view.y,640);
             compare(view.tintColor,"#00ff00");
-            wait(1000);
+
+            wait(500);
+            compare(rootView.enabled , false);
+            compare(view.parent !== rootView, true);
+
             compare(view.x,0);
             compare(view.y,0);
             compare(view.width,480);
             compare(view.height,640);
             view.dismissViewController();
 
-            wait(1000);
+            wait(500);
+            compare(rootView.enabled , true);
+
             compare(view.width,480);
             compare(view.height,640);
             compare(view.x,0);
@@ -65,7 +72,7 @@ Rectangle {
             compare(view2.height,640);
             compare(view2.x,0);
             compare(view2.y,640);
-            wait(1000);
+            wait(500);
             compare(view2.x,0);
             compare(view2.y,0);
             compare(view2.width,480);
