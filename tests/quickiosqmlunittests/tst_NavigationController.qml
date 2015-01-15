@@ -102,13 +102,16 @@ Rectangle {
         ViewController {
             title : "Example View"
 
+            property alias cancelButton : leftButton
+
             property NavigationItem navigationItem : NavigationItem {
                 leftBarButtonItem: BarButtonItem {
+                    id: leftButton
                     title: "Cancel"
                     Ruler {
                         anchors.fill: parent
                         orientation: Qt.Horizontal
-                    }
+                    }                    
                 }
                 rightBarButtonItem: BarButtonItem {
                     title: "OK"
@@ -236,7 +239,11 @@ Rectangle {
         function test_viewWithTitleAndLeftRightButton() {
             navigationView2.push(viewWithTitleAndLeftRightButton);
             navigationView2.visible = true;
-            wait(TestEnv.waitTime);
+
+            wait(500);
+            var view = navigationView2.views.get(navigationView2.views.count -1 ).object;
+            compare(view.cancelButton.height,44);
+
             navigationView2.pop();
             navigationView2.visible = false;
         }

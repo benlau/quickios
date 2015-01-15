@@ -93,8 +93,8 @@ Rectangle {
                   }
 
                   (function(item) {
-                      item.anchors.verticalCenter = Qt.binding(function() {
-                          return item.parent.verticalCenter;
+                      item.height = Qt.binding(function() {
+                          return navigationBar.height;
                       });
                   })(child);
               }
