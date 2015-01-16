@@ -28,4 +28,5 @@ OTHER_FILES += \
 DISTFILES += \
     tst_ViewController_presentViewController.qml \
     tst_NavigationController.qml \
-    SampleView.qml
+    SampleView.qml \
+    tst_system.qml

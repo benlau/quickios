@@ -1,9 +1,10 @@
 #include <QCoreApplication>
+#include <QPointer>
 #include "qisystemutils.h"
 
 typedef bool (*handler)(QVariantMap data);
 static QMap<QString,handler> handlers;
-static QISystemUtils * m_instance = 0;
+static QPointer<QISystemUtils> m_instance;
 
 QISystemUtils *QISystemUtils::instance()
 {

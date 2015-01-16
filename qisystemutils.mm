@@ -1,11 +1,12 @@
 #include <QCoreApplication>
 #include <UIKit/UIKit.h>
+#include <QPointer>
 #include "qisystemutils.h"
 #include "qiviewdelegate.h"
 
 typedef bool (*handler)(QVariantMap data);
 static QMap<QString,handler> handlers;
-static QISystemUtils * m_instance = 0;
+static QPointer<QISystemUtils> m_instance;
 
 static bool alertViewCreate(QVariantMap data) {
     Q_UNUSED(data);
