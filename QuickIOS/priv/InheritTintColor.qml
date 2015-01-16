@@ -20,7 +20,7 @@ Item {
         target: behaviour.parent
         ignoreUnknownSignals: true
         onParentChanged: {
-            update();
+            behaviour.update();
         }
     }
 
@@ -35,7 +35,7 @@ Item {
     }
 
     Component.onCompleted: {
-        update();
+        behaviour.update();
     }
 
 }

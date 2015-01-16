@@ -9,12 +9,6 @@ ViewController {
     title : "Alert Example Code"
 
     property var navigationItem : NavigationItem {
-//        rightBar : BarButtonItem {
-//            title: "Alert"
-//            onClicked: {
-//                alert.open();
-//            }
-//        }
         rightBarButtonItems : VisualItemModel {
             BarButtonItem {
                 title: "Btn1"

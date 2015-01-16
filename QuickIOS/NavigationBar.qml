@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import QuickIOS 0.1
 import "./priv"
 
 Rectangle {
@@ -24,7 +25,7 @@ Rectangle {
   signal leftClicked()
 
   width: parent.width
-  height: 44
+  height: QIDevice.screenFillStatusBar ? 44 + 20 : 44
 
   color : "#f8f8f8"
 
@@ -41,23 +42,32 @@ Rectangle {
 
   StackView {
       id : stack
-      anchors.fill: parent
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      height : 44
       delegate: NavigationBarTransition {}
   }
 
-  BarButtonItem {
-    id: backButton
-    anchors.left: parent.left
-    anchors.leftMargin: 8
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    visible: views.count > 1
-    image: "qrc:///QuickIOS/images/back.png"
-    tintColor: navigationBar.tintColor
-    onClicked: {
-      navigationBar.leftClicked();
-    }
+  Item {
+      anchors.left: parent.left
+      anchors.leftMargin: 8
+      anchors.bottom: parent.bottom
+      width: 22
+      height: 44
+
+      BarButtonItem {
+          id: backButton
+          anchors.fill: parent
+          visible: views.count > 1
+          image: "qrc:///QuickIOS/images/back.png"
+          tintColor: navigationBar.tintColor
+          onClicked: {
+           navigationBar.leftClicked();
+          }
+      }
   }
+
 
   Repeater {
       id: viewsListener

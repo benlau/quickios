@@ -17,6 +17,8 @@ SOURCES += $$PWD/quickios.cpp \
     $$PWD/qidevice.cpp
 
 ios {
+    QT += gui-private
+
     OBJECTIVE_SOURCES += \
         $$PWD/qisystemutils.mm \
         $$PWD/qiviewdelegate.mm
@@ -28,6 +30,8 @@ ios {
     QTQUICKCONTROLS_LIBS = -L$$clean_path($$QMAKESPEC/../../qml/QtQuick/Controls)
     QTQMLMODELS_LIBS = -L$$clean_path($$QMAKESPEC/../../qml/QtQml/Models.2)
     LIBS += $$QTQUICKCONTROLS_LIBS $$QTQMLMODELS_LIBS
+
+    QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Add :UIViewControllerBasedStatusBarAppearance bool false\" $${OUT_PWD}/Info.plist
 
 } else {
 

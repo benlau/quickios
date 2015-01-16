@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickWindow>
+#include <QtCore>
 #include "qisystemutils.h"
 #include "quickios.h"
 
@@ -13,9 +15,13 @@ int main(int argc, char *argv[])
     // Quick iOS Initialization
     engine.addImportPath("qrc:///");
     QuickIOS::registerTypes(); // It must be called before loaded any scene
-    // End of Quick iOS Initialization
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+    QQuickWindow *window = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
+
+    QuickIOS::setupWindow(window);
+
 
     return app.exec();
 }

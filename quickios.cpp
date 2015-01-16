@@ -40,3 +40,14 @@ void QuickIOS::registerTypes()
 
   qmlRegisterType<QIAlertView>("QuickIOS",0,1,"IAlertView");
 }
+
+void QuickIOS::setupWindow(QQuickWindow *window)
+{
+#ifdef Q_OS_IOS
+    if (!deviceInstance.isNull()) {
+        deviceInstance->setScreenFillStatusBar(true);
+    }
+
+    window->showFullScreen();
+#endif
+}

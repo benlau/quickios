@@ -1,6 +1,8 @@
 #ifndef QUICKIOS_H
 #define QUICKIOS_H
+
 #include <QtPlugin>
+#include <QQuickWindow>
 
 #ifdef Q_OS_IOS
 Q_IMPORT_PLUGIN(QtQuickControlsPlugin)
@@ -10,7 +12,16 @@ Q_IMPORT_PLUGIN(QtQmlModelsPlugin)
 class QuickIOS
 {
 public:
-  static void registerTypes();
+    static void registerTypes();
+
+    /// Setup the QQuickWindow instance of the application according to the environment
+    /**
+     * For example , the function will init the QISystemUtils
+     *
+     * @brief setupWindow
+     * @param window
+     */
+    static void setupWindow(QQuickWindow* window);
 
 };
 
