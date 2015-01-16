@@ -9,10 +9,12 @@ RESOURCES += $$PWD/QuickIOS/quickios.qrc
 HEADERS += $$PWD/quickios.h \
     $$PWD/qisystemutils.h \
     $$PWD/qiviewdelegate.h \
-    $$PWD/qialertview.h
+    $$PWD/qialertview.h \
+    $$PWD/qidevice.h
 
 SOURCES += $$PWD/quickios.cpp \
-    $$PWD/qialertview.cpp
+    $$PWD/qialertview.cpp \
+    $$PWD/qidevice.cpp
 
 ios {
     OBJECTIVE_SOURCES += \

@@ -1,22 +1,13 @@
 #include <QtQml>
 #include <QtGui>
 #include <QVariantMap>
+#include <QPointer>
 #include "quickios.h"
 #include "qialertview.h"
 #include "qisystemutils.h"
+#include "qidevice.h"
 
-static QJSValue aProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-  Q_UNUSED(engine);
-
-  QScreen *src = QGuiApplication::screens().at(0);
-
-  QJSValue value = scriptEngine->newObject();
-  value.setProperty("screenWidth", src->availableGeometry().width());
-  value.setProperty("screenHeight", src->availableGeometry().height());
-
-  return value;
-}
+static QPointer<QIDevice> deviceInstance;
 
 static QJSValue systemProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
@@ -26,8 +17,26 @@ static QJSValue systemProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
     return value;
 }
 
+static QJSValue deviceProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
+    Q_UNUSED(engine);
+
+    if (deviceInstance.isNull()) {
+        deviceInstance = new QIDevice();
+    }
+
+    QScreen *src = QGuiApplication::screens().at(0); // @TODO: Dynamic update
+    deviceInstance->setScreenWidth(src->availableGeometry().width());
+    deviceInstance->setScreenHeight(src->availableGeometry().height());
+
+    QJSValue value = scriptEngine->newQObject(deviceInstance.data());
+    return value;
+}
+
+
 void QuickIOS::registerTypes()
 {
-  qmlRegisterSingletonType("QuickIOS", 0, 1, "System", systemProvider);
+  qmlRegisterSingletonType("QuickIOS", 0, 1, "QISystem", systemProvider);
+  qmlRegisterSingletonType("QuickIOS", 0, 1, "QIDevice", deviceProvider);
+
   qmlRegisterType<QIAlertView>("QuickIOS",0,1,"IAlertView");
 }

@@ -8,7 +8,8 @@ TestCase {
 
     // Verify the singleton object
     function test_singleton() {
-        compare(System !== undefined,true);
+        compare(QISystem !== undefined,true);
+        compare(QIDevice !== undefined,true);
     }
 
 }
