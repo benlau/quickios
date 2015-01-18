@@ -51,3 +51,12 @@ void QuickIOS::setupWindow(QQuickWindow *window)
     window->showFullScreen();
 #endif
 }
+
+void QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyle style)
+{
+    QISystemUtils *system = QISystemUtils::instance();
+    QVariantMap data;
+    data["style"] = style;
+
+    system->sendMessage("applicationSetStatusBarStyle",data);
+}

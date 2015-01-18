@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include <UIKit/UIKit.h>
 #include <QPointer>
+#include <QtCore>
 #include "qisystemutils.h"
 #include "qiviewdelegate.h"
 
@@ -44,6 +45,18 @@ static bool alertViewCreate(QVariantMap data) {
     return true;
 }
 
+static bool applicationSetStatusBarStyle(QVariantMap data) {
+    qDebug() << data;
+    if (!data.contains("style")) {
+        qWarning() << "applicationSetStatusBarStyle: Missing argument";
+        return false;
+    }
+
+    int style = data["style"].toInt();
+    [[UIApplication sharedApplication] setStatusBarStyle:(UIStatusBarStyle) style];
+    return true;
+}
+
 QISystemUtils *QISystemUtils::instance()
 {
     if (!m_instance) {
@@ -51,6 +64,7 @@ QISystemUtils *QISystemUtils::instance()
         m_instance = new QISystemUtils(app);
 
         handlers["alertViewCreate"]  = alertViewCreate;
+        handlers["applicationSetStatusBarStyle"]  = applicationSetStatusBarStyle;
 
     }
     return m_instance;

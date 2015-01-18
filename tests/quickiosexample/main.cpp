@@ -20,8 +20,10 @@ int main(int argc, char *argv[])
 
     QQuickWindow *window = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
 
+    /// Setup the QQuickWindow instance to fit the iOS environment
     QuickIOS::setupWindow(window);
 
+    QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyleDefault);
 
     return app.exec();
 }

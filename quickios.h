@@ -16,12 +16,20 @@ public:
 
     /// Setup the QQuickWindow instance of the application according to the environment
     /**
-     * For example , the function will init the QISystemUtils
      *
      * @brief setupWindow
      * @param window
      */
     static void setupWindow(QQuickWindow* window);
+
+    enum StatusBarStyle {
+        StatusBarStyleDefault,
+        StatusBarStyleLightContent,
+        StatusBarStyleBlackTranslucent,
+        StatusBarStyleBlackOpaque
+    };
+
+    static void setStatusBarStyle(StatusBarStyle style);
 
 };
 

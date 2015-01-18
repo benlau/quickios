@@ -30,7 +30,7 @@ Item {
 
         onTintColorChanged: {
             if (parent)
-                parent.tintColor = grant.tintColor;
+                parent.tintColor = grand.tintColor;
         }
     }
 

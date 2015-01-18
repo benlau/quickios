@@ -37,7 +37,7 @@ Rectangle {
     horizontalAlignment: Text.AlignHCenter
 
     color: "#000000"
-    font.pixelSize: 17
+    font.pixelSize: 16
   }
 
   Item {
