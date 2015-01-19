@@ -99,7 +99,7 @@ Rectangle {
               for (var i = 0 ; i < model.children.length; i++) {
                   var child = model.children[i];
                   if (child.hasOwnProperty("tintColor")) {
-                      child.tintColor = navigationBar.tintColor;
+                      child.tintColor = Qt.binding(function() {return navigationBar.tintColor;});
                   }
 
                   (function(item) {

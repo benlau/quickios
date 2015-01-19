@@ -26,6 +26,9 @@ Rectangle {
                 title : "Quick iOS Example Program"
 
                 navigationItem : NavigationItem {
+                    leftBarButtonItem: BarButtonItem {
+                        id : rootViewLeftButton
+                    }
                 }
 
                 MouseArea {
@@ -262,7 +265,14 @@ Rectangle {
 
         }
 
-        function test_demo() {
+        function test_changeTintColorDynamically() {
+            navigationView.tintColor = "#333333";
+            compare(rootViewLeftButton.tintColor,"#333333");
+            navigationView.tintColor = "#00ff00";
+            compare(rootViewLeftButton.tintColor,"#00ff00");
+        }
+
+        function test_preview() {
             // Just demo the look and feel.
             // It don't do any checking yet
 //            wait(60000);
