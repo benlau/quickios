@@ -16,6 +16,7 @@ Simulted iOS Components
 -----------------------
 
     UINavigationViewController , UITabViewController, UINavigationItem , UIBarButtonItem
+    UISegmentedControl , UIAlertView
 
 
 Reference
