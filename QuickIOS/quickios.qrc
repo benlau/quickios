@@ -30,5 +30,6 @@
         <file>priv/ViewControllerTransition.qml</file>
         <file>transitions/CoverVerticalTransition.qml</file>
         <file>priv/InheritTintColor.qml</file>
+        <file>Segment.qml</file>
     </qresource>
 </RCC>

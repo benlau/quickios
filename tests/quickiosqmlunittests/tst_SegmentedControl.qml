@@ -17,22 +17,19 @@ ViewController {
         id: segmentedControl
         anchors.fill: parent
 
-        items : ObjectModel {
-
-            Tab {
-                title : "red"
-                Rectangle {
-                    color : "red"
-                }
+        Segment {
+            title : "red"
+            Rectangle {
+                color : "red"
             }
-            Tab {
-                title : "blue"
-                Rectangle {
-                    color : "blue"
-                }
-            }
-
         }
+        Segment {
+            title : "blue"
+            Rectangle {
+                color : "blue"
+            }
+        }
+
     }
 
     TestCase {
@@ -43,6 +40,7 @@ ViewController {
             // Just demo the look and feel.
             // It don't do any checking yet
             compare(segmentedControl.tintColor,"#000000");
+            compare(segmentedControl.numberOfSegments,2)
 
             wait(TestEnv.waitTime);
         }

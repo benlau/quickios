@@ -20,7 +20,8 @@ Item {
         target: behaviour.parent
         ignoreUnknownSignals: true
         onParentChanged: {
-            behaviour.update();
+            if (behaviour)
+                behaviour.update();
         }
     }
 

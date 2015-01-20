@@ -17,10 +17,12 @@ import "./priv"
 Item {
     id: segmentedControl
 
-    property ObjectModel items : ObjectModel {}
+    default property alias __children : tabView.children
+//    property ObjectModel items : ObjectModel {}
     property color tintColor : "#007aff"
     property alias count : tabView.count
     property alias currentIndex : tabView.currentIndex
+    property alias numberOfSegments : tabView.count
 
     TabView {
         id: tabView
@@ -29,16 +31,10 @@ Item {
             tintColor : segmentedControl.tintColor
         }
 
-        Repeater {
-            model : items
-        }
-    }
-
-//    onParentChanged: {
-//        if (parent && parent.hasOwnProperty("tintColor")) {
-//            tintColor = parent.tintColor;
+//        Repeater {
+//            model : items
 //        }
-//    }
+    }
 
     InheritTintColor {}
 
