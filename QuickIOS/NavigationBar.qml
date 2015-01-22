@@ -17,7 +17,7 @@ Rectangle {
   // The view objects within NavigationView
   property ListModel views : ListModel{}
 
-  // The top most navigation item
+  // The top most navigation item in navigationItems
   property NavigationItem navigationItem : dummyNavigationItem
 
   property ListModel navigationItems : ListModel{}
@@ -30,10 +30,10 @@ Rectangle {
   property string currentTitle
 
   // The current list of left buttons
-  property var currentLeftButtonItems : null
+  property var currentLeftButtonItems : navigationItem.leftBarButtonItems
 
   // The current list of right buttons
-  property var currentRightButtonItems : null
+  property var currentRightButtonItems : navigationItem.rightBarButtonItems
 
   width: parent.width
   height: QIDevice.screenFillStatusBar ? 44 + 20 : 44
@@ -68,9 +68,9 @@ Rectangle {
           if (index < 0) {
               currentTitle = "";
           } else {
-              var controller = get(index);
+              var barItem = get(index);
               currentTitle = Qt.binding(function() {
-                  return controller.title;
+                  return barItem.title;
               });
           }
       }
@@ -140,19 +140,14 @@ Rectangle {
                   navigationItems.set(index,data);
               }
 
+              if (index === navigationItems.count - 1) // it is top most
+                  navigationBar.navigationItem = navigationItem;
+
               if (!navigationItem) {
                   currentLeftButtonItems = dummyItemModel;
                   currentRightButtonItems = dummyItemModel;
                   return;
               }
-
-              currentLeftButtonItems = Qt.binding(function() {
-                return navigationItem.leftBarButtonItems;
-              });
-
-              currentRightButtonItems = Qt.binding(function() {
-                return navigationItem.rightBarButtonItems;
-              });
 
               setup(navigationItem.rightBarButtonItems);
               setup(navigationItem.leftBarButtonItems);
@@ -170,7 +165,6 @@ Rectangle {
                       return model.object.title;
                   });
               }
-              navigationBar.navigationItem = navigationItem;
 
               var object = creator.createObject(stack);
 

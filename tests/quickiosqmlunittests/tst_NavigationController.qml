@@ -28,6 +28,7 @@ Rectangle {
                 navigationItem : NavigationItem {
                     leftBarButtonItem: BarButtonItem {
                         id : rootViewLeftButton
+                        title: "Left"
                     }
                 }
 
@@ -178,7 +179,8 @@ Rectangle {
             id: view
             title : "Dynamic Title"
 
-            navigationItem: NavigationItem {
+            navigationItem: mode0Item;
+            property NavigationItem mode0Item  :NavigationItem {
                 leftBarButtonItem: BarButtonItem {
                     title : "L1"
                 }
@@ -356,6 +358,26 @@ Rectangle {
             compare(view.title , "Dynamic Title");
             compare(navigationView.navigationBar.currentTitle,view.title);
 
+            wait(500);
+
+            navigationView.push(viewWithTitleAndLeftRightButtons);
+            var view2 = navigationView.views.get(2).object;
+
+            compare(navigationView.navigationBar.currentLeftButtonItems.count,2);
+            compare(navigationView.navigationBar.currentRightButtonItems.count,2);
+
+            wait(500);
+            navigationView.pop();
+
+            wait(500);
+
+            compare(navigationView.navigationBar.currentLeftButtonItems.count,1);
+            compare(navigationView.navigationBar.currentRightButtonItems.count,2);
+
+            view.mode = 1;
+
+            compare(navigationView.navigationBar.currentLeftButtonItems.count,2);
+            compare(navigationView.navigationBar.currentRightButtonItems.count,1);
 
             wait(TestEnv.waitTime);
 
