@@ -20,7 +20,7 @@ Rectangle {
   signal viewDidDisappear(bool animated)
 
   id: viewController
-  color: "#ffffff"
+  color: "#ebeaf1"
   objectName: "ViewController"
 
 
