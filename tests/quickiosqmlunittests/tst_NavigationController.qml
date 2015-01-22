@@ -194,6 +194,22 @@ Rectangle {
                 }
             }
 
+            property NavigationItem mode1Item : NavigationItem {
+                leftBarButtonItems: VisualItemModel {
+                    BarButtonItem {
+                        title : "L1"
+                    }
+
+                    BarButtonItem {
+                        title : "L2"
+                    }
+                }
+
+                rightBarButtonItem:  BarButtonItem {
+                       title : "R1"
+                }
+            }
+
             property int mode : 0
 
             states: [
@@ -203,6 +219,7 @@ Rectangle {
                     PropertyChanges {
                         target: view
                         title : "Mode 1"
+                        navigationItem: mode1Item
                     }
 
                 }
@@ -314,6 +331,9 @@ Rectangle {
         }
 
         function test_dynamicTitleAndButtons() {
+            compare(navigationView.navigationBar.currentLeftButtonItems.count,1);
+            compare(navigationView.navigationBar.currentRightButtonItems.count,0);
+
             navigationView.push(viewWithDynamicTitleAndButtons);
             wait(500);
 
@@ -321,10 +341,16 @@ Rectangle {
             compare(view.mode,0);
             compare(view.title , "Dynamic Title");
             compare(navigationView.navigationBar.currentTitle,view.title);
+            compare(navigationView.navigationBar.currentLeftButtonItems.count,1);
+            compare(navigationView.navigationBar.currentRightButtonItems.count,2);
 
             view.mode = 1;
             compare(view.title , "Mode 1");
             compare(navigationView.navigationBar.currentTitle,view.title);
+//            wait(TestEnv.waitTime);
+
+            compare(navigationView.navigationBar.currentLeftButtonItems.count,2);
+            compare(navigationView.navigationBar.currentRightButtonItems.count,1);
 
             view.mode = 0;
             compare(view.title , "Dynamic Title");

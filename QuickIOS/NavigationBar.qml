@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import QtQml.Models 2.1
 import QuickIOS 0.1
 import "./priv"
 
@@ -18,13 +19,21 @@ Rectangle {
 
   // The top most navigation item
   property NavigationItem navigationItem : dummyNavigationItem
+
   property ListModel navigationItems : ListModel{}
 
   property NavigationBarTitleAttributes titleAttributes : NavigationBarTitleAttributes {}
 
   signal backClicked()
 
+  // The current title
   property string currentTitle
+
+  // The current list of left buttons
+  property var currentLeftButtonItems : null
+
+  // The current list of right buttons
+  property var currentRightButtonItems : null
 
   width: parent.width
   height: QIDevice.screenFillStatusBar ? 44 + 20 : 44
@@ -40,6 +49,10 @@ Rectangle {
 
   NavigationItem {
     id : dummyNavigationItem
+  }
+
+  ObjectModel {
+      id : dummyItemModel;
   }
 
   StackView {
@@ -104,11 +117,6 @@ Rectangle {
               }
           }
 
-          function place(parent,item) {
-              item.parent = parent;
-              item.anchors.centerIn = parent;
-          }
-
           function setup(model) {
               for (var i = 0 ; i < model.children.length; i++) {
                   var child = model.children[i];
@@ -124,23 +132,47 @@ Rectangle {
               }
           }
 
+          onNavigationItemChanged:  {
+              var data = { object: navigationItem}
+              if (index >= navigationItems.count) {
+                  navigationItems.append(data);
+              } else {
+                  navigationItems.set(index,data);
+              }
+
+              if (!navigationItem) {
+                  currentLeftButtonItems = dummyItemModel;
+                  currentRightButtonItems = dummyItemModel;
+                  return;
+              }
+
+              currentLeftButtonItems = Qt.binding(function() {
+                return navigationItem.leftBarButtonItems;
+              });
+
+              currentRightButtonItems = Qt.binding(function() {
+                return navigationItem.rightBarButtonItems;
+              });
+
+              setup(navigationItem.rightBarButtonItems);
+              setup(navigationItem.leftBarButtonItems);
+          }
+
           Component.onCompleted: {
-              if (model.object.hasOwnProperty("navigationItem"))
-                  navigationItem = model.object.navigationItem;
+              if (model.object.hasOwnProperty("navigationItem")) {
+                  navigationItem = Qt.binding(function() {
+                      return model.object.navigationItem;
+                  });
+              }
 
               if (model.object.hasOwnProperty("title")) {
                   title = Qt.binding(function() {
                       return model.object.title;
                   });
               }
-              navigationItems.append({ object: navigationItem});
               navigationBar.navigationItem = navigationItem;
 
               var object = creator.createObject(stack);
-
-              setup(navigationItem.rightBarButtonItems);
-
-              setup(navigationItem.leftBarButtonItems);
 
               stack.push(object);
           }
@@ -155,6 +187,4 @@ Rectangle {
           }
       }
   }
-
-
 }
