@@ -40,7 +40,7 @@ ViewController {
         id : navBar
         views: stack.views
         tintColor: navigationView.tintColor
-        onLeftClicked: stack.pop(true);
+        onBackClicked: stack.pop(true);
     }
 
     NavigationStack {

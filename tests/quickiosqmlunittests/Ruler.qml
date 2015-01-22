@@ -11,7 +11,7 @@ Item {
     property int orientation : Qt.Horizontal
 
     // The length of the ruler
-    property int length : 0;
+    property int length;
 
     // The width of the line
     property int lineWidth : 1 ;

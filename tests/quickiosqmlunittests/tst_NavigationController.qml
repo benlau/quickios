@@ -171,6 +171,47 @@ Rectangle {
         }
     }
 
+    Component {
+        id: viewWithDynamicTitleAndButtons
+
+        ViewController {
+            id: view
+            title : "Dynamic Title"
+
+            navigationItem: NavigationItem {
+                leftBarButtonItem: BarButtonItem {
+                    title : "L1"
+                }
+
+                rightBarButtonItems: VisualItemModel {
+                    BarButtonItem {
+                       title : "R1"
+                    }
+
+                    BarButtonItem {
+                       title : "R2"
+                    }
+                }
+            }
+
+            property int mode : 0
+
+            states: [
+                State {
+                    when: mode == 1;
+
+                    PropertyChanges {
+                        target: view
+                        title : "Mode 1"
+                    }
+
+                }
+
+            ]
+
+        }
+    }
+
 
     TestCase {
         name: "NavigationController"
@@ -179,8 +220,8 @@ Rectangle {
         function test_initialViewController() { // Test NavigationController with initialViewController
             compare(navigationView.navigationBar.views.count , 1);
             compare(rootView.navigationController , navigationView);
-            compare(rootView.willAppearCount , 1);
-            compare(rootView.didAppearCount , 1);
+            compare(rootView.willAppearCount >= 1 , true); // May be triggered by another test case.
+            compare(rootView.didAppearCount >= 1 , true);
             compare(rootView.tintColor , "#00ff00");
 
             navigationView.push(viewWithTitleOnly,{fieldA : 10});
@@ -270,6 +311,31 @@ Rectangle {
             compare(rootViewLeftButton.tintColor,"#333333");
             navigationView.tintColor = "#00ff00";
             compare(rootViewLeftButton.tintColor,"#00ff00");
+        }
+
+        function test_dynamicTitleAndButtons() {
+            navigationView.push(viewWithDynamicTitleAndButtons);
+            wait(500);
+
+            var view = navigationView.views.get(1).object;
+            compare(view.mode,0);
+            compare(view.title , "Dynamic Title");
+            compare(navigationView.navigationBar.currentTitle,view.title);
+
+            view.mode = 1;
+            compare(view.title , "Mode 1");
+            compare(navigationView.navigationBar.currentTitle,view.title);
+
+            view.mode = 0;
+            compare(view.title , "Dynamic Title");
+            compare(navigationView.navigationBar.currentTitle,view.title);
+
+
+            wait(TestEnv.waitTime);
+
+            navigationView.pop();
+
+            compare(navigationView.navigationBar.currentTitle,"Quick iOS Example Program");
         }
 
         function test_preview() {

@@ -22,7 +22,9 @@ Rectangle {
 
   property NavigationBarTitleAttributes titleAttributes : NavigationBarTitleAttributes {}
 
-  signal leftClicked()
+  signal backClicked()
+
+  property string currentTitle
 
   width: parent.width
   height: QIDevice.screenFillStatusBar ? 44 + 20 : 44
@@ -47,6 +49,18 @@ Rectangle {
       anchors.bottom: parent.bottom
       height : 44
       delegate: NavigationBarTransition {}
+
+      onDepthChanged: {
+          var index = depth -1;
+          if (index < 0) {
+              currentTitle = "";
+          } else {
+              var controller = get(index);
+              currentTitle = Qt.binding(function() {
+                  return controller.title;
+              });
+          }
+      }
   }
 
   Item {
@@ -63,7 +77,7 @@ Rectangle {
           image: "qrc:///QuickIOS/images/back.png"
           tintColor: navigationBar.tintColor
           onClicked: {
-           navigationBar.leftClicked();
+           navigationBar.backClicked();
           }
       }
   }
@@ -114,8 +128,11 @@ Rectangle {
               if (model.object.hasOwnProperty("navigationItem"))
                   navigationItem = model.object.navigationItem;
 
-              if (model.object.hasOwnProperty("title"))
-                  title = model.object.title;
+              if (model.object.hasOwnProperty("title")) {
+                  title = Qt.binding(function() {
+                      return model.object.title;
+                  });
+              }
               navigationItems.append({ object: navigationItem});
               navigationBar.navigationItem = navigationItem;
 
