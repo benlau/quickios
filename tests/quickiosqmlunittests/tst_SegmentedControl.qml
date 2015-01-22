@@ -41,6 +41,8 @@ ViewController {
             // It don't do any checking yet
             compare(segmentedControl.tintColor,"#000000");
             compare(segmentedControl.numberOfSegments,2)
+            compare(segmentedControl.selectedSegmentIndex , 0);
+            segmentedControl.selectedSegmentIndex = 1;
 
             wait(TestEnv.waitTime);
         }

@@ -27,7 +27,7 @@ Rectangle {
   signal backClicked()
 
   // The current title
-  property string currentTitle
+  property string currentTitle : stack.topBarItem.title
 
   // The current list of left buttons
   property var currentLeftButtonItems : navigationItem.leftBarButtonItems
@@ -51,6 +51,10 @@ Rectangle {
     id : dummyNavigationItem
   }
 
+  NavigationBarItem {
+      id : dummyNavigationBarItem
+  }
+
   ObjectModel {
       id : dummyItemModel;
   }
@@ -63,15 +67,16 @@ Rectangle {
       height : 44
       delegate: NavigationBarTransition {}
 
+      property NavigationBarItem topBarItem : dummyNavigationBarItem
+
       onDepthChanged: {
           var index = depth -1;
           if (index < 0) {
               currentTitle = "";
+              topBarItem = dummyNavigationBarItem;
           } else {
               var barItem = get(index);
-              currentTitle = Qt.binding(function() {
-                  return barItem.title;
-              });
+              topBarItem = barItem;
           }
       }
   }
@@ -144,8 +149,6 @@ Rectangle {
                   navigationBar.navigationItem = navigationItem;
 
               if (!navigationItem) {
-                  currentLeftButtonItems = dummyItemModel;
-                  currentRightButtonItems = dummyItemModel;
                   return;
               }
 
@@ -181,4 +184,5 @@ Rectangle {
           }
       }
   }
+
 }

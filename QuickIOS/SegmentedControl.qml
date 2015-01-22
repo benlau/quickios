@@ -23,6 +23,7 @@ Item {
     property alias count : tabView.count
     property alias currentIndex : tabView.currentIndex
     property alias numberOfSegments : tabView.count
+    property alias selectedSegmentIndex : tabView.currentIndex
 
     TabView {
         id: tabView
