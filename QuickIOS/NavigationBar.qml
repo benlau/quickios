@@ -107,8 +107,9 @@ Rectangle {
       delegate: Item {
           id: item
 
-          property var navigationItem : NavigationItem {}
-          property string title;
+          property ViewController source ; ViewController {}
+          property var navigationItem : source.navigationItem
+          property string title : source.title;
 
           Component {
               id: creator
@@ -130,9 +131,7 @@ Rectangle {
                   }
 
                   (function(item) {
-                      item.height = Qt.binding(function() {
-                          return navigationBar.height;
-                      });
+                      item.height = navigationBar.height;
                   })(child);
               }
           }
@@ -157,17 +156,7 @@ Rectangle {
           }
 
           Component.onCompleted: {
-              if (model.object.hasOwnProperty("navigationItem")) {
-                  navigationItem = Qt.binding(function() {
-                      return model.object.navigationItem;
-                  });
-              }
-
-              if (model.object.hasOwnProperty("title")) {
-                  title = Qt.binding(function() {
-                      return model.object.title;
-                  });
-              }
+              source = model.object;
 
               var object = creator.createObject(stack);
 
