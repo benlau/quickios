@@ -31,5 +31,7 @@
         <file>transitions/CoverVerticalTransition.qml</file>
         <file>priv/InheritTintColor.qml</file>
         <file>Segment.qml</file>
+        <file>def/Constant.qml</file>
+        <file>def/qmldir</file>
     </qresource>
 </RCC>

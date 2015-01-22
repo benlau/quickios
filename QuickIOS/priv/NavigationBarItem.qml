@@ -3,6 +3,7 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Layouts 1.1
+import "../def"
 
 Rectangle {
   id: navigationBarItem
@@ -22,7 +23,7 @@ Rectangle {
   signal leftClicked()
   signal rightClicked()
 
-  color: "#f8f8f8"
+  color: Constant.barTintColor
 
   Text {
     id: navigationTitle

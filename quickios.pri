@@ -37,3 +37,6 @@ ios {
 
     SOURCES += $$PWD/qisystemutils.cpp
 }
+
+DISTFILES += \
+    $$PWD/QuickIOS/def/qmldir.txt

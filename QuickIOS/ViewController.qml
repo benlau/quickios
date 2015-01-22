@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
 import "appdelegate.js" as AppDelegate
+import "./def"
 import "util.js" as Util
 import "./priv"
 
@@ -12,7 +13,7 @@ Rectangle {
 
   property NavigationItem navigationItem : NavigationItem {}
 
-  property string tintColor : "#007aff"
+  property string tintColor : Constant.tintColor
 
   signal viewWillAppear(bool animated)
   signal viewDidAppear(bool animated)
@@ -20,9 +21,8 @@ Rectangle {
   signal viewDidDisappear(bool animated)
 
   id: viewController
-  color: "#ebeaf1"
+  color: Constant.viewControllerBackgroundColor
   objectName: "ViewController"
-
 
   signal pageChanged(var dstItem)
 
