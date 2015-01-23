@@ -13,13 +13,13 @@ import QtQuick.Controls 1.2
 import QtQml.Models 2.1
 import QtQuick.Controls 1.2 as QuickControl
 import "./priv"
+import "./def"
 
 Item {
     id: segmentedControl
 
     default property alias __children : tabView.children
-//    property ObjectModel items : ObjectModel {}
-    property color tintColor : "#007aff"
+    property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
     property alias count : tabView.count
     property alias currentIndex : tabView.currentIndex
     property alias numberOfSegments : tabView.count
@@ -31,12 +31,7 @@ Item {
         style: SegmentedControlTabViewStyle {
             tintColor : segmentedControl.tintColor
         }
-
-//        Repeater {
-//            model : items
-//        }
     }
 
-    InheritTintColor {}
 
 }

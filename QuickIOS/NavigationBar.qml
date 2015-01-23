@@ -5,12 +5,13 @@ import QtQuick.Layouts 1.1
 import QtQml.Models 2.1
 import QuickIOS 0.1
 import "./priv"
+import "./def"
 
 Rectangle {
   id: navigationBar
 
   // The tint color to apply to the navigation bar background. It is equivalent to color. It apply the naming convenient of UIKit
-  property string tintColor : "#007aff"
+  property string tintColor : Constant.tintColor
 
   property alias barTintColor : navigationBar.color
 

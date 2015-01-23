@@ -13,7 +13,7 @@ Rectangle {
 
   property NavigationItem navigationItem : NavigationItem {}
 
-  property string tintColor : Constant.tintColor
+  property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
   signal viewWillAppear(bool animated)
   signal viewDidAppear(bool animated)
@@ -104,17 +104,4 @@ Rectangle {
           }
       }
   }
-
-  /*
-  onParentChanged: {
-      // @TODO Extract this function
-      if (parent && parent.hasOwnProperty("tintColor")) {
-          tintColor = Qt.binding(function() {
-             return parent ? parent.tintColor : "#007aff";
-          });
-      }
-  }
-  */
-
-  InheritTintColor {}
 }

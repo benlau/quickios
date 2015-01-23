@@ -231,6 +231,26 @@ Rectangle {
         }
     }
 
+    Component {
+        id : viewWithCustomTintColor
+
+        ViewController {
+            title: "Custom tintColor"
+            tintColor : "#333333"
+
+            navigationItem: NavigationItem {
+               leftBarButtonItem: BarButtonItem {
+                    title: "Left";
+                }
+
+                rightBarButtonItem: BarButtonItem {
+                    title: "Right";
+                }
+            }
+        }
+    }
+
+
 
     TestCase {
         name: "NavigationController"
@@ -349,7 +369,6 @@ Rectangle {
             view.mode = 1;
             compare(view.title , "Mode 1");
             compare(navigationView.navigationBar.currentTitle,view.title);
-//            wait(TestEnv.waitTime);
 
             compare(navigationView.navigationBar.currentLeftButtonItems.count,2);
             compare(navigationView.navigationBar.currentRightButtonItems.count,1);
@@ -384,6 +403,22 @@ Rectangle {
             navigationView.pop();
 
             compare(navigationView.navigationBar.currentTitle,"Quick iOS Example Program");
+        }
+
+        function test_viewWithCustomTintColor() {
+            navigationView.push(viewWithCustomTintColor);
+            wait(500);
+            var view = navigationView.navigationBar.views.get(1).object;
+            compare(view.tintColor,"#333333");
+
+            var nagivationItem = navigationView.navigationBar.navigationItem;
+            var leftButton = navigationView.navigationBar.currentLeftButtonItems.children[0];
+
+            compare(leftButton.tintColor,"#00ff00"); // The left right buttons should inherit from navigation controller.
+
+            wait(TestEnv.waitTime);
+
+            navigationView.pop();
         }
 
         function test_preview() {
