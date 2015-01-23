@@ -23,10 +23,24 @@ Rectangle {
         }
     }
 
+    property int didDisappearCount : 0
+    property int willDisappearCount : 0
+    property int willAppearCount : 0
+    property int didAppearCount : 0
+
     Component {
         id : overlayView
         NavigationController {
             color: "black"
+
+            onViewWillAppear: {
+                willAppearCount++;
+            }
+            onViewDidAppear: {
+                didAppearCount++;
+            }
+            onViewWillDisappear: willDisappearCount++;
+            onViewDidDisappear:  didDisappearCount++
         }
     }
 
@@ -37,7 +51,18 @@ Rectangle {
         function test_preview() {
             wait(500);
             var view = overlayView.createObject();
+            compare(didAppearCount,0);
+            compare(willAppearCount,0);
+            compare(didDisappearCount,0);
+            compare(willDisappearCount,0);
+
             rootView.presentViewController(view);
+
+            compare(didAppearCount,0);
+            compare(willAppearCount,1);
+            compare(didDisappearCount,0);
+            compare(willDisappearCount,0);
+
             compare(view.width,480);
             compare(view.height,640);
             compare(view.x,0);
@@ -45,6 +70,12 @@ Rectangle {
             compare(view.tintColor,"#00ff00");
 
             wait(500);
+
+            compare(didAppearCount,1);
+            compare(willAppearCount,1);
+            compare(didDisappearCount,0);
+            compare(willDisappearCount,0);
+
             compare(rootView.enabled , false);
             compare(view.parent !== rootView, true);
 
@@ -52,10 +83,21 @@ Rectangle {
             compare(view.y,0);
             compare(view.width,480);
             compare(view.height,640);
+
             view.dismissViewController();
+
+            compare(didAppearCount,1);
+            compare(willAppearCount,1);
+            compare(didDisappearCount,0);
+            compare(willDisappearCount,1);
 
             wait(500);
             compare(rootView.enabled , true);
+
+            compare(didAppearCount,1);
+            compare(willAppearCount,1);
+            compare(didDisappearCount,1);
+            compare(willDisappearCount,1);
 
             compare(view.width,480);
             compare(view.height,640);

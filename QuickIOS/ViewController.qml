@@ -83,8 +83,22 @@ Rectangle {
 
           Connections {
               target: transition
+
+              onAboutToPresent: {
+                  view.viewWillAppear(true);
+              }
+
+              onPresented: {
+                  view.viewDidAppear(true);
+              }
+
+              onAboutToDismiss: {
+                  view.viewWillDisappear(true);
+              }
+
               onDismissed: {
                   viewController.enabled = true;
+                  view.viewDidDisappear(true);
                   container.destroy();                  
               }
           }

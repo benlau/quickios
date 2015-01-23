@@ -11,7 +11,9 @@ QtObject {
     property Item view : Item {}
     readonly property int duration : 300;
 
+    signal aboutToDismiss
     signal dismissed
+    signal aboutToPresent
     signal presented
 
     property int _height : view ? view.height : 0
@@ -25,6 +27,8 @@ QtObject {
             duration: duration
             easing.type: Easing.Linear
         }
+
+        onStarted: aboutToPresent();
 
         onStopped: {
             presented();
@@ -40,6 +44,8 @@ QtObject {
             duration: duration
             easing.type: Easing.Linear
         }
+
+        onStarted: aboutToDismiss();
 
         onStopped: {
             dismissed();
