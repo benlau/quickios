@@ -45,6 +45,48 @@ static bool alertViewCreate(QVariantMap data) {
     return true;
 }
 
+static bool actionSheetCreate(QVariantMap data) {
+    QIViewDelegate *delegate = [QIViewDelegate alloc];
+
+    delegate->actionSheetClickedButtonAtIndex = ^(NSInteger buttonIndex) {
+        QString name = "actionSheetClickedButtonAtIndex";
+        QVariantMap data;
+        data["buttonIndex"] = buttonIndex;
+        QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
+                                  Q_ARG(QString , name),
+                                  Q_ARG(QVariantMap,data));
+
+    };
+
+    NSString* title = data["title"].toString().toNSString();
+    NSString* cancelButtonTitle = data["cancelButtonTitle"].toString().toNSString();
+    QStringList buttons = data["otherButtonTitles"].toStringList();
+
+    UIActionSheet* actionSheet = [UIActionSheet alloc];
+
+
+    [actionSheet initWithTitle:title
+        delegate:delegate
+        cancelButtonTitle: nil
+        destructiveButtonTitle:nil
+        otherButtonTitles:nil];
+
+    for (int i = 0 ; i < buttons.size();i++) {
+        NSString *btn = buttons.at(i).toNSString();
+        [actionSheet addButtonWithTitle:btn];
+    }
+
+    // Reference: http://stackoverflow.com/questions/1602214/use-nsarray-to-specify-otherbuttontitles
+
+    [actionSheet addButtonWithTitle:cancelButtonTitle];
+
+    actionSheet.cancelButtonIndex = buttons.size();
+
+    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+
+    return true;
+}
+
 static bool applicationSetStatusBarStyle(QVariantMap data) {
     qDebug() << data;
     if (!data.contains("style")) {
@@ -65,6 +107,7 @@ QISystemUtils *QISystemUtils::instance()
 
         handlers["alertViewCreate"]  = alertViewCreate;
         handlers["applicationSetStatusBarStyle"]  = applicationSetStatusBarStyle;
+        handlers["actionSheetCreate"]  = actionSheetCreate;
 
     }
     return m_instance;

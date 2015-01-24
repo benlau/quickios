@@ -10,11 +10,13 @@ HEADERS += $$PWD/quickios.h \
     $$PWD/qisystemutils.h \
     $$PWD/qiviewdelegate.h \
     $$PWD/qialertview.h \
-    $$PWD/qidevice.h
+    $$PWD/qidevice.h \
+    $$PWD/qiactionsheet.h
 
 SOURCES += $$PWD/quickios.cpp \
     $$PWD/qialertview.cpp \
-    $$PWD/qidevice.cpp
+    $$PWD/qidevice.cpp \
+    $$PWD/qiactionsheet.cpp
 
 ios {
     QT += gui-private

@@ -6,6 +6,7 @@
 #include "qialertview.h"
 #include "qisystemutils.h"
 #include "qidevice.h"
+#include "qiactionsheet.h"
 
 static QPointer<QIDevice> deviceInstance;
 
@@ -39,6 +40,9 @@ void QuickIOS::registerTypes()
   qmlRegisterSingletonType("QuickIOS", 0, 1, "QIDevice", deviceProvider);
 
   qmlRegisterType<QIAlertView>("QuickIOS",0,1,"IAlertView");
+  qmlRegisterType<QIAlertView>("QuickIOS",0,1,"AlertView");
+  qmlRegisterType<QIActionSheet>("QuickIOS",0,1,"ActionSheet");
+
 }
 
 void QuickIOS::setupWindow(QQuickWindow *window)

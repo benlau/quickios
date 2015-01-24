@@ -16,16 +16,27 @@ Window {
             navigationItem : NavigationItem {
             }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    navigationController.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
-                }
-            }
+            TableSection {
+                y: 10
+                width: parent.width
 
-            Text {
-                text: qsTr("Press for next content view")
-                anchors.centerIn: parent
+                headerTitle: "System Components"
+                model: ListModel {
+                    ListElement { title : "Alert View" }
+                    ListElement { title : "Action Sheet" }
+
+                }
+
+                onSelected: {
+                    switch (index) {
+                    case 0:
+                        navigationController.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
+                        break;
+                    case 1:
+                        actionSheet.show();
+                        break;
+                    }
+                }
             }
         }
     }
@@ -36,6 +47,16 @@ Window {
             textColor : "#ff0000"
         }
         anchors.fill: parent
+    }
+
+    ActionSheet {
+        id: actionSheet
+        title : "Action Sheet Demo"
+        otherButtonTitles : ["Button 1","Button 2"]
+        cancelButtonTitle : "Cancel"
+        onClickedButtonChanged: {
+            console.log("clicked button",clickedButtonIndex)
+        }
     }
 
     Component.onCompleted: {
