@@ -1,6 +1,7 @@
 // A ruler component that show a ruler visually and provide the value of the length
-// Project: QuickIOS
+// Project: QuickIOS (https://github.com/hilarycheng/quickios)
 // Author: benlau
+// License: Apache
 
 import QtQuick 2.0
 

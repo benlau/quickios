@@ -29,4 +29,5 @@ DISTFILES += \
     tst_ViewController_presentViewController.qml \
     tst_NavigationController.qml \
     SampleView.qml \
-    tst_system.qml
+    tst_system.qml \
+    tst_TableSection.qml
