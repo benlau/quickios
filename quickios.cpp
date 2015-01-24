@@ -39,7 +39,6 @@ void QuickIOS::registerTypes()
   qmlRegisterSingletonType("QuickIOS", 0, 1, "QISystem", systemProvider);
   qmlRegisterSingletonType("QuickIOS", 0, 1, "QIDevice", deviceProvider);
 
-  qmlRegisterType<QIAlertView>("QuickIOS",0,1,"IAlertView");
   qmlRegisterType<QIAlertView>("QuickIOS",0,1,"AlertView");
   qmlRegisterType<QIActionSheet>("QuickIOS",0,1,"ActionSheet");
 

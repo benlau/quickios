@@ -36,7 +36,7 @@ ViewController {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            alert.open();
+            alert.show();
         }
     }
 
@@ -45,13 +45,13 @@ ViewController {
         anchors.centerIn: parent
     }
 
-    IAlertView {
+    AlertView {
         id: alert
         title : "Example Dialog"
         message: "It is an example dialog. Press any button to quit."
         buttons : [qsTr("Cancel"),qsTr("OK")]
         onClicked : {
-            console.log("Clicked button : ",buttonIndex);
+            console.log("Clicked button : ",clickedButtonIndex);
         }
     }
 }

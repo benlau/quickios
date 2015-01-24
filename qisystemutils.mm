@@ -41,6 +41,7 @@ static bool alertViewCreate(QVariantMap data) {
     }
 
     [alert show];
+    [alert release];
 
     return true;
 }
@@ -83,6 +84,7 @@ static bool actionSheetCreate(QVariantMap data) {
     actionSheet.cancelButtonIndex = buttons.size();
 
     [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [actionSheet release];
 
     return true;
 }

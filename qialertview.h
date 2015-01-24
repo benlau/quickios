@@ -4,7 +4,7 @@
 #include <QQuickItem>
 #include <QMessageBox>
 
-/// UIAlertView provides an interface to access iOS's UIAlertView
+/// QIAlertView provides an interface to access iOS's UIAlertView
 
 class QIAlertView : public QQuickItem
 {
@@ -13,6 +13,7 @@ class QIAlertView : public QQuickItem
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString message READ message WRITE setMessage NOTIFY messageChanged)
     Q_PROPERTY(QStringList buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
+    Q_PROPERTY(int clickedButtonIndex READ clickedButtonIndex WRITE setClickedButtonIndex NOTIFY clickedButtonIndexChanged)
 
 public:
 
@@ -26,11 +27,14 @@ public:
     QStringList buttons() const;
     void setButtons(const QStringList &buttons);
 
+    int clickedButtonIndex() const;
+    void setClickedButtonIndex(int clickedButtonIndex);
+
 public Q_SLOTS:
     virtual void setTitle(const QString &arg);
     void setMessage(const QString &arg);
 
-    void open();
+    void show();
 
 Q_SIGNALS:
     void titleChanged();
@@ -38,6 +42,7 @@ Q_SIGNALS:
     void buttonsChanged();
 
     void clicked(int buttonIndex);
+    void clickedButtonIndexChanged();
 
 private:
     Q_INVOKABLE void onReceived(QString name,QVariantMap data);
@@ -46,6 +51,7 @@ private:
 
     QStringList m_buttons;
     bool m_opened;
+    int m_clickedButtonIndex;
 };
 
 #endif // QIALERTVIEW_H

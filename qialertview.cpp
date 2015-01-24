@@ -6,6 +6,7 @@ QIAlertView::QIAlertView(QQuickItem *parent) :
 {
     m_buttons << tr("Cancel") << tr("OK");
     m_opened = false;
+    m_clickedButtonIndex = -1;
 }
 
 QString QIAlertView::title() const {
@@ -32,7 +33,7 @@ void QIAlertView::setMessage(const QString &arg)
 }
 
 
-void QIAlertView::open()
+void QIAlertView::show()
 {
     if (m_opened)
         return;
@@ -58,11 +59,23 @@ void QIAlertView::onReceived(QString name, QVariantMap data)
     }
 
     int buttonIndex = data["buttonIndex"].toInt();
+    setClickedButtonIndex(buttonIndex);
     m_opened = false;
     QISystemUtils* system = QISystemUtils::instance();
     system->disconnect(this);
     emit clicked(buttonIndex);
 }
+int QIAlertView::clickedButtonIndex() const
+{
+    return m_clickedButtonIndex;
+}
+
+void QIAlertView::setClickedButtonIndex(int clickedButtonIndex)
+{
+    m_clickedButtonIndex = clickedButtonIndex;
+    emit clickedButtonIndexChanged();
+}
+
 
 QStringList QIAlertView::buttons() const
 {
