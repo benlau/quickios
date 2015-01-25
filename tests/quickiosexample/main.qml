@@ -24,6 +24,7 @@ Window {
                 model: ListModel {
                     ListElement { title : "Alert View" }
                     ListElement { title : "Action Sheet" }
+                    ListElement { title : "Image Picker" }
 
                 }
 
@@ -34,6 +35,9 @@ Window {
                         break;
                     case 1:
                         actionSheet.show();
+                        break;
+                    case 2:
+                        pickerAction.show();
                         break;
                     }
                 }
@@ -52,11 +56,25 @@ Window {
     ActionSheet {
         id: actionSheet
         title : "Action Sheet Demo"
-        otherButtonTitles : ["Button 1","Button 2"]
+        otherButtonTitles : ["Button 1","Button2"]
         cancelButtonTitle : "Cancel"
         onClickedButtonChanged: {
-            console.log("clicked button",clickedButtonIndex)
+            console.log("Clicked Button")
         }
+    }
+
+    ActionSheet {
+        id : pickerAction
+        title : "Pick Photo"
+        otherButtonTitles : ["Photo Library","Camera","Saved Album"];
+        onClicked: {
+            picker.sourceType = index;
+            picker.show();
+        }
+    }
+
+    ImagePicker {
+        id : picker
     }
 
     Component.onCompleted: {

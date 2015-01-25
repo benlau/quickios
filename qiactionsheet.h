@@ -8,7 +8,7 @@ class QIActionSheet : public QQuickItem
     Q_OBJECT
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QStringList otherButtonTitles READ otherButtonTitles WRITE setOtherButtonTitles NOTIFY otherButtonTitlesChanged)
-    Q_PROPERTY(int clickedButtonIndex READ clickedButtonIndex WRITE setClickedButtonIndex NOTIFY clickedButtonChanged)
+    Q_PROPERTY(int clickedButtonIndex READ clickedButtonIndex WRITE setClickedButtonIndex NOTIFY clickedButtonIndexChanged)
     Q_PROPERTY(QString cancelButtonTitle READ cancelButtonTitle WRITE setCancelButtonTitle NOTIFY cancelButtonTitleChanged)
 
 public:
@@ -34,7 +34,7 @@ signals:
     void clicked(int index);
     void titleChanged();
     void otherButtonTitlesChanged();
-    void clickedButtonChanged();
+    void clickedButtonIndexChanged();
     void cancelButtonTitleChanged();
 
 private:

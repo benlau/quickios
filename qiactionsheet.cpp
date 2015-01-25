@@ -93,7 +93,7 @@ int QIActionSheet::clickedButtonIndex() const
 void QIActionSheet::setClickedButtonIndex(int clickedButton)
 {
     m_clickedButtonIndex = clickedButton;
-    emit clickedButtonChanged();
+    emit clickedButtonIndexChanged();
 }
 
 

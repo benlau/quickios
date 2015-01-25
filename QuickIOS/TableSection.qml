@@ -87,7 +87,7 @@ Item {
                 MouseArea {
                     id : mouseArea
                     anchors.fill: parent
-                    onPressed: {
+                    onClicked: {
                         selected(index,model);
                     }
                 }

@@ -89,6 +89,37 @@ static bool actionSheetCreate(QVariantMap data) {
     return true;
 }
 
+static bool imagePickerControllerPresent(QVariantMap data) {
+
+    UIApplication* app = [UIApplication sharedApplication];
+
+    if (app.windows.count <= 0)
+        return false;
+
+    UIWindow* rootWindow = app.windows[0];
+    UIViewController* rootViewController = rootWindow.rootViewController;
+
+    int sourceType = data["sourceType"].toInt();
+
+    if (![UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceType) sourceType]) {
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                          message:@"The operation is not supported in this device"
+                          delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles: nil];
+        [myAlertView show];
+        [myAlertView release];
+        return false;
+    }
+
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = (UIImagePickerControllerSourceType) sourceType;
+
+    [rootViewController presentViewController:picker animated:YES completion:NULL];
+
+    return true;
+}
+
 static bool applicationSetStatusBarStyle(QVariantMap data) {
     qDebug() << data;
     if (!data.contains("style")) {
@@ -110,6 +141,7 @@ QISystemUtils *QISystemUtils::instance()
         handlers["alertViewCreate"]  = alertViewCreate;
         handlers["applicationSetStatusBarStyle"]  = applicationSetStatusBarStyle;
         handlers["actionSheetCreate"]  = actionSheetCreate;
+        handlers["imagePickerControllerPresent"] = imagePickerControllerPresent;
 
     }
     return m_instance;

@@ -7,6 +7,7 @@
 #include "qisystemutils.h"
 #include "qidevice.h"
 #include "qiactionsheet.h"
+#include "qiimagepicker.h"
 
 static QPointer<QIDevice> deviceInstance;
 
@@ -41,7 +42,7 @@ void QuickIOS::registerTypes()
 
   qmlRegisterType<QIAlertView>("QuickIOS",0,1,"AlertView");
   qmlRegisterType<QIActionSheet>("QuickIOS",0,1,"ActionSheet");
-
+  qmlRegisterType<QIImagePicker>("QuickIOS",0,1,"ImagePicker");
 }
 
 void QuickIOS::setupWindow(QQuickWindow *window)

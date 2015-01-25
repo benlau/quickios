@@ -13,14 +13,14 @@ ViewController {
             BarButtonItem {
                 title: "Btn1"
                 onClicked: {
-                    alert.open();
+                    alert.show();
                 }
             }
 
             BarButtonItem {
                 title: "Btn2"
                 onClicked: {
-                    alert.open();
+                    alert.show();
                 }
             }
 
@@ -28,7 +28,7 @@ ViewController {
         leftBarButtonItem : BarButtonItem {
             title: "Alert"
             onClicked: {
-                alert.open();
+                alert.show();
             }
         }
     }
