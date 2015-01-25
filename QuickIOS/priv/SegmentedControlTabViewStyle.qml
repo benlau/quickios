@@ -1,15 +1,21 @@
 import QtQuick 2.0
 import QtQuick.Controls.Styles 1.2
+import "../def"
 
 TabViewStyle {
     id : style
-    property color tintColor : "#007aff";
+    property color tintColor : Constant.tintColor;
 
     readonly property int contentHeight: 50
     readonly property real radius : 5
+    property color backgroundColor : "#ffffff"
 
     tabsAlignment: Qt.AlignHCenter
     tabOverlap: 0
+
+    tabBar: Rectangle {
+        color : backgroundColor
+    }
 
     leftCorner: Item {
         implicitHeight: contentHeight

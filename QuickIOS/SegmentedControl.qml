@@ -25,11 +25,15 @@ Item {
     property alias numberOfSegments : tabView.count
     property alias selectedSegmentIndex : tabView.currentIndex
 
+    property color barTintColor : "#ffffff"
+
     TabView {
         id: tabView
         anchors.fill: parent
         style: SegmentedControlTabViewStyle {
+            id: tabViewStyle
             tintColor : segmentedControl.tintColor
+            backgroundColor : barTintColor
         }
     }
 
