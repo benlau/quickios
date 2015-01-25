@@ -58,7 +58,7 @@ Window {
         title : "Action Sheet Demo"
         otherButtonTitles : ["Button 1","Button2"]
         cancelButtonTitle : "Cancel"
-        onClickedButtonChanged: {
+        onClickedButtonIndexChanged: {
             console.log("Clicked Button")
         }
     }
