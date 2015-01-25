@@ -67,7 +67,7 @@ Rectangle {
             compare(view.height,640);
             compare(view.x,0);
             compare(view.y,640);
-            compare(view.tintColor,"#00ff00");
+            compare(view.tintColor,"#00ff00"); // Inherit the tintColor from navigationController.
 
             wait(500);
 

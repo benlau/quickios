@@ -25,6 +25,7 @@ TabViewStyle {
             anchors.verticalCenter: parent.verticalCenter
             height: 32
             width: 32
+            color : "#00000000"
 
             Rectangle {
                 id: leftRect
@@ -57,6 +58,7 @@ TabViewStyle {
 
         Rectangle {
             antialiasing: true
+            color : "#00000000"
 
             x: -width + radius
             radius : style.radius
