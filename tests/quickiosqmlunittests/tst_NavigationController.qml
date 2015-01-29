@@ -302,6 +302,8 @@ Rectangle {
             compare(navigationView2.views.count , 0);
 
             navigationView2.push(viewWithTitleOnly);
+            wait(500);
+
             compare(navigationView2.views.count , 1);
             compare(navigationView2.navigationBar.views.count , 1);
 

@@ -8,6 +8,7 @@ MouseArea {
 
     property alias title : textItem.text
     property alias image : imageItem.source
+    property alias imageSourceSize : imageItem.sourceSize
 
     property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 

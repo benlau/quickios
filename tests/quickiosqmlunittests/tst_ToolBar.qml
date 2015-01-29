@@ -20,8 +20,9 @@ NavigationController {
 
             BarButtonItem {
                 id: newButton
-                title: "New"
+                image : "./img/ic_play.png"
                 Layout.alignment: Qt.AlignHCenter
+                imageSourceSize: Qt.size(25,25)
             }
 
             BarButtonItem {

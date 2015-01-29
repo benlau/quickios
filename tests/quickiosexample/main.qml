@@ -25,7 +25,7 @@ Window {
                     ListElement { title : "Alert View" }
                     ListElement { title : "Action Sheet" }
                     ListElement { title : "Image Picker" }
-
+                    ListElement { title : "Tool Bar" }
                 }
 
                 onSelected: {
@@ -38,6 +38,9 @@ Window {
                         break;
                     case 2:
                         pickerAction.show();
+                        break;
+                    case 3:
+                        navigationController.push(Qt.resolvedUrl("toolBar/ToolBarDemo.qml"));
                         break;
                     }
                 }

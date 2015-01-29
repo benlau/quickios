@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>alertview/AlertViewDemo.qml</file>
+        <file>img/ic_play.png</file>
+        <file>img/ic_play@3x.png</file>
+        <file>img/ic_play@2x.png</file>
+        <file>toolBar/ToolBarDemo.qml</file>
     </qresource>
 </RCC>
