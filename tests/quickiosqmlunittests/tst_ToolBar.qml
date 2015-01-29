@@ -3,38 +3,48 @@ import QtTest 1.0
 import QuickIOS 0.1
 import QtQuick.Layouts 1.1
 
-ViewController {
+NavigationController {
     id: window
     height: 640 // For desktop
     width: 480
     visible: true
     tintColor : "#ff0000"
+    objectName: "Navigation Controller"
 
-    toolBarItems : RowLayout {
-        property color tintColor : window.tintColor
+    initialViewController : ViewController {
+        id: rootView
+        title : "Tool Bar Test"
 
-        BarButtonItem {
-            id: newButton
-            title: "New"
-            Layout.alignment: Qt.AlignHCenter
+        toolBarItems : RowLayout {
+            property color tintColor : window.tintColor
+
+            BarButtonItem {
+                id: newButton
+                title: "New"
+                Layout.alignment: Qt.AlignHCenter
+            }
+
+            BarButtonItem {
+                title: "Trash"
+                Layout.alignment: Qt.AlignHCenter
+            }
         }
 
-        BarButtonItem {
-            title: "Trash"
-            Layout.alignment: Qt.AlignHCenter
+        Ruler {
+            anchors.fill: parent
+            orientation: Qt.Vertical
         }
     }
 
-    Rectangle {
-        color : "green"
-        anchors.fill: parent
-    }
 
     TestCase {
         name: "ToolBar"
         when : windowShown
 
         function test_preview() {
+            compare(rootView.toolBar.height,44);
+            compare(window.toolBar.height,0);
+
             wait(TestEnv.waitTime);
         }
     }

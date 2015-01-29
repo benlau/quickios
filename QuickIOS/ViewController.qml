@@ -20,6 +20,7 @@ Rectangle {
 
   property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
+  property alias toolBar: toolBar
   property alias toolBarItems : toolBar.content
 
   signal viewWillAppear(bool animated)
@@ -84,6 +85,7 @@ Rectangle {
           Layout.fillHeight: true
           Layout.fillWidth: true
           Layout.maximumHeight: height
+          Layout.minimumHeight: height
           height: toolBar.content.length > 0 ? 44 :0
 
           onContentChanged: {
@@ -91,6 +93,8 @@ Rectangle {
                   return;
               var child = content[0];
               child.anchors.fill = child.parent;
+              child.anchors.leftMargin = 20
+              child.anchors.rightMargin = 20
           }
       }
   }
