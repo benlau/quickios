@@ -41,6 +41,7 @@ ViewController {
         views: stack.views
         tintColor: navigationView.tintColor
         onBackClicked: stack.pop(true);
+        z: stack.z + 1
     }
 
     NavigationStack {

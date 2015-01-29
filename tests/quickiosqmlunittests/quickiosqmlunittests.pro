@@ -30,4 +30,5 @@ DISTFILES += \
     tst_NavigationController.qml \
     SampleView.qml \
     tst_system.qml \
-    tst_TableSection.qml
+    tst_TableSection.qml \
+    tst_ToolBar.qml

@@ -12,5 +12,6 @@ QtObject {
     // The default background color for view controller
     property string viewControllerBackgroundColor : "#ebeaf1"
 
+    property color dividerColor : "#1F000000"
 }
 

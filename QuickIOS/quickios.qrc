@@ -33,5 +33,6 @@
         <file>def/Constant.qml</file>
         <file>def/qmldir</file>
         <file>TableSection.qml</file>
+        <file>ToolBar.qml</file>
     </qresource>
 </RCC>

@@ -1,12 +1,17 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
+import QtQuick.Layouts 1.1
 import "appdelegate.js" as AppDelegate
 import "./def"
 import "util.js" as Util
 import "./priv"
 
 Rectangle {
+  id: viewController
+
   property string title : ""
+
+  default property alias content : viewport.children
 
   property var navigationController
   // It can't set type to NavigationController. It will create cyclic dependenices.
@@ -15,12 +20,13 @@ Rectangle {
 
   property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
+  property alias toolBarItems : toolBar.content
+
   signal viewWillAppear(bool animated)
   signal viewDidAppear(bool animated)
   signal viewWillDisappear(bool animated)
   signal viewDidDisappear(bool animated)
 
-  id: viewController
   color: Constant.viewControllerBackgroundColor
   objectName: "ViewController"
 
@@ -60,6 +66,35 @@ Rectangle {
   function dismissViewController(animated) {
       viewController._modelTransition.dismissTransition.start();
   }
+
+
+  ColumnLayout {
+      anchors.fill: parent
+      spacing : 0
+
+      Item {
+          id: viewport
+          property color tintColor : viewController.tintColor
+          Layout.fillHeight: true
+          Layout.fillWidth: true
+      }
+
+      ToolBar {
+          id: toolBar
+          Layout.fillHeight: true
+          Layout.fillWidth: true
+          Layout.maximumHeight: height
+          height: toolBar.content.length > 0 ? 44 :0
+
+          onContentChanged: {
+              if (content.length <= 0)
+                  return;
+              var child = content[0];
+              child.anchors.fill = child.parent;
+          }
+      }
+  }
+
 
   Component { // Create a container for the view added by presentViewController
       id: viewContainer
