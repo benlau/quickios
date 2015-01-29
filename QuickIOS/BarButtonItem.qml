@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtGraphicalEffects 1.0
+import "./def"
 
 MouseArea {
     id : barButtonItem
@@ -8,7 +9,7 @@ MouseArea {
     property alias title : textItem.text
     property alias image : imageItem.source
 
-    property alias tintColor : overlay.color
+    property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
     opacity: pressed ? 0.2 : 1
 
@@ -17,7 +18,7 @@ MouseArea {
 
     Text {
       id: textItem
-      anchors.fill: parent
+      anchors.centerIn: parent
       font.family: "Helvetica Neue"
       renderType: Text.NativeRendering
       font.pixelSize: 16
