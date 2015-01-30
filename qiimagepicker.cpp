@@ -5,6 +5,7 @@
 #include <QRunnable>
 #include <QPointer>
 #include <QThreadPool>
+#include <QImageWriter>
 #include "qisystemutils.h"
 #include "qiimagepicker.h"
 
@@ -27,6 +28,11 @@ public:
         }
 
         image.save(fileName);
+        QImageWriter writer;
+        writer.setFileName(fileName);
+        if (!writer.write(image)) {
+            qWarning() << QString("Failed to save %1 : %2").arg(fileName).arg(writer.errorString());
+        }
 
         if (!owner.isNull()) {
             QMetaObject::invokeMethod(owner.data(),"endSave",Qt::QueuedConnection,
@@ -53,12 +59,18 @@ void QIImagePicker::show()
     }
 
 #ifdef Q_OS_IOS
+    setStatus(Running);
+
     QISystemUtils* system = QISystemUtils::instance();
 
     QVariantMap data;
     data["sourceType"] = m_sourceType;
 
+    connect(system,SIGNAL(received(QString,QVariantMap)),
+            this,SLOT(onReceived(QString,QVariantMap)));
+
     system->sendMessage("imagePickerControllerPresent",data);
+
 #else
     setStatus(Running);
     QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
@@ -137,6 +149,26 @@ void QIImagePicker::setStatus(const Status &status)
         return;
     m_status = status;
     emit statusChanged();
+}
+
+void QIImagePicker::onReceived(QString name, QVariantMap data)
+{
+    QISystemUtils* system = QISystemUtils::instance();
+
+    if (name == "imagePickerControllerDidCancel") {
+        setStatus(Null);
+        system->disconnect(this);
+    }
+
+    if (name != "imagePickerControllerDisFinishPickingMetaWithInfo")
+        return;
+
+    system->disconnect(this);
+    QImage image = data["image"].value<QImage>();
+
+    setImage(image);
+    setStatus(Ready);
+    emit ready();
 }
 
 void QIImagePicker::endSave(QString fileName)

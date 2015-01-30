@@ -58,6 +58,8 @@ signals:
     void saved(QString fileName);
 
 private:
+    Q_INVOKABLE void onReceived(QString name,QVariantMap data);
+
     Q_INVOKABLE void endSave(QString fileName);
 
     SourceType m_sourceType;

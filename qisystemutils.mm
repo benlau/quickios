@@ -2,12 +2,40 @@
 #include <UIKit/UIKit.h>
 #include <QPointer>
 #include <QtCore>
+#include <QImage>
 #include "qisystemutils.h"
 #include "qiviewdelegate.h"
 
 typedef bool (*handler)(QVariantMap data);
 static QMap<QString,handler> handlers;
 static QPointer<QISystemUtils> m_instance;
+
+static QImage cloneAsQImage(UIImage* image) {
+    QImage::Format format = QImage::Format_RGB32;
+
+    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
+    CGFloat cols = image.size.width;
+    CGFloat rows = image.size.height;
+
+    QSize size(cols,rows);
+
+    QImage result = QImage(size,format);
+
+
+    CGContextRef contextRef = CGBitmapContextCreate(result.bits(),                 // Pointer to  data
+                                                   cols,                       // Width of bitmap
+                                                   rows,                       // Height of bitmap
+                                                   8,                          // Bits per component
+                                                   result.bytesPerLine(),              // Bytes per row
+                                                   colorSpace,                 // Colorspace
+                                                   kCGImageAlphaNoneSkipLast |
+                                                   kCGBitmapByteOrderDefault); // Bitmap info flags
+
+    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
+    CGContextRelease(contextRef);
+
+    return result;
+}
 
 static bool alertViewCreate(QVariantMap data) {
     Q_UNUSED(data);
@@ -114,6 +142,47 @@ static bool imagePickerControllerPresent(QVariantMap data) {
 
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = (UIImagePickerControllerSourceType) sourceType;
+
+    QIViewDelegate *delegate = [QIViewDelegate alloc];
+
+    delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
+                                                                     NSDictionary* info) {
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+
+        QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
+        QVariantMap data;
+
+        UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+        if (!chosenImage) {
+            chosenImage = info[UIImagePickerControllerOriginalImage];
+        }
+
+        if (!chosenImage) {
+            qWarning() << "Image Picker: Failed to take image";
+            name = "imagePickerControllerDidCancel";
+        } else {
+            QImage chosenQImage = cloneAsQImage(chosenImage);
+            data["image"] = QVariant::fromValue<QImage>(chosenQImage);
+        }
+
+        QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
+                                  Q_ARG(QString , name),
+                                  Q_ARG(QVariantMap,data));
+
+    };
+
+    delegate->imagePickerControllerDidCancel = ^(UIImagePickerController *picker) {
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+
+        qDebug() << "imagePickerControllerDidCancel";
+        QString name = "imagePickerControllerDidCancel";
+        QVariantMap data;
+        QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
+                                  Q_ARG(QString , name),
+                                  Q_ARG(QVariantMap,data));
+    };
+
+    picker.delegate = delegate;
 
     [rootViewController presentViewController:picker animated:YES completion:NULL];
 

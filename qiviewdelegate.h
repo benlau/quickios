@@ -5,7 +5,9 @@
 #include <UIKit/UIKit.h>
 
 @interface QIViewDelegate : NSObject<UIAlertViewDelegate,
-                                     UIActionSheetDelegate> {
+                                     UIActionSheetDelegate,
+                                     UIImagePickerControllerDelegate,
+                                     UINavigationControllerDelegate> {
 
     @public
 
@@ -14,5 +16,7 @@
 
     void ( ^ actionSheetClickedButtonAtIndex) (int);
 
+    void (^ imagePickerControllerDidFinishPickingMediaWithInfo)(UIImagePickerController* picker,NSDictionary* info);
+    void (^ imagePickerControllerDidCancel)(UIImagePickerController* picker);
 }
 @end
