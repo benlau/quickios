@@ -6,9 +6,17 @@
 #include "qisystemutils.h"
 #include "quickios.h"
 
+#ifndef Q_OS_IOS
+#include <QApplication>
+#endif
+
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_IOS
     QGuiApplication app(argc, argv);
+#else
+    QApplication app(argc,argv);
+#endif
 
     QQmlApplicationEngine engine;
 

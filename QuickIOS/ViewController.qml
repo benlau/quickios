@@ -93,8 +93,6 @@ Rectangle {
                   return;
               var child = content[0];
               child.anchors.fill = child.parent;
-              child.anchors.leftMargin = 20
-              child.anchors.rightMargin = 20
           }
       }
   }

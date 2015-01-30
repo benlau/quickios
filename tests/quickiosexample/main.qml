@@ -37,7 +37,7 @@ Window {
                         actionSheet.show();
                         break;
                     case 2:
-                        pickerAction.show();
+                        navigationController.push(Qt.resolvedUrl("imagePicker/ImagePickerDemo.qml"));
                         break;
                     case 3:
                         navigationController.push(Qt.resolvedUrl("toolBar/ToolBarDemo.qml"));

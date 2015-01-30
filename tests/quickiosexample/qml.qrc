@@ -6,5 +6,6 @@
         <file>img/ic_play@3x.png</file>
         <file>img/ic_play@2x.png</file>
         <file>toolBar/ToolBarDemo.qml</file>
+        <file>imagePicker/ImagePickerDemo.qml</file>
     </qresource>
 </RCC>
