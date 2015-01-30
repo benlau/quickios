@@ -13,8 +13,12 @@ ViewController {
         BarButtonItem {
             imageSourceSize: Qt.size(25,25)
             image : "../img/ic_play.png"
+            fontSize: 12
+            title : "Play"
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+            anchors.verticalCenter: parent.verticalCenter
         }
     }
 }

@@ -10,49 +10,70 @@ MouseArea {
     property alias image : imageItem.source
     property alias imageSourceSize : imageItem.sourceSize
 
+    property alias fontSize : textItem.font.pixelSize
+
     property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
-    opacity: pressed ? 0.2 : 1
+    width: Math.max(textItem.contentWidth+ 16,imageItem.width)
+    height: textItem.contentHeight * (title !== "" ) + imageItem.height
 
-    width: textItem.contentWidth + 16
-    height: textItem.contentHeight
+    Column {
+        width: parent.width
+        anchors.verticalCenter: parent.verticalCenter
 
-    Text {
-      id: textItem
-      anchors.centerIn: parent
-      font.family: "Helvetica Neue"
-      renderType: Text.NativeRendering
-      font.pixelSize: 16
-      color: barButtonItem.tintColor
-      verticalAlignment: Text.AlignVCenter
-      horizontalAlignment: Text.AlignHCenter
+        Image {
+            id : imageItem
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            ColorOverlay {
+                id : overlay
+                source: imageItem
+                anchors.fill: imageItem
+                color: tintColor
+                visible: image !== undefined
+            }
+
+        }
+
+        Text {
+          id: textItem
+          anchors.horizontalCenter: parent.horizontalCenter
+          font.family: "Helvetica Neue"
+          renderType: Text.NativeRendering
+          font.pixelSize: 16
+          color: barButtonItem.tintColor
+          verticalAlignment: Text.AlignVCenter
+          horizontalAlignment: Text.AlignHCenter
+        }
+
     }
 
-    Image {
-        id : imageItem
-        anchors.centerIn: parent
-    }
+    states: [
+        State {
+            when: pressed
 
-    ColorOverlay {
-        id : overlay
-        source: imageItem
-        anchors.fill: imageItem
-        color: tintColor
-        visible: image !== undefined
-    }
+            PropertyChanges {
+                target: barButtonItem
+                opacity : 0.2
 
-    Binding {
-        target: barButtonItem
-        property: "width"
-        value: imageItem.width
-        when: imageItem.status === Image.Ready
-    }
+            }
+        }
 
-    Binding {
-        target: barButtonItem
-        property: "height"
-        value: imageItem.height
-        when: imageItem.status === Image.Ready
-    }
+    ]
+
+    transitions : [
+        Transition {
+            from: "*"
+            to : "*"
+
+            NumberAnimation {
+                target: barButtonItem;
+                properties: "opacity";
+                easing.type: Easing.Linear
+                duration: 50
+            }
+        }
+
+    ]
 
 }
