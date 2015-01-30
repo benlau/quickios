@@ -19,13 +19,13 @@ ViewController {
 
         Segment {
             title : "red"
-            Rectangle {
+            ViewController {
                 color : "red"
             }
         }
         Segment {
             title : "blue"
-            Rectangle {
+            ViewController {
                 color : "blue"
             }
         }
@@ -42,7 +42,14 @@ ViewController {
             compare(segmentedControl.tintColor,"#000000");
             compare(segmentedControl.numberOfSegments,2)
             compare(segmentedControl.selectedSegmentIndex , 0);
+
+            var view1 = segmentedControl.itemAt(0);
+            compare(view1.tintColor, "#000000")
+
             segmentedControl.selectedSegmentIndex = 1;
+
+            var view2 = segmentedControl.itemAt(1);
+            compare(view2.tintColor, "#000000")
 
             wait(TestEnv.waitTime);
         }

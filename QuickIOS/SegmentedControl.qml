@@ -27,13 +27,29 @@ Item {
 
     property color barTintColor : "#ffffff"
 
+    /// Return the item segmented view at index.
+    function itemAt(index) {
+        return tabView.getTab(index).children[0];
+    }
+
     TabView {
         id: tabView
         anchors.fill: parent
+
         style: SegmentedControlTabViewStyle {
             id: tabViewStyle
             tintColor : segmentedControl.tintColor
             backgroundColor : barTintColor
+        }
+
+        onCurrentIndexChanged: {
+            var tab = getTab(currentIndex);
+            tab.tintColor = segmentedControl.tintColor;
+        }
+
+        Component.onCompleted: {
+            var tab = getTab(currentIndex);
+            tab.tintColor = segmentedControl.tintColor;
         }
     }
 
