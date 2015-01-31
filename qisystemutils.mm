@@ -129,6 +129,7 @@ static bool actionSheetCreate(QVariantMap data) {
 }
 
 static UIImagePickerController* imagePickerController = 0;
+static UIActivityIndicatorView* imagePickerControllerActivityIndicator = 0;
 
 static bool imagePickerControllerPresent(QVariantMap data) {
 
@@ -195,20 +196,45 @@ static bool imagePickerControllerPresent(QVariantMap data) {
 
     picker.delegate = delegate;
 
+    imagePickerControllerActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    imagePickerControllerActivityIndicator.center = picker.view.center;
+    imagePickerControllerActivityIndicator.hidesWhenStopped;
+    [picker.view addSubview:imagePickerControllerActivityIndicator];
+
     [rootViewController presentViewController:picker animated:YES completion:NULL];
 
     return true;
 }
 
 bool imagePickerControllerDismiss(QVariantMap data) {
+    Q_UNUSED(data);
     if (!imagePickerController)
         return;
 
     [imagePickerController dismissViewControllerAnimated:YES completion:NULL];
     [imagePickerController release];
-    imagePickerController = 0;
 
+    [imagePickerControllerActivityIndicator release];
+
+    imagePickerController = 0;
+    imagePickerControllerActivityIndicator = 0;
 }
+
+bool imagePickerControllerSetIndicator(QVariantMap data) {
+    if (!imagePickerControllerActivityIndicator)
+        return false;
+
+    bool active = data["active"].toBool();
+
+    if (active) {
+        [imagePickerControllerActivityIndicator startAnimation];
+    } else {
+        [imagePickerControllerActivityIndicator stopAnimation];
+    }
+
+    return true;
+}
+
 
 static bool applicationSetStatusBarStyle(QVariantMap data) {
     qDebug() << data;
@@ -265,10 +291,10 @@ QISystemUtils *QISystemUtils::instance()
         handlers["actionSheetCreate"]  = actionSheetCreate;
         handlers["imagePickerControllerPresent"] = imagePickerControllerPresent;
         handlers["imagePickerControllerDismiss"] = imagePickerControllerDismiss;
+        handlers["imagePickerControllerSetIndicator"] = imagePickerControllerSetIndicator;
 
         handlers["activityIndicatorStartAnimation"] = activityIndicatorStartAniamtion;
         handlers["activityIndicatorStopAnimation"] = activityIndicatorStopAnimation;
-
     }
     return m_instance;
 }

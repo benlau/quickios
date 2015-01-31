@@ -45,6 +45,7 @@ QIImagePicker::QIImagePicker(QQuickItem *parent) : QQuickItem(parent)
 {
     m_sourceType = PhotoLibrary;
     m_status = Null;
+    m_busy;
 }
 
 QIImagePicker::~QIImagePicker()
@@ -191,6 +192,26 @@ void QIImagePicker::endSave(QString fileName)
         setStatus(Ready);
     }
 }
+bool QIImagePicker::busy() const
+{
+    return m_busy;
+}
+
+void QIImagePicker::setBusy(bool busy)
+{
+    if (m_busy == busy)
+        return;
+
+    m_busy = busy;
+    QISystemUtils* system = QISystemUtils::instance();
+
+    QVariantMap data;
+    data["active"] = m_busy;
+
+    system->sendMessage("imagePickerControllerSetIndicator",data);
+    emit busyChanged();
+}
+
 
 
 

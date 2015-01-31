@@ -14,6 +14,7 @@ ViewController {
         BarButtonItem {
             title : "Camera"
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillWidth: true
             Layout.fillHeight: true
 
             onClicked : {
@@ -27,6 +28,7 @@ ViewController {
             title : "Photo Library"
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
+            Layout.fillWidth: true
 
             onClicked : {
                 picker.sourceType = ImagePicker.PhotoLibrary
@@ -38,6 +40,7 @@ ViewController {
             title : "Saved Album"
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
+            Layout.fillWidth: true
 
             onClicked : {
                 picker.sourceType = ImagePicker.PhotoLibrary
@@ -58,6 +61,7 @@ ViewController {
         onReady: {
             if (status === ImagePicker.Ready) {
                 image.source = "";
+                picker.busy = true;
                 picker.saveAsTemp();
             }
         }
@@ -66,6 +70,7 @@ ViewController {
             console.log("The image is saved to " + fileName);
             image.source = fileName;
             picker.close();
+            picker.busy = false;
         }
     }
 

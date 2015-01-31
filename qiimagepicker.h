@@ -13,6 +13,7 @@ class QIImagePicker : public QQuickItem
     Q_PROPERTY(SourceType sourceType READ sourceType WRITE setSourceType NOTIFY sourceTypeChanged)
     Q_PROPERTY(QImage image READ image WRITE setImage NOTIFY imageChanged)
     Q_PROPERTY(Status status READ status WRITE setStatus NOTIFY statusChanged)
+    Q_PROPERTY(bool busy READ busy WRITE setBusy NOTIFY busyChanged)
 
 public:
     enum SourceType {
@@ -51,10 +52,14 @@ public:
     Status status() const;
     void setStatus(const Status &status);
 
+    bool busy() const;
+    void setBusy(bool busy);
+
 signals:
     void sourceTypeChanged();
     void imageChanged();
     void statusChanged();
+    void busyChanged();
 
     void ready();
     void saved(QString fileName);
@@ -67,6 +72,7 @@ private:
     SourceType m_sourceType;
     QImage m_image;
     Status m_status;
+    bool m_busy;
 };
 
 #endif // QIIMAGEPICKER_H
