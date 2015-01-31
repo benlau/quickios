@@ -95,6 +95,16 @@ Rectangle {
       }
   }
 
+  onParentChanged: {
+      var p = parent;
+      while (p) {
+          if (p.hasOwnProperty("navigationController")) {
+              navigationController = p.navigationController;
+              break;
+          }
+          p = p.parent;
+      }
+  }
 
   Component { // Create a container for the view added by presentViewController
       id: viewContainer
@@ -146,4 +156,5 @@ Rectangle {
           }
       }
   }
+
 }

@@ -6,30 +6,36 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls 1.2 as Quick
 import QtQml.Models 2.1
 
-ViewController {
+NavigationController {
     id: window
     height: 640 // For desktop
     width: 480
     visible: true
     tintColor : "#000000"
 
-    SegmentedControl {
-        id: segmentedControl
-        anchors.fill: parent
+    initialViewController: ViewController {
+        id: viewController
+        title : "Segmented Control"
 
-        Segment {
-            title : "red"
-            ViewController {
-                color : "red"
-            }
-        }
-        Segment {
-            title : "blue"
-            ViewController {
-                color : "blue"
-            }
-        }
+        SegmentedControl {
+            id: segmentedControl
+            anchors.fill: parent
 
+            Segment {
+                title : "red"
+                ViewController {
+                    color : "red"
+                }
+            }
+
+            Segment {
+                title : "blue"
+                ViewController {
+                    color : "blue"
+                }
+            }
+
+        }
     }
 
     TestCase {
@@ -44,7 +50,10 @@ ViewController {
             compare(segmentedControl.selectedSegmentIndex , 0);
 
             var view1 = segmentedControl.itemAt(0);
-            compare(view1.tintColor, "#000000")
+            compare(view1.tintColor, "#000000");
+            compare(viewController.navigationController , window);
+            compare(viewController.navigationController , view1.navigationController);
+
 
             segmentedControl.selectedSegmentIndex = 1;
 
