@@ -95,6 +95,13 @@ void QIImagePicker::show()
 #endif
 }
 
+void QIImagePicker::close()
+{
+    QISystemUtils* system = QISystemUtils::instance();
+
+    system->sendMessage("imagePickerControllerDismiss",QVariantMap());
+}
+
 void QIImagePicker::save(QString fileName)
 {
     QIImagePickerSaver* saver = new QIImagePickerSaver();
@@ -158,6 +165,7 @@ void QIImagePicker::onReceived(QString name, QVariantMap data)
     if (name == "imagePickerControllerDidCancel") {
         setStatus(Null);
         system->disconnect(this);
+        close();
     }
 
     if (name != "imagePickerControllerDisFinishPickingMetaWithInfo")

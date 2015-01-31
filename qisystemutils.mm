@@ -128,6 +128,8 @@ static bool actionSheetCreate(QVariantMap data) {
     return true;
 }
 
+static UIImagePickerController* imagePickerController = 0;
+
 static bool imagePickerControllerPresent(QVariantMap data) {
 
     UIApplication* app = [UIApplication sharedApplication];
@@ -152,13 +154,14 @@ static bool imagePickerControllerPresent(QVariantMap data) {
     }
 
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    imagePickerController = picker;
     picker.sourceType = (UIImagePickerControllerSourceType) sourceType;
 
     QIViewDelegate *delegate = [QIViewDelegate alloc];
 
     delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
                                                                      NSDictionary* info) {
-        [picker dismissViewControllerAnimated:YES completion:NULL];
+//        [picker dismissViewControllerAnimated:YES completion:NULL];
 
         QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
         QVariantMap data;
@@ -183,9 +186,6 @@ static bool imagePickerControllerPresent(QVariantMap data) {
     };
 
     delegate->imagePickerControllerDidCancel = ^(UIImagePickerController *picker) {
-        [picker dismissViewControllerAnimated:YES completion:NULL];
-
-        qDebug() << "imagePickerControllerDidCancel";
         QString name = "imagePickerControllerDidCancel";
         QVariantMap data;
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
@@ -198,6 +198,16 @@ static bool imagePickerControllerPresent(QVariantMap data) {
     [rootViewController presentViewController:picker animated:YES completion:NULL];
 
     return true;
+}
+
+bool imagePickerControllerDismiss(QVariantMap data) {
+    if (!imagePickerController)
+        return;
+
+    [imagePickerController dismissViewControllerAnimated:YES completion:NULL];
+    [imagePickerController release];
+    imagePickerController = 0;
+
 }
 
 static bool applicationSetStatusBarStyle(QVariantMap data) {
@@ -215,13 +225,14 @@ static bool applicationSetStatusBarStyle(QVariantMap data) {
 static UIActivityIndicatorView* activityIndicator = 0;
 
 static bool activityIndicatorStartAniamtion(QVariantMap data) {
-    qDebug() << "starting animation";
     Q_UNUSED(data);
     if (!activityIndicator) {
-        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        activityIndicator.center = CGPointMake(160,240);
-        activityIndicator.hidesWhenStopped = YES;
         UIViewController* rootView = rootViewController();
+
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.center = rootView.view.center;
+        activityIndicator.hidesWhenStopped = YES;
+
         qDebug() << rootView.view.tintColor;
         [rootView.view addSubview:activityIndicator];
     }
@@ -253,6 +264,7 @@ QISystemUtils *QISystemUtils::instance()
         handlers["applicationSetStatusBarStyle"]  = applicationSetStatusBarStyle;
         handlers["actionSheetCreate"]  = actionSheetCreate;
         handlers["imagePickerControllerPresent"] = imagePickerControllerPresent;
+        handlers["imagePickerControllerDismiss"] = imagePickerControllerDismiss;
 
         handlers["activityIndicatorStartAnimation"] = activityIndicatorStartAniamtion;
         handlers["activityIndicatorStopAnimation"] = activityIndicatorStopAnimation;

@@ -57,6 +57,7 @@ ViewController {
         onSaved: {
             console.log("The image is saved to " + fileName);
             image.source = fileName;
+            picker.close();
         }
     }
 
