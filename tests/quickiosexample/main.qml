@@ -22,25 +22,25 @@ Window {
 
                 headerTitle: "System Components"
                 model: ListModel {
-                    ListElement { title : "Alert View" }
+                    ListElement { title : "Alert View" ; file : "alertview/AlertViewDemo.qml" }
                     ListElement { title : "Action Sheet" }
-                    ListElement { title : "Image Picker" }
-                    ListElement { title : "Tool Bar" }
+                    ListElement { title : "Image Picker" ; file :"imagePicker/ImagePickerDemo.qml" }
+                    ListElement { title : "Tool Bar"; file : "toolBar/ToolBarDemo.qml" }
+                    ListElement { title : "Activity Indicator" }
                 }
 
                 onSelected: {
                     switch (index) {
-                    case 0:
-                        navigationController.push(Qt.resolvedUrl("alertview/AlertViewDemo.qml"));
-                        break;
                     case 1:
                         actionSheet.show();
                         break;
-                    case 2:
-                        navigationController.push(Qt.resolvedUrl("imagePicker/ImagePickerDemo.qml"));
+                    case 4:
+                        activityIndicator.startAnimation();
+                        activityIndicatorTimer.start();
                         break;
-                    case 3:
-                        navigationController.push(Qt.resolvedUrl("toolBar/ToolBarDemo.qml"));
+                    default:
+                        var item = model.get(index);
+                        navigationController.push(Qt.resolvedUrl(item.file));
                         break;
                     }
                 }
@@ -73,6 +73,16 @@ Window {
         onClicked: {
             picker.sourceType = index;
             picker.show();
+        }
+    }
+
+    ActivityIndicator {
+        id : activityIndicator
+
+        Timer {
+            id : activityIndicatorTimer;
+            interval : 3000
+            onTriggered: activityIndicator.stopAnimation();
         }
     }
 

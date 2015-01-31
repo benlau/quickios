@@ -58,22 +58,6 @@ MouseArea {
 
             }
         }
-
-    ]
-
-    transitions : [
-        Transition {
-            from: "*"
-            to : "*"
-
-            NumberAnimation {
-                target: barButtonItem;
-                properties: "opacity";
-                easing.type: Easing.Linear
-                duration: 50
-            }
-        }
-
     ]
 
 }

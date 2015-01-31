@@ -37,6 +37,17 @@ static QImage cloneAsQImage(UIImage* image) {
     return result;
 }
 
+static UIViewController* rootViewController() {
+    UIApplication* app = [UIApplication sharedApplication];
+
+    if (app.windows.count <= 0)
+        return 0;
+
+    UIWindow* rootWindow = app.windows[0];
+    UIViewController* rootViewController = rootWindow.rootViewController;
+    return rootViewController;
+}
+
 static bool alertViewCreate(QVariantMap data) {
     Q_UNUSED(data);
 
@@ -201,6 +212,37 @@ static bool applicationSetStatusBarStyle(QVariantMap data) {
     return true;
 }
 
+static UIActivityIndicatorView* activityIndicator = 0;
+
+static bool activityIndicatorStartAniamtion(QVariantMap data) {
+    qDebug() << "starting animation";
+    Q_UNUSED(data);
+    if (!activityIndicator) {
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.center = CGPointMake(160,240);
+        activityIndicator.hidesWhenStopped = YES;
+        UIViewController* rootView = rootViewController();
+        qDebug() << rootView.view.tintColor;
+        [rootView.view addSubview:activityIndicator];
+    }
+
+    [activityIndicator startAnimating];
+    return true;
+}
+
+static bool activityIndicatorStopAnimation(QVariantMap data) {
+    Q_UNUSED(data);
+
+    if (!activityIndicator) {
+        return false;
+    }
+
+    [activityIndicator stopAnimating];
+    [activityIndicator release];
+    activityIndicator = 0;
+    return true;
+}
+
 QISystemUtils *QISystemUtils::instance()
 {
     if (!m_instance) {
@@ -211,6 +253,9 @@ QISystemUtils *QISystemUtils::instance()
         handlers["applicationSetStatusBarStyle"]  = applicationSetStatusBarStyle;
         handlers["actionSheetCreate"]  = actionSheetCreate;
         handlers["imagePickerControllerPresent"] = imagePickerControllerPresent;
+
+        handlers["activityIndicatorStartAnimation"] = activityIndicatorStartAniamtion;
+        handlers["activityIndicatorStopAnimation"] = activityIndicatorStopAnimation;
 
     }
     return m_instance;

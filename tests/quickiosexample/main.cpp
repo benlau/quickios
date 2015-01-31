@@ -1,3 +1,4 @@
+
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -32,6 +33,8 @@ int main(int argc, char *argv[])
     QuickIOS::setupWindow(window);
 
     QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyleDefault);
+
+    QISystemUtils::instance()->sendMessage("activityIndicatorStart",QVariantMap());
 
     return app.exec();
 }
