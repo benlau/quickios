@@ -32,6 +32,10 @@ Item {
         return tabView.getTab(index).children[0];
     }
 
+    MouseArea {
+        anchors.fill: parent
+    }
+
     TabView {
         id: tabView
         anchors.fill: parent

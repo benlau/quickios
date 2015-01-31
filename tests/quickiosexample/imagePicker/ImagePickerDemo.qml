@@ -9,19 +9,25 @@ ViewController {
 
     toolBarItems: RowLayout {
         property color tintColor : view.tintColor
+        anchors.fill: parent
 
         BarButtonItem {
             title : "Camera"
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillHeight: true
+
             onClicked : {
                 picker.sourceType = ImagePicker.Camera
                 picker.show();
             }
+
         }
 
         BarButtonItem {
             title : "Photo Library"
             Layout.alignment: Qt.AlignHCenter
+            Layout.fillHeight: true
+
             onClicked : {
                 picker.sourceType = ImagePicker.PhotoLibrary
                 picker.show();
@@ -31,6 +37,8 @@ ViewController {
         BarButtonItem {
             title : "Saved Album"
             Layout.alignment: Qt.AlignHCenter
+            Layout.fillHeight: true
+
             onClicked : {
                 picker.sourceType = ImagePicker.PhotoLibrary
                 picker.show();

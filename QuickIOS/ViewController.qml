@@ -55,8 +55,6 @@ Rectangle {
       view._modelTransition.view = view;
 
       var container = viewContainer.createObject(root, { view: view,transition : transition});
-      view.width = Qt.binding(function() {return container.width });
-      view.height = Qt.binding(function() {return container.height });
 
       view.parent = container;
 
@@ -137,6 +135,13 @@ Rectangle {
                   viewController.enabled = true;
                   view.viewDidDisappear(true);
                   container.destroy();                  
+              }
+          }
+
+          onViewChanged: {
+              if (view) {
+                  view.width = Qt.binding(function() {return container.width });
+                  view.height = Qt.binding(function() {return container.height });
               }
           }
       }

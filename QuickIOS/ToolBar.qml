@@ -16,6 +16,10 @@ Rectangle {
 
     color : barTintColor
 
+    MouseArea { // Block all the mouse event
+        anchors.fill: parent
+    }
+
     Rectangle {
         anchors.top: parent.top
         anchors.left: parent.left
