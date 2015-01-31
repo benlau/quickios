@@ -49,6 +49,7 @@ ViewController {
 
         onReady: {
             if (status === ImagePicker.Ready) {
+                image.source = "";
                 picker.saveAsTemp();
             }
         }

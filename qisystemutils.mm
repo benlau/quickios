@@ -28,8 +28,8 @@ static QImage cloneAsQImage(UIImage* image) {
                                                    8,                          // Bits per component
                                                    result.bytesPerLine(),              // Bytes per row
                                                    colorSpace,                 // Colorspace
-                                                   kCGImageAlphaNoneSkipLast |
-                                                   kCGBitmapByteOrderDefault); // Bitmap info flags
+                                                   kCGImageAlphaNoneSkipFirst |
+                                                   kCGBitmapByteOrder32Little); // Bitmap info flags
 
     CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
     CGContextRelease(contextRef);
