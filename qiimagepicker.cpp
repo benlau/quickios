@@ -6,6 +6,7 @@
 #include <QPointer>
 #include <QThreadPool>
 #include <QImageWriter>
+#include <QImageReader>
 #include "qisystemutils.h"
 #include "qiimagepicker.h"
 
@@ -45,7 +46,7 @@ QIImagePicker::QIImagePicker(QQuickItem *parent) : QQuickItem(parent)
 {
     m_sourceType = PhotoLibrary;
     m_status = Null;
-    m_busy;
+    m_busy = false;
 }
 
 QIImagePicker::~QIImagePicker()
@@ -86,11 +87,18 @@ void QIImagePicker::show()
     if (file.isNull()) {
         setStatus(Null);
     } else {
-        QImage image;
-        if (!image.load(file)) {
+        QImageReader reader;
+        reader.setFileName(file);
+        QImage image = reader.read();
+
+        if (image.isNull()) {
             setStatus(Null);
         } else {
+            QUrl url = QUrl::fromLocalFile(file);
+
             setImage(image);
+            setReferenceUrl(url.toString());
+
             setStatus(Ready);
             emit ready();
         }
@@ -176,8 +184,11 @@ void QIImagePicker::onReceived(QString name, QVariantMap data)
 
     system->disconnect(this);
     QImage image = data["image"].value<QImage>();
-
     setImage(image);
+    setMediaType(data["mediaType"].toString());
+    setMediaUrl(data["mediaUrl"].toString());
+    setReferenceUrl(data["referenceUrl"].toString());
+
     setStatus(Ready);
     emit ready();
 }
@@ -194,6 +205,39 @@ void QIImagePicker::endSave(QString fileName)
         setStatus(Ready);
     }
 }
+QString QIImagePicker::referenceUrl() const
+{
+    return m_referenceUrl;
+}
+
+void QIImagePicker::setReferenceUrl(const QString &referenceUrl)
+{
+    m_referenceUrl = referenceUrl;
+    emit referenceUrlChanged();
+}
+
+QString QIImagePicker::mediaUrl() const
+{
+    return m_mediaUrl;
+}
+
+void QIImagePicker::setMediaUrl(const QString &mediaUrl)
+{
+    m_mediaUrl = mediaUrl;
+    emit mediaUrlChanged();
+}
+
+QString QIImagePicker::mediaType() const
+{
+    return m_mediaType;
+}
+
+void QIImagePicker::setMediaType(const QString &mediaType)
+{
+    m_mediaType = mediaType;
+    emit mediaTypeChanged();
+}
+
 bool QIImagePicker::busy() const
 {
     return m_busy;

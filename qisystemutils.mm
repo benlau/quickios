@@ -37,6 +37,12 @@ static QImage cloneAsQImage(UIImage* image) {
     return result;
 }
 
+static QString fromNSUrl(NSURL* url) {
+    QString result = QString::fromNSString([url absoluteString]);
+
+    return result;
+}
+
 static UIViewController* rootViewController() {
     UIApplication* app = [UIApplication sharedApplication];
 
@@ -180,6 +186,10 @@ static bool imagePickerControllerPresent(QVariantMap data) {
             data["image"] = QVariant::fromValue<QImage>(chosenQImage);
         }
 
+        data["mediaType"] = QString::fromNSString(info[UIImagePickerControllerMediaType]);
+        data["mediaUrl"] = fromNSUrl(info[UIImagePickerControllerMediaURL]);
+        data["referenceUrl"] = fromNSUrl(info[UIImagePickerControllerReferenceURL]);
+
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
@@ -209,7 +219,7 @@ static bool imagePickerControllerPresent(QVariantMap data) {
 bool imagePickerControllerDismiss(QVariantMap data) {
     Q_UNUSED(data);
     if (!imagePickerController)
-        return;
+        return false;
 
     [imagePickerController dismissViewControllerAnimated:YES completion:NULL];
     [imagePickerController release];
@@ -218,6 +228,7 @@ bool imagePickerControllerDismiss(QVariantMap data) {
 
     imagePickerController = 0;
     imagePickerControllerActivityIndicator = 0;
+    return true;
 }
 
 bool imagePickerControllerSetIndicator(QVariantMap data) {

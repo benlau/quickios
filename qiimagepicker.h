@@ -14,6 +14,9 @@ class QIImagePicker : public QQuickItem
     Q_PROPERTY(QImage image READ image WRITE setImage NOTIFY imageChanged)
     Q_PROPERTY(Status status READ status WRITE setStatus NOTIFY statusChanged)
     Q_PROPERTY(bool busy READ busy WRITE setBusy NOTIFY busyChanged)
+    Q_PROPERTY(QString mediaType READ mediaType WRITE setMediaType NOTIFY mediaTypeChanged)
+    Q_PROPERTY(QString mediaUrl READ mediaUrl WRITE setMediaUrl NOTIFY mediaUrlChanged)
+    Q_PROPERTY(QString referenceUrl READ referenceUrl WRITE setReferenceUrl NOTIFY referenceUrlChanged)
 
 public:
     enum SourceType {
@@ -55,11 +58,23 @@ public:
     bool busy() const;
     void setBusy(bool busy);
 
+    QString mediaType() const;
+    void setMediaType(const QString &mediaType);
+
+    QString mediaUrl() const;
+    void setMediaUrl(const QString &mediaUrl);
+
+    QString referenceUrl() const;
+    void setReferenceUrl(const QString &referenceUrl);
+
 signals:
     void sourceTypeChanged();
     void imageChanged();
     void statusChanged();
     void busyChanged();
+    void referenceUrlChanged();
+    void mediaTypeChanged();
+    void mediaUrlChanged();
 
     void ready();
     void saved(QString fileName);
@@ -72,6 +87,11 @@ private:
     SourceType m_sourceType;
     QImage m_image;
     Status m_status;
+
+    QString m_mediaType;
+    QString m_mediaUrl;
+    QString m_referenceUrl;
+
     bool m_busy;
 };
 
