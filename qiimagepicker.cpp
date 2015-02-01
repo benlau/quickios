@@ -60,8 +60,6 @@ void QIImagePicker::show()
     }
 
 #ifdef Q_OS_IOS
-    setStatus(Running);
-
     QISystemUtils* system = QISystemUtils::instance();
 
     QVariantMap data;
@@ -70,7 +68,11 @@ void QIImagePicker::show()
     connect(system,SIGNAL(received(QString,QVariantMap)),
             this,SLOT(onReceived(QString,QVariantMap)));
 
-    system->sendMessage("imagePickerControllerPresent",data);
+    bool res = system->sendMessage("imagePickerControllerPresent",data);
+
+    if (res) {
+        setStatus(Running);
+    }
 
 #else
     setStatus(Running);
