@@ -76,6 +76,7 @@ void QIImagePicker::show()
     }
 
 #else
+    // For desktop preview
     setStatus(Running);
     QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
 
@@ -97,6 +98,7 @@ void QIImagePicker::show()
             QUrl url = QUrl::fromLocalFile(file);
 
             setImage(image);
+            setMediaType("public.image");
             setReferenceUrl(url.toString());
 
             setStatus(Ready);

@@ -11,7 +11,7 @@ Rectangle {
 
   property string title : ""
 
-  default property alias content : viewport.children
+  default property alias content : viewport.data
 
   property var navigationController
   // It can't set type to NavigationController. It will create cyclic dependenices.
@@ -99,7 +99,9 @@ Rectangle {
       var p = parent;
       while (p) {
           if (p.hasOwnProperty("navigationController")) {
-              navigationController = p.navigationController;
+              navigationController = Qt.binding(function() {
+                  return p.navigationController;
+              });
               break;
           }
           p = p.parent;

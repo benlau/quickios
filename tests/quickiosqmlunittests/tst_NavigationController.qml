@@ -314,8 +314,10 @@ Rectangle {
             compare(view.navigationController,navigationView2);
 
             navigationView2.push(viewWithTitleOnly);
+            var view2 = navigationView2.views.get(1).object
             compare(navigationView2.views.count , 2);
             compare(navigationView2.navigationBar.views.count , 2);
+            compare(view2.navigationController,navigationView2);
 
             wait(TestEnv.waitTime);
             navigationView2.visible = false;
