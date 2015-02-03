@@ -59,7 +59,7 @@ static bool alertViewCreate(QVariantMap data) {
 
     QIViewDelegate *delegate = [QIViewDelegate alloc];
 
-    delegate->alertViewClickedButtonAtIndex = ^(NSInteger buttonIndex) {
+    delegate->alertViewClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "alertViewClickedButtonAtIndex";
         QVariantMap data;
         data["buttonIndex"] = buttonIndex;
@@ -94,7 +94,7 @@ static bool alertViewCreate(QVariantMap data) {
 static bool actionSheetCreate(QVariantMap data) {
     QIViewDelegate *delegate = [QIViewDelegate alloc];
 
-    delegate->actionSheetClickedButtonAtIndex = ^(NSInteger buttonIndex) {
+    delegate->actionSheetClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "actionSheetClickedButtonAtIndex";
         QVariantMap data;
         data["buttonIndex"] = buttonIndex;
