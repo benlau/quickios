@@ -43,8 +43,8 @@ NavigationController {
         when : windowShown
 
         function test_preview() {
-            compare(rootView.toolBar.height,44);
-            compare(window.toolBar.height,0);
+            compare(rootView.toolBarItem.height,44);
+            compare(window.toolBarItem.height,0);
 
             wait(TestEnv.waitTime);
         }

@@ -20,7 +20,10 @@ Rectangle {
 
   property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
-  property alias toolBar: toolBar
+  /// The current toolBar instance
+  property alias toolBarItem: toolBar
+
+  /// The assigned item will be placed within the tool bar
   property alias toolBarItems : toolBar.content
 
   signal viewWillAppear(bool animated)
