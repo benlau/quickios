@@ -82,21 +82,26 @@ Rectangle {
       }
   }
 
-  BarButtonItem {
-      id: backButton
-      opacity: views.count > 1 ? 1 : 0
-      enabled: views.count > 1
-      image: "qrc:///QuickIOS/images/back.png"
-      objectName : "NavigationBarBackButton"
-      tintColor: navigationBar.tintColor
-      onClicked: {
-          navigationBar.backClicked();
-      }
+  Item {
       anchors.left: parent.left
-      anchors.top : parent.top
+//      anchors.top : parent.top
       anchors.bottom: parent.bottom
 
       width: 22 + 16;
+      height: 44
+
+      BarButtonItem {
+          id: backButton
+          opacity: views.count > 1 ? 1 : 0
+          enabled: views.count > 1
+          image: "qrc:///QuickIOS/images/back.png"
+          objectName : "NavigationBarBackButton"
+          tintColor: navigationBar.tintColor
+          onClicked: {
+              navigationBar.backClicked();
+          }
+          anchors.fill: parent
+      }
   }
 
   Repeater {

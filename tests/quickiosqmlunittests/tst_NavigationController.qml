@@ -450,6 +450,28 @@ Rectangle {
             wait(500);
         }
 
+        function test_statusBar() {
+            // test cases related to status bar
+            navigationView.push(viewWithCustomTintColor);
+            wait(500);
+
+            var backButton = TestEnv.findChild(window,"NavigationBarBackButton");
+            compare(backButton.enabled,true);
+
+            var y = window.mapFromItem(backButton,backButton.x,backButton.y).y;
+            compare(y,0);
+
+            QIDevice.screenFillStatusBar = true;
+            y = window.mapFromItem(backButton,backButton.x,backButton.y).y;
+            compare(y,20);
+
+            wait(TestEnv.waitTime);
+            QIDevice.screenFillStatusBar = false;
+
+            navigationView.pop();
+            wait(500);
+        }
+
         function test_preview() {
             // Just test the dimen. And let user to try the component.
             var backButton = TestEnv.findChild(window,"NavigationBarBackButton");
@@ -460,6 +482,7 @@ Rectangle {
 
             wait(TestEnv.waitTime);
         }
+
     }
 
 
