@@ -74,15 +74,6 @@ Rectangle {
 
     Ruler {
         anchors.top:parent.top
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        width: 12
-        height: 44
-        orientation: Qt.Horizontal
-    }
-
-    Ruler {
-        anchors.top:parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         width: 120
         orientation: Qt.Horizontal
@@ -115,6 +106,8 @@ Rectangle {
             property NavigationItem navigationItem : NavigationItem {
                 leftBarButtonItem: BarButtonItem {
                     id: leftButton
+                    objectName : "LeftButton"
+
                     title: "Cancel"
                     Ruler {
                         anchors.fill: parent
@@ -123,6 +116,7 @@ Rectangle {
                 }
                 rightBarButtonItem: BarButtonItem {
                     title: "OK"
+                    objectName : "RightButton"
                     Ruler {
                         anchors.fill: parent
                         orientation: Qt.Horizontal
@@ -341,6 +335,21 @@ Rectangle {
             wait(500);
             var view = navigationView2.views.get(navigationView2.views.count -1 ).object;
             compare(view.cancelButton.height,44);
+
+            var rightButton = TestEnv.findChild(navigationView2,"RightButton");
+            var x = window.mapFromItem(rightButton,rightButton.x,rightButton.y).x;
+            compare(x + rightButton.width,window.width);
+
+            navigationView2.push(viewWithTitleAndLeftRightButton);
+            wait(500);
+
+            var leftButton = TestEnv.findChild(navigationView2.views.get(1).object,"LeftButton");
+            x = window.mapFromItem(leftButton,leftButton.x,leftButton.y).x;
+            var backButton = TestEnv.findChild(window,"NavigationBarBackButton");
+            compare(x,backButton.width);
+
+            wait(TestEnv.waitTime);
+            navigationView2.pop();
 
             navigationView2.pop();
             navigationView2.visible = false;

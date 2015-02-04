@@ -61,7 +61,7 @@ Rectangle {
   Item {
       // The area reserved for right bar.
       id : rightBarArea
-      x: parent.width - rightBarRepeater.width - 12
+      x: parent.width - rightBarRepeater.width
       anchors.top: parent.top
       anchors.bottom: parent.bottom
 
