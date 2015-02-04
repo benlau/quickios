@@ -14,7 +14,7 @@ MouseArea {
 
     property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
-    width: Math.max(textItem.contentWidth+ 16,imageItem.width)
+    width: Math.max(textItem.contentWidth,imageItem.width)  + 16
     height: textItem.contentHeight * (title !== "" ) + imageItem.height
 
     Column {

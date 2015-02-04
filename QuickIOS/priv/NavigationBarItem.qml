@@ -50,7 +50,7 @@ Rectangle {
       anchors.bottom: parent.bottom
 
       Row {
-          spacing : 8
+//          spacing : 8
           anchors.verticalCenter: parent.verticalCenter
           Repeater {
               model : leftBarButtonItems
@@ -67,7 +67,7 @@ Rectangle {
 
       Row {
           id: rightBarRepeater
-          spacing : 8
+//          spacing : 8
           anchors.verticalCenter: parent.verticalCenter
           Repeater {
               model : rightBarButtonItems

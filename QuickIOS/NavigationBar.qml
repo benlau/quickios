@@ -82,25 +82,20 @@ Rectangle {
       }
   }
 
-  Item {
-      anchors.left: parent.left
-      anchors.leftMargin: 8
-      anchors.bottom: parent.bottom
-      width: 22
-      height: 44
-
-      BarButtonItem {
-          id: backButton
-          anchors.fill: parent
-          visible: views.count > 1
-          image: "qrc:///QuickIOS/images/back.png"
-          tintColor: navigationBar.tintColor
-          onClicked: {
-           navigationBar.backClicked();
-          }
+  BarButtonItem {
+      id: backButton
+      opacity: views.count > 1 ? 1 : 0
+      image: "qrc:///QuickIOS/images/back.png"
+      tintColor: navigationBar.tintColor
+      onClicked: {
+       navigationBar.backClicked();
       }
-  }
+      anchors.left: parent.left
+      anchors.top : parent.top
+      anchors.bottom: parent.bottom
 
+      width: 22 + 16;
+  }
 
   Repeater {
       id: viewsListener
