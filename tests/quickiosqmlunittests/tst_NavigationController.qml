@@ -423,6 +423,20 @@ Rectangle {
             wait(TestEnv.waitTime);
 
             navigationView.pop();
+            wait(500);
+        }
+
+        function test_pushObject() {
+            var object = viewWithCustomTintColor.createObject(this);
+            navigationView.push(object);
+            wait(500);
+
+            compare(navigationView.views.count,2);
+            var view = navigationView.navigationBar.views.get(1).object;
+            compare(view , object);
+
+            navigationView.pop();
+            wait(500);
         }
 
         function test_preview() {

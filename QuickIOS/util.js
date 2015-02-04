@@ -12,13 +12,16 @@ function createObject(source,parent,options) {
             return;
         }
         view = comp.createObject(parent,options || {});
-    } else {
+    } else if ( String(source).indexOf("QQmlComponent") === 0) {
         // It is a component object
         view = source.createObject(parent,options || {});
         if (view === null) {
             console.warn(source.errorString());
             return;
         }
+    } else { // It is a already created object
+        view = source;
+        view.parent = parent;
     }
 
     return view;
