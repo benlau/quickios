@@ -45,7 +45,7 @@ Rectangle {
       // The area reserved for right bar.
       id : leftBarArea
       anchors.left: parent.left
-      anchors.leftMargin: backStage ? 22 + 12 : 12
+      anchors.leftMargin: backStage ? 22 + 16 : 0
       anchors.top: parent.top
       anchors.bottom: parent.bottom
 

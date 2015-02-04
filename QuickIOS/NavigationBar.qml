@@ -85,7 +85,9 @@ Rectangle {
   BarButtonItem {
       id: backButton
       opacity: views.count > 1 ? 1 : 0
+      enabled: views.count > 1
       image: "qrc:///QuickIOS/images/back.png"
+      objectName : "NavigationBarBackButton"
       tintColor: navigationBar.tintColor
       onClicked: {
           navigationBar.backClicked();

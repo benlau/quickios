@@ -29,6 +29,10 @@ Rectangle {
                     leftBarButtonItem: BarButtonItem {
                         id : rootViewLeftButton
                         title: "Left"
+
+                        Ruler {
+                            anchors.fill: parent
+                        }
                     }
                 }
 
@@ -250,6 +254,13 @@ Rectangle {
         }
     }
 
+    Component {
+        id : hRuler
+        Ruler {
+            anchors.fill: parent
+            orientation : Qt.Horizontal
+        }
+    }
 
 
     TestCase {
@@ -440,9 +451,13 @@ Rectangle {
         }
 
         function test_preview() {
-            // Just demo the look and feel.
-            // It don't do any checking yet
-//            wait(60000);
+            // Just test the dimen. And let user to try the component.
+            var backButton = TestEnv.findChild(window,"NavigationBarBackButton");
+            compare(backButton.enabled,false);
+
+            var x = window.mapFromItem(rootViewLeftButton,rootViewLeftButton.x).x;
+            compare(x,0);
+
             wait(TestEnv.waitTime);
         }
     }
