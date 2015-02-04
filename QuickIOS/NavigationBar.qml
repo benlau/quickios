@@ -88,7 +88,7 @@ Rectangle {
       image: "qrc:///QuickIOS/images/back.png"
       tintColor: navigationBar.tintColor
       onClicked: {
-       navigationBar.backClicked();
+          navigationBar.backClicked();
       }
       anchors.left: parent.left
       anchors.top : parent.top

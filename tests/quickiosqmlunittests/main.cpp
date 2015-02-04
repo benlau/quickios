@@ -9,9 +9,9 @@
 #include <signal.h>
 #include <unistd.h>
 #include "quickios.h"
+#include "testenv.h"
 
 int waitTime = 1000;
-
 
 void handleBacktrace(int sig) {
   void *array[100];
@@ -27,11 +27,13 @@ void handleBacktrace(int sig) {
 }
 
 
-static QJSValue envProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
+static QObject* envProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
-  QJSValue value = scriptEngine->newObject();
-  value.setProperty("waitTime", waitTime);
-  return value;
+//  QJSValue value = scriptEngine->newObject();
+//  value.setProperty("waitTime", waitTime);
+    TestEnv* object = new TestEnv();
+    object->setWaitTime(waitTime);
+    return object;
 }
 
 int main(int argc, char **argv)
@@ -40,7 +42,7 @@ int main(int argc, char **argv)
 
     QApplication a(argc, argv);
     QuickIOS::registerTypes();
-    qmlRegisterSingletonType("QuickIOS", 0, 1, "TestEnv", envProvider);
+    qmlRegisterSingletonType<TestEnv>("QuickIOS", 0, 1, "TestEnv", envProvider);
 
     QEventLoop loop;
     QTimer timer;

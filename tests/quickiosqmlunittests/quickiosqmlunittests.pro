@@ -15,7 +15,8 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    testenv.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 include(../../quickios.pri)
@@ -33,3 +34,6 @@ DISTFILES += \
     tst_TableSection.qml \
     tst_ToolBar.qml \
     tst_BarButtonItem.qml
+
+HEADERS += \
+    testenv.h

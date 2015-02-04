@@ -13,6 +13,7 @@ NavigationController {
 
     initialViewController : ViewController {
         id: rootView
+        objectName : "RootView";
         title : "Bar Button Item Test"
 
         navigationItem : NavigationItem {
@@ -111,10 +112,10 @@ NavigationController {
 
         function test_preview() {
             var fontHeight16 = button1.height
-            compare(button2.width,50);
+            compare(button2.width,50 + 16);
             compare(button2.height,50);
 
-            compare(button3.width,25);
+            compare(button3.width,25 + 16);
             compare(button3.height,25);
 
             compare(button4.height,25 + fontHeight16);
