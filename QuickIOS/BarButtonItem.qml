@@ -21,18 +21,23 @@ MouseArea {
         width: parent.width
         anchors.verticalCenter: parent.verticalCenter
 
-        Image {
-            id : imageItem
+        Item {
+            width: imageItem.width
+            height: imageItem.height
             anchors.horizontalCenter: parent.horizontalCenter
+
+            Image {
+                id : imageItem
+                visible: false
+            }
 
             ColorOverlay {
                 id : overlay
                 source: imageItem
-                anchors.fill: imageItem
+                anchors.fill: parent
                 color: tintColor
                 visible: image !== undefined
             }
-
         }
 
         Text {
