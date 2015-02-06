@@ -325,6 +325,8 @@ Rectangle {
             compare(view2.navigationController,navigationView2);
 
             wait(TestEnv.waitTime);
+            navigationView2.pop();
+
             navigationView2.visible = false;
         }
 
@@ -344,6 +346,7 @@ Rectangle {
             wait(500);
 
             var leftButton = TestEnv.findChild(navigationView2.views.get(1).object,"LeftButton");
+            compare(leftButton !== null , true);
             x = window.mapFromItem(leftButton,leftButton.x,leftButton.y).x;
             var backButton = TestEnv.findChild(window,"NavigationBarBackButton");
             compare(x,backButton.width);

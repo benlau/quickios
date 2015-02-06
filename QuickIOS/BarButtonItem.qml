@@ -10,8 +10,13 @@ MouseArea {
     property alias image : imageItem.source
     property alias imageSourceSize : imageItem.sourceSize
 
+    /// Set it to true to ignore the tintColor and use the original image.
+    property bool renderOriginalImage : false
+
+    /// The font size of title
     property alias fontSize : textItem.font.pixelSize
 
+    /// The tintColor for this component
     property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
     width: Math.max(textItem.contentWidth,imageItem.width)  + 16
@@ -28,7 +33,7 @@ MouseArea {
 
             Image {
                 id : imageItem
-                visible: false
+                visible: renderOriginalImage
             }
 
             ColorOverlay {
@@ -36,7 +41,7 @@ MouseArea {
                 source: imageItem
                 anchors.fill: parent
                 color: tintColor
-                visible: image !== undefined
+                visible: image !== undefined && !renderOriginalImage
             }
         }
 

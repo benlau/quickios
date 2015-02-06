@@ -102,6 +102,21 @@ NavigationController {
 
         }
 
+        Row {
+            x: 10
+            y: 100
+            spacing : 20
+
+            BarButtonItem {
+                id : button6
+
+                imageSourceSize : Qt.size(25,25)
+                image : "./img/ic_play.png"
+                title: "Play"
+                renderOriginalImage: true
+            }
+        }
+
 
     }
 
