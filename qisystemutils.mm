@@ -104,7 +104,12 @@ static bool actionSheetCreate(QVariantMap data) {
 
     };
 
-    NSString* title = data["title"].toString().toNSString();
+    NSString* title = nil;
+    QString qTitle = data["title"].toString();
+    if (!qTitle.isEmpty()) {
+        title = qTitle.toNSString();
+    }
+
     NSString* cancelButtonTitle = data["cancelButtonTitle"].toString().toNSString();
     QStringList buttons = data["otherButtonTitles"].toStringList();
 
