@@ -11,7 +11,7 @@ Rectangle {
     visible: true
 
     NavigationController {
-        // NavigationController with initial view
+        // NavigationController with initialViewController
         id : navigationView
         anchors.fill: parent
 
@@ -57,6 +57,7 @@ Rectangle {
     }
 
     NavigationController {
+        // NavigationController without initialViewController
         id : navigationView2
         visible : false;
         anchors.fill: parent
@@ -482,6 +483,20 @@ Rectangle {
 
             navigationView.pop();
             wait(500);
+        }
+
+        function test_topViewController() {
+            compare(navigationView.topViewController,rootView);
+            navigationView.push(viewWithCustomTintColor);
+
+            compare(navigationView.topViewController !== rootView,true);
+
+            var view = navigationView.topViewController;
+            compare(view.tintColor,"#333333");
+
+            navigationView.pop();
+
+            compare(navigationView.topViewController,rootView);
         }
 
         function test_preview() {

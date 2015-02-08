@@ -13,6 +13,7 @@ import "./priv"
 ViewController {
     id : navigationView
 
+    /// The instance of NavigationBar
     property alias navigationBar : navBar
 
     /* The first view that should be shown when the NavigationView is created.
@@ -22,6 +23,8 @@ ViewController {
        Moreover, don't change the value after created or your have pushed any view already.
      */
     property alias initialViewController : stack.initialViewController
+
+    property var topViewController : null
 
     property alias views : stack.views
 
@@ -56,6 +59,16 @@ ViewController {
             // Attach navigationView to a newly created view
             if (view.hasOwnProperty("navigationController"))
                 view.navigationController = navigationView;
+
+            topViewController = view;
+        }
+
+        onPoped: {
+            var view = null;
+            if (views.count > 0) {
+                view = views.get(views.count - 1).object;
+            }
+            topViewController = view;
         }
     }
 

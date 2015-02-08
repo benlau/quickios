@@ -19,6 +19,7 @@ Item {
     property var tintColor
 
     signal pushed(var view)
+    signal poped()
 
     function push(source,options) {        
         var container = containerFactory.createObject(navigationView);
@@ -40,6 +41,7 @@ Item {
             return;
         stack.pop();
         views.remove(views.count - 1,1);
+        poped();
     }
 
     width: 100
