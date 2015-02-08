@@ -31,6 +31,10 @@ Item {
 
         view.anchors.fill = container;
 
+        var topView = top();
+        if (topView)
+            topView.enabled = false;
+
         stack.push(container);
         views.append({object: view});
         pushed(view);
@@ -41,7 +45,19 @@ Item {
             return;
         stack.pop();
         views.remove(views.count - 1,1);
+
+        var topView = top();
+        if (topView)
+            topView.enabled = true;
         poped();
+    }
+
+    function top() {
+        var view = null;
+        if (views.count > 0) {
+            view = views.get(views.count - 1).object
+        }
+        return view;
     }
 
     width: 100

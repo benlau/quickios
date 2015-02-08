@@ -499,6 +499,23 @@ Rectangle {
             compare(navigationView.topViewController,rootView);
         }
 
+        function test_disableTopViewControllerBeforePush() {
+            compare(navigationView.topViewController,rootView);
+            navigationView.push(viewWithCustomTintColor);
+            compare(rootView.enabled , false);
+
+            compare(navigationView.topViewController !== rootView,true);
+
+            var view = navigationView.topViewController;
+            compare(view.tintColor,"#333333");
+            compare(view.enabled , true);
+
+            navigationView.pop();
+            compare(rootView.enabled , true);
+
+            compare(navigationView.topViewController,rootView);
+        }
+
         function test_preview() {
             // Just test the dimen. And let user to try the component.
             var backButton = TestEnv.findChild(window,"NavigationBarBackButton");
