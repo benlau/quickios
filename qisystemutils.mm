@@ -10,7 +10,26 @@ typedef bool (*handler)(QVariantMap data);
 static QMap<QString,handler> handlers;
 static QPointer<QISystemUtils> m_instance;
 
-static QImage cloneAsQImage(UIImage* image) {
+/// Convert the value of "EXIF orientation" to the degree of rotation
+static int exifOrientationToDegree(int orientation) {
+    int value = 0;
+
+    switch (orientation) {
+    case 8:
+        value = -90;
+        break;
+    case 3:
+        value = 180;
+        break;
+    case 6:
+        value = 90;
+        break;
+    }
+
+    return value;
+}
+
+static QImage cloneAsQImage(UIImage* image,int degree) {
     QImage::Format format = QImage::Format_RGB32;
 
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
@@ -33,6 +52,12 @@ static QImage cloneAsQImage(UIImage* image) {
 
     CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
     CGContextRelease(contextRef);
+
+    if (degree != 0) {
+        QTransform myTransform;
+        myTransform.rotate(degree);
+        result = result.transformed(myTransform,Qt::SmoothTransformation);
+    }
 
     return result;
 }
@@ -173,10 +198,22 @@ static bool imagePickerControllerPresent(QVariantMap data) {
 
     delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
                                                                      NSDictionary* info) {
-//        [picker dismissViewControllerAnimated:YES completion:NULL];
 
+        int degree = 0;
         QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
         QVariantMap data;
+
+        data["mediaType"] = QString::fromNSString(info[UIImagePickerControllerMediaType]);
+        data["mediaUrl"] = fromNSUrl(info[UIImagePickerControllerMediaURL]);
+        data["referenceUrl"] = fromNSUrl(info[UIImagePickerControllerReferenceURL]);
+
+        NSDictionary *metaInfo = info[UIImagePickerControllerMediaMetadata];
+
+//        qDebug() << QString::fromNSString([metaInfo description]);
+        if (metaInfo) {
+            int orientation = [metaInfo[@"Orientation"] integerValue];
+            degree = exifOrientationToDegree(orientation);
+        }
 
         UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
         if (!chosenImage) {
@@ -187,13 +224,10 @@ static bool imagePickerControllerPresent(QVariantMap data) {
             qWarning() << "Image Picker: Failed to take image";
             name = "imagePickerControllerDidCancel";
         } else {
-            QImage chosenQImage = cloneAsQImage(chosenImage);
+            QImage chosenQImage = cloneAsQImage(chosenImage,degree);
             data["image"] = QVariant::fromValue<QImage>(chosenQImage);
         }
 
-        data["mediaType"] = QString::fromNSString(info[UIImagePickerControllerMediaType]);
-        data["mediaUrl"] = fromNSUrl(info[UIImagePickerControllerMediaURL]);
-        data["referenceUrl"] = fromNSUrl(info[UIImagePickerControllerReferenceURL]);
 
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
