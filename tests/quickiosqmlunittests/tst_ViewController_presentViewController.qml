@@ -44,6 +44,27 @@ Rectangle {
         }
     }
 
+    Component {
+        id : sampleViewController
+
+        ViewController {
+            property int clickedCount;
+
+            Text {
+                anchors.centerIn: parent
+                text : "Sample View Controller";
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked : {
+                    clickedCount++;
+                    console.log(clickedCount);
+                }
+            }
+        }
+    }
+
     TestCase {
         name: "ViewController_presentViewController"
         when : windowShown
@@ -127,9 +148,32 @@ Rectangle {
             compare(view2.x,0);
             compare(view2.y,640);
             view2= null;
+        }
+
+        function test_nestedPresentViewController() {
+            var view1 = overlayView.createObject();
+            rootView.presentViewController(view1);
+            compare(view1.enabled,true);
+
+            wait(500);
+            var view2 = sampleViewController.createObject();
+            view1.presentViewController(view2);
+
+            compare(view2.enabled,true);
 
 //            wait(TestEnv.waitTime);
 
+            view2.dismissViewController();
+
+            wait(500);
+            compare(view1.enabled,true);
+            view1.dismissViewController();
+            wait(500);
+
+            didDisappearCount = 0;
+            willDisappearCount = 0;
+            willAppearCount = 0;
+            didAppearCount = 0;
         }
     }
 

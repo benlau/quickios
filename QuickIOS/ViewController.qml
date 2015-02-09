@@ -48,7 +48,7 @@ Rectangle {
   }
 
   function presentViewController(view,animated) {
-      var root = viewController;
+      var root = viewController.parent;
       if (navigationController)
           root = navigationController;
 
