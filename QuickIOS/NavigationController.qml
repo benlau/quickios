@@ -26,7 +26,8 @@ ViewController {
 
     property var topViewController : null
 
-    property alias views : stack.views
+    property var viewControllers : new Array
+//    property alias views : stack.views
 
     // Create ViewController from source file or Component then push it into the stack.
     function push(source,options) {
@@ -61,6 +62,7 @@ ViewController {
                 view.navigationController = navigationView;
 
             topViewController = view;
+            viewControllers.push(view);
         }
 
         onPoped: {
@@ -68,6 +70,8 @@ ViewController {
             if (views.count > 0) {
                 view = views.get(views.count - 1).object;
             }
+            viewControllers.splice(viewControllers.length - 1 , 1);
+
             topViewController = view;
         }
     }

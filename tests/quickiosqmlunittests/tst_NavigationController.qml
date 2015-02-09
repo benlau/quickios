@@ -271,21 +271,21 @@ Rectangle {
 
             navigationView.push(viewWithTitleOnly,{fieldA : 10});
             wait(500);
-            compare(navigationView.views.count , 2);
-            var view = navigationView.views.get(1).object;
+            compare(navigationView.viewControllers.length , 2);
+            var view = navigationView.viewControllers[1];
             compare(view.hasOwnProperty("fieldA"),true);
             compare(view.fieldA, 10);
             compare(view.tintColor , "#00ff00");
 
             navigationView.pop();
             wait(500);
-            compare(navigationView.views.count , 1);
+            compare(navigationView.viewControllers.length , 1);
 
             navigationView.push(viewWithTitleAndLeftRightButton);
             wait(500);
-            compare(navigationView.views.count , 2);
+            compare(navigationView.viewControllers.length , 2);
 
-            view = navigationView.views.get(1).object;
+            view = navigationView.viewControllers[1];
             var leftItem = view.navigationItem.leftBarButtonItems.children[0];
             var rightItem = view.navigationItem.rightBarButtonItems.children[0];
 
@@ -305,23 +305,23 @@ Rectangle {
 
         function test_pushFirstPage() {
             navigationView2.visible = true;
-            compare(navigationView2.views.count , 0);
+            compare(navigationView2.viewControllers.length , 0);
 
             navigationView2.push(viewWithTitleOnly);
             wait(500);
 
-            compare(navigationView2.views.count , 1);
+            compare(navigationView2.viewControllers.length , 1);
             compare(navigationView2.navigationBar.views.count , 1);
 
-            var view = navigationView2.views.get(0).object;
+            var view = navigationView2.viewControllers[0];
             compare(view.navigationController,navigationView2);
             compare(view.width,480);
             compare(view.height,640 - 44);
             compare(view.navigationController,navigationView2);
 
             navigationView2.push(viewWithTitleOnly);
-            var view2 = navigationView2.views.get(1).object
-            compare(navigationView2.views.count , 2);
+            var view2 = navigationView2.viewControllers[1];
+            compare(navigationView2.viewControllers.length , 2);
             compare(navigationView2.navigationBar.views.count , 2);
             compare(view2.navigationController,navigationView2);
 
@@ -336,7 +336,7 @@ Rectangle {
             navigationView2.visible = true;
 
             wait(500);
-            var view = navigationView2.views.get(navigationView2.views.count -1 ).object;
+            var view = navigationView2.viewControllers[navigationView2.viewControllers.length -1];
             compare(view.cancelButton.height,44);
 
             var rightButton = TestEnv.findChild(navigationView2,"RightButton");
@@ -346,7 +346,7 @@ Rectangle {
             navigationView2.push(viewWithTitleAndLeftRightButton);
             wait(500);
 
-            var leftButton = TestEnv.findChild(navigationView2.views.get(1).object,"LeftButton");
+            var leftButton = TestEnv.findChild(navigationView2.viewControllers[1],"LeftButton");
             compare(leftButton !== null , true);
             x = window.mapFromItem(leftButton,leftButton.x,leftButton.y).x;
             var backButton = TestEnv.findChild(window,"NavigationBarBackButton");
@@ -364,7 +364,7 @@ Rectangle {
             navigationView.push(viewWithTitleAndLeftRightButtons);
             wait(500);
 
-            var view = navigationView.views.get(1).object;
+            var view = navigationView.viewControllers[1];
 
             wait(TestEnv.waitTime);
 
@@ -387,7 +387,7 @@ Rectangle {
             navigationView.push(viewWithDynamicTitleAndButtons);
             wait(500);
 
-            var view = navigationView.views.get(1).object;
+            var view = navigationView.viewControllers[1];
             compare(view.mode,0);
             compare(view.title , "Dynamic Title");
             compare(navigationView.navigationBar.currentTitle,view.title);
@@ -408,7 +408,7 @@ Rectangle {
             wait(500);
 
             navigationView.push(viewWithTitleAndLeftRightButtons);
-            var view2 = navigationView.views.get(2).object;
+            var view2 = navigationView.viewControllers[2];
 
             compare(navigationView.navigationBar.currentLeftButtonItems.count,2);
             compare(navigationView.navigationBar.currentRightButtonItems.count,2);
@@ -455,7 +455,7 @@ Rectangle {
             navigationView.push(object);
             wait(500);
 
-            compare(navigationView.views.count,2);
+            compare(navigationView.viewControllers.length,2);
             var view = navigationView.navigationBar.views.get(1).object;
             compare(view , object);
 

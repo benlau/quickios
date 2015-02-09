@@ -16,6 +16,9 @@ MouseArea {
     /// The font size of title
     property alias fontSize : textItem.font.pixelSize
 
+    /// Set the font and related information via QML's font object.
+    property alias font : textItem.font
+
     /// The tintColor for this component
     property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
