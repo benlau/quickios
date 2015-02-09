@@ -26,6 +26,8 @@ Rectangle {
   /// The assigned item will be placed within the tool bar
   property alias toolBarItems : toolBar.content
 
+  property alias backgroundColor : viewController.color
+
   signal viewWillAppear(bool animated)
   signal viewDidAppear(bool animated)
   signal viewWillDisappear(bool animated)
@@ -99,6 +101,8 @@ Rectangle {
   }
 
   onParentChanged: {
+      if (!this)
+          return;
       var p = parent;
       while (p) {
           if (p.hasOwnProperty("navigationController")) {
