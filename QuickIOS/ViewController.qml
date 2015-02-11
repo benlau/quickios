@@ -54,21 +54,34 @@ Rectangle {
       if (navigationController)
           root = navigationController;
 
+      if (animated === undefined)
+          animated = true;
+
       // Only a kind of transition is supported now.
-      var transition = Util.createObject("./transitions/CoverVerticalTransition.qml");
+      var transition = Util.createObject("./transitions/CoverVerticalTransition.qml" , view, { container : root , newView : view , originalView : viewController });
       view._modelTransition = transition;
-      view._modelTransition.view = view;
 
-      var container = viewContainer.createObject(root, { view: view,transition : transition});
+      var controller = viewTransitionController.createObject(view, { view: view,
+                                                                    container : root,
+                                                                    transition : transition});
 
-      view.parent = container;
+      view.parent = root;
 
-      container.present();
+      controller.present(animated);
       viewController.enabled = false;
   }
 
   function dismissViewController(animated) {
-      viewController._modelTransition.dismissTransition.start();
+      if (animated === undefined)
+          animated = true;
+
+      if (animated) {
+          viewController._modelTransition.dismissTransition.start();
+      } else {
+          viewWillDisappear(false);
+          _modelTransition.dismissTransitionFinished();
+          viewDidDisappear(false);
+      }
   }
 
 
@@ -101,7 +114,7 @@ Rectangle {
   }
 
   onParentChanged: {
-      if (!this)
+      if (this.parent === undefined)
           return;
       var p = parent;
       while (p) {
@@ -116,19 +129,26 @@ Rectangle {
   }
 
   Component { // Create a container for the view added by presentViewController
-      id: viewContainer
+      id: viewTransitionController
       Item {
-          id: container
+          id: transitionController
           x: 0
           y: 0
           width: parent.width
           height: parent.height
+          property var container;
           property var view;
           property var transition;
           property string tintColor : viewController.tintColor
 
-          function present() {
-              view._modelTransition.presentTransition.start();
+          function present(animated) {
+              if (animated) {
+                  view._modelTransition.presentTransition.start();
+              } else {
+                  view.viewWillAppear(false);
+                  transition.presentTransitionFinished();
+                  view.viewDidAppear(false);
+              }
           }
 
           function dismiss() {
@@ -143,6 +163,8 @@ Rectangle {
               }
 
               onPresented: {
+                  transition.presentTransitionFinished();
+
                   view.viewDidAppear(true);
               }
 
@@ -151,9 +173,12 @@ Rectangle {
               }
 
               onDismissed: {
+                  transition.dismissTransitionFinished();
+
                   viewController.enabled = true;
                   view.viewDidDisappear(true);
-                  container.destroy();                  
+
+                  transitionController.destroy();
               }
           }
 

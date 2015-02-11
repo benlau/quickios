@@ -8,7 +8,15 @@ import "../priv"
 
 QtObject {
 
-    property Item view : Item {}
+    /// The parent of newView
+    property Item container : null;
+
+    /// The view going to be presented or dismissed.
+    property Item newView : Item {}
+
+    /// The original view.
+    property Item originalView : Item {}
+
     readonly property int duration : 300;
 
     signal aboutToDismiss
@@ -16,16 +24,33 @@ QtObject {
     signal aboutToPresent
     signal presented
 
-    property int _height : view ? view.height : 0
+    property int _height : newView ? newView.height : 0
 
-    property ViewControllerTransition presentTransition: ViewControllerTransition {
+    function presentTransitionFinished() {
+        newView.x = Qt.binding(function() { return container ? container.x  : 0});
+        newView.y = Qt.binding(function() { return container ? container.y : 0});
+        newView.width = Qt.binding(function() { return container ? container.width : 0 });
+        newView.height = Qt.binding(function() { return container ? container.height : 0});
+        originalView.enabled = false;
+        newView.enabled = true;
+    }
+
+    function dismissTransitionFinished() {
+        newView.visible = false;
+        newView.enabled = false;
+        originalView.enabled = true;
+    }
+
+    property var presentTransition: ParallelAnimation {
+
         PropertyAnimation {
-            target: view
+            target: newView
             property: "y"
             from: _height
             to: 0
             duration: duration
             easing.type: Easing.Linear
+            alwaysRunToEnd : true
         }
 
         onStarted: aboutToPresent();
@@ -35,9 +60,9 @@ QtObject {
         }
     }
 
-    property ViewControllerTransition dismissTransition: ViewControllerTransition {
+    property var dismissTransition: ParallelAnimation {
         PropertyAnimation {
-            target: view
+            target: newView
             property: "y"
             from: 0
             to: _height

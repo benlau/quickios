@@ -23,24 +23,15 @@ Rectangle {
         }
     }
 
-    property int didDisappearCount : 0
-    property int willDisappearCount : 0
-    property int willAppearCount : 0
-    property int didAppearCount : 0
-
     Component {
         id : overlayView
         NavigationController {
+            id : overlayViewController
             color: "black"
 
-            onViewWillAppear: {
-                willAppearCount++;
+            property ViewControllerListener listener : ViewControllerListener {
+                viewController: overlayViewController
             }
-            onViewDidAppear: {
-                didAppearCount++;
-            }
-            onViewWillDisappear: willDisappearCount++;
-            onViewDidDisappear:  didDisappearCount++
         }
     }
 
@@ -69,20 +60,20 @@ Rectangle {
         name: "ViewController_presentViewController"
         when : windowShown
 
-        function test_preview() {
+        function test_presentViewControllerAnimated() {
             wait(500);
             var view = overlayView.createObject();
-            compare(didAppearCount,0);
-            compare(willAppearCount,0);
-            compare(didDisappearCount,0);
-            compare(willDisappearCount,0);
+            compare(view.listener.didAppearCount,0);
+            compare(view.listener.willAppearCount,0);
+            compare(view.listener.didDisappearCount,0);
+            compare(view.listener.willDisappearCount,0);
 
             rootView.presentViewController(view);
 
-            compare(didAppearCount,0);
-            compare(willAppearCount,1);
-            compare(didDisappearCount,0);
-            compare(willDisappearCount,0);
+            compare(view.listener.didAppearCount,0);
+            compare(view.listener.willAppearCount,1);
+            compare(view.listener.didDisappearCount,0);
+            compare(view.listener.willDisappearCount,0);
 
             compare(view.width,480);
             compare(view.height,640);
@@ -92,10 +83,10 @@ Rectangle {
 
             wait(500);
 
-            compare(didAppearCount,1);
-            compare(willAppearCount,1);
-            compare(didDisappearCount,0);
-            compare(willDisappearCount,0);
+            compare(view.listener.didAppearCount,1);
+            compare(view.listener.willAppearCount,1);
+            compare(view.listener.didDisappearCount,0);
+            compare(view.listener.willDisappearCount,0);
 
             compare(rootView.enabled , false);
             compare(view.parent !== rootView, true);
@@ -107,18 +98,18 @@ Rectangle {
 
             view.dismissViewController();
 
-            compare(didAppearCount,1);
-            compare(willAppearCount,1);
-            compare(didDisappearCount,0);
-            compare(willDisappearCount,1);
+            compare(view.listener.didAppearCount,1);
+            compare(view.listener.willAppearCount,1);
+            compare(view.listener.didDisappearCount,0);
+            compare(view.listener.willDisappearCount,1);
 
             wait(500);
             compare(rootView.enabled , true);
 
-            compare(didAppearCount,1);
-            compare(willAppearCount,1);
-            compare(didDisappearCount,1);
-            compare(willDisappearCount,1);
+            compare(view.listener.didAppearCount,1);
+            compare(view.listener.willAppearCount,1);
+            compare(view.listener.didDisappearCount,1);
+            compare(view.listener.willDisappearCount,1);
 
             compare(view.width,480);
             compare(view.height,640);
@@ -169,13 +160,54 @@ Rectangle {
             compare(view1.enabled,true);
             view1.dismissViewController();
             wait(500);
-
-            didDisappearCount = 0;
-            willDisappearCount = 0;
-            willAppearCount = 0;
-            didAppearCount = 0;
         }
+
+        function test_presentViewControllerNonAnimated() {
+            var view = overlayView.createObject();
+            rootView.presentViewController(view,false);
+
+            compare(view.width,480);
+            compare(view.height,640);
+            compare(view.x,0);
+            compare(view.y,0);
+            compare(view.tintColor,"#00ff00"); // Inherit the tintColor from navigationController.
+
+            wait(500);
+
+            compare(view.listener.didAppearCount,1);
+            compare(view.listener.willAppearCount,1);
+            compare(view.listener.didDisappearCount,0);
+            compare(view.listener.willDisappearCount,0);
+
+            compare(rootView.enabled , false);
+            compare(view.parent !== rootView, true);
+
+            view.dismissViewController(false);
+
+            compare(view.visible , false);
+            compare(view.width,480);
+            compare(view.height,640);
+            compare(view.x,0);
+            compare(view.y,0);
+
+            compare(view.listener.didAppearCount,1);
+            compare(view.listener.willAppearCount,1);
+            compare(view.listener.didDisappearCount,1);
+            compare(view.listener.willDisappearCount,1);
+
+            wait(500);
+            compare(rootView.enabled , true);
+
+            compare(view.listener.didAppearCount,1);
+            compare(view.listener.willAppearCount,1);
+            compare(view.listener.didDisappearCount,1);
+            compare(view.listener.willDisappearCount,1);
+
+            wait(500);
+        }
+
     }
+
 
 }
 
