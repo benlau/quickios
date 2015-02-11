@@ -54,7 +54,7 @@ QIImagePicker::~QIImagePicker()
 
 }
 
-void QIImagePicker::show()
+void QIImagePicker::show(bool animated)
 {
     if (m_status == Running || m_status == Saving) {
         return;
@@ -65,6 +65,7 @@ void QIImagePicker::show()
 
     QVariantMap data;
     data["sourceType"] = m_sourceType;
+    data["animated"] = animated;
 
     connect(system,SIGNAL(received(QString,QVariantMap)),
             this,SLOT(onReceived(QString,QVariantMap)));
@@ -76,6 +77,7 @@ void QIImagePicker::show()
     }
 
 #else
+    Q_UNUSED(animated);
     // For desktop preview
     setStatus(Running);
     QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
@@ -108,11 +110,13 @@ void QIImagePicker::show()
 #endif
 }
 
-void QIImagePicker::close()
+void QIImagePicker::close(bool animated)
 {
     QISystemUtils* system = QISystemUtils::instance();
+    QVariantMap data;
+    data["animated"] = animated;
 
-    system->sendMessage("imagePickerControllerDismiss",QVariantMap());
+    system->sendMessage("imagePickerControllerDismiss",data);
 }
 
 void QIImagePicker::save(QString fileName)

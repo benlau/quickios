@@ -32,7 +32,7 @@ ViewController {
 
             onClicked : {
                 picker.sourceType = ImagePicker.PhotoLibrary
-                picker.show();
+                picker.show(false);
             }
         }
 

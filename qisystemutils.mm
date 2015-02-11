@@ -178,6 +178,7 @@ static bool imagePickerControllerPresent(QVariantMap data) {
     UIViewController* rootViewController = rootWindow.rootViewController;
 
     int sourceType = data["sourceType"].toInt();
+    bool animated = data["animated"].toBool();
 
     if (![UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceType) sourceType]) {
         UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -250,7 +251,7 @@ static bool imagePickerControllerPresent(QVariantMap data) {
     imagePickerControllerActivityIndicator.hidesWhenStopped;
     [picker.view addSubview:imagePickerControllerActivityIndicator];
 
-    [rootViewController presentViewController:picker animated:YES completion:NULL];
+    [rootViewController presentViewController:picker animated:animated completion:NULL];
 
     return true;
 }
@@ -260,7 +261,9 @@ bool imagePickerControllerDismiss(QVariantMap data) {
     if (!imagePickerController)
         return false;
 
-    [imagePickerController dismissViewControllerAnimated:YES completion:NULL];
+    bool animated = data["animated"].toBool();
+
+    [imagePickerController dismissViewControllerAnimated:animated completion:NULL];
     [imagePickerController release];
 
     [imagePickerControllerActivityIndicator release];

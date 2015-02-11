@@ -35,9 +35,9 @@ public:
     QIImagePicker(QQuickItem* parent = 0);
     ~QIImagePicker();
 
-    Q_INVOKABLE void show();
+    Q_INVOKABLE void show(bool animated = true);
 
-    Q_INVOKABLE void close();
+    Q_INVOKABLE void close(bool animated = true);
 
     Q_INVOKABLE void save(QString fileName);
 
