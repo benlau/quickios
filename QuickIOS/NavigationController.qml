@@ -11,12 +11,12 @@ import QtQuick 2.2
 import "./priv"
 
 ViewController {
-    id : navigationView
+    id : navigationController
 
     /// The instance of NavigationBar
     property alias navigationBar : navBar
 
-    /* The first view that should be shown when the NavigationView is created.
+    /* The first view that should be shown when the NavigationController is created.
        It should be an object. Component and string source is not allowed. It is
        just a convenience for writing Component.onCompleted: push()
 
@@ -43,7 +43,7 @@ ViewController {
     NavigationBar {
         id : navBar
         views: stack.views
-        tintColor: navigationView.tintColor
+        tintColor: navigationController.tintColor
         onBackClicked: stack.pop(true);
         z: stack.z + 1
     }
@@ -54,15 +54,16 @@ ViewController {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        tintColor : navigationView.tintColor
+        tintColor : navigationController.tintColor
 
         onPushed: {
-            // Attach navigationView to a newly created view
+            // Attach navigationController to a newly created view
             if (view.hasOwnProperty("navigationController"))
-                view.navigationController = navigationView;
+                view.navigationController = navigationController;
 
             topViewController = view;
             viewControllers.push(view);
+            navigationController.viewControllersChanged();
         }
 
         onPoped: {
@@ -71,6 +72,7 @@ ViewController {
                 view = views.get(views.count - 1).object;
             }
             viewControllers.splice(viewControllers.length - 1 , 1);
+            navigationController.viewControllersChanged();
 
             topViewController = view;
         }
