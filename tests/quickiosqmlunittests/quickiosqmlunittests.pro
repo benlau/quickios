@@ -33,7 +33,8 @@ DISTFILES += \
     tst_system.qml \
     tst_TableSection.qml \
     tst_ToolBar.qml \
-    tst_BarButtonItem.qml
+    tst_BarButtonItem.qml \
+    ViewControllerListener.qml
 
 HEADERS += \
     testenv.h

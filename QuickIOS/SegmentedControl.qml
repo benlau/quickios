@@ -40,6 +40,8 @@ Item {
         id: tabView
         anchors.fill: parent
 
+        property int previousIndex : -1
+
         style: SegmentedControlTabViewStyle {
             id: tabViewStyle
             tintColor : segmentedControl.tintColor
@@ -49,11 +51,37 @@ Item {
         onCurrentIndexChanged: {
             var tab = getTab(currentIndex);
             tab.tintColor = segmentedControl.tintColor;
+
+            if (previousIndex >= 0) {
+                var prevTab = getTab(previousIndex);
+                emitDisappear(prevTab.children[0]);
+            }
+
+            emitAppear(tab.children[0]);
+            previousIndex = currentIndex;
+        }
+
+        function emitDisappear(tab) {
+            if (tab.hasOwnProperty("viewWillDisappear"))
+                tab.viewWillDisappear(false);
+
+            if (tab.hasOwnProperty("viewDidDisappear"))
+                tab.viewDidDisappear(false);
+        }
+
+        function emitAppear(tab) {
+            if (tab.hasOwnProperty("viewWillAppear"))
+                tab.viewWillAppear(false);
+
+            if (tab.hasOwnProperty("viewDidAppear"))
+                tab.viewDidAppear(false);
         }
 
         Component.onCompleted: {
             var tab = getTab(currentIndex);
             tab.tintColor = segmentedControl.tintColor;
+            emitAppear(tab.children[0]);
+            previousIndex = currentIndex;
         }
     }
 
