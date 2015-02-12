@@ -77,7 +77,7 @@ signals:
     void mediaUrlChanged();
 
     void ready();
-    void saved(QString fileName);
+    void saved(QString url);
 
 private:
     Q_INVOKABLE void onReceived(QString name,QVariantMap data);

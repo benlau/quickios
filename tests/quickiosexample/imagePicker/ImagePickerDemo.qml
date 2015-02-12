@@ -67,8 +67,8 @@ ViewController {
         }
 
         onSaved: {
-            console.log("The image is saved to " + fileName);
-            image.source = fileName;
+            console.log("The image is saved to " + url);
+            image.source = url;
             picker.close();
             picker.busy = false;
         }
