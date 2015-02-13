@@ -3,8 +3,8 @@ import QtQuick.Window 2.1
 import QtQuick.Layouts 1.1
 import "appdelegate.js" as AppDelegate
 import "./def"
-import "util.js" as Util
 import "./priv"
+import "./utils/objectutils.js" as ObjectUtils
 
 Rectangle {
   id: viewController
@@ -43,7 +43,7 @@ Rectangle {
 
   // present is a wrapper of presentViewController that accept multiple data type include string , Component etc.
   function present(source,options,animated) {
-      var view = Util.createObject(source,viewController,options);
+      var view = ObjectUtils.createObject(source,viewController,options);
       if (view)
           presentViewController(view,animated);
       return view;
@@ -58,7 +58,8 @@ Rectangle {
           animated = true;
 
       // Only a kind of transition is supported now.
-      var transition = Util.createObject("./transitions/CoverVerticalTransition.qml" , view, { container : root , newView : view , originalView : viewController });
+      var transition = ObjectUtils.createObject(Qt.resolvedUrl("./transitions/CoverVerticalTransition.qml") ,
+                                                view, { container : root , newView : view , originalView : viewController });
       view._modelTransition = transition;
 
       var controller = viewTransitionController.createObject(view, { view: view,
@@ -69,6 +70,7 @@ Rectangle {
 
       controller.present(animated);
       viewController.enabled = false;
+      return view;
   }
 
   function dismissViewController(animated) {

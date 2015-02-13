@@ -8,7 +8,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 1.2
-import "../util.js" as Util
+import "../utils/objectutils.js" as ObjectUtils
 
 Item {
     id: navigationView
@@ -23,7 +23,7 @@ Item {
 
     function push(source,options) {        
         var container = containerFactory.createObject(navigationView);
-        var view = Util.createObject(source,container,options);
+        var view = ObjectUtils.createObject(source,container,options);
         if (view === undefined) {
             container.destroy();
             return;

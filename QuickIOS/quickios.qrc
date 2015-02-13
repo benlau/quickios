@@ -11,8 +11,6 @@
         <file>ProgressHUD.qml</file>
         <file>ProgressView.qml</file>
         <file>Application.qml</file>
-        <file>res.js</file>
-        <file>util.js</file>
         <file>appdelegate.js</file>
         <file>images/back.png</file>
         <file>images/back@2x.png</file>
@@ -33,5 +31,6 @@
         <file>def/qmldir</file>
         <file>TableSection.qml</file>
         <file>ToolBar.qml</file>
+        <file>utils/objectutils.js</file>
     </qresource>
 </RCC>

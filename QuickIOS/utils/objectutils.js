@@ -19,7 +19,7 @@ function createObject(source,parent,options) {
             console.warn(source.errorString());
             return;
         }
-    } else { // It is a already created object
+    } else { // It is an already created object
         view = source;
         view.parent = parent;
     }
