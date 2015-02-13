@@ -32,5 +32,7 @@
         <file>TableSection.qml</file>
         <file>ToolBar.qml</file>
         <file>utils/objectutils.js</file>
+        <file>utils/qmldir</file>
+        <file>utils/Ruler.qml</file>
     </qresource>
 </RCC>

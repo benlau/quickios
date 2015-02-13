@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import QtTest 1.0
-import QuickIOS 0.1
 import QtQuick.Layouts 1.1
+import QuickIOS 0.1
+import QuickIOS.utils 0.1
 
 NavigationController {
     id: window

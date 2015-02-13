@@ -1,8 +1,10 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
-import QuickIOS 0.1
 import QtTest 1.0
 import QtQml.Models 2.1
+import QuickIOS 0.1
+import QuickIOS.utils 0.1
+
 
 Rectangle {
     id: window
