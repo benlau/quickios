@@ -37,6 +37,9 @@ Item {
         }
     }
 
+    /// This holds the header item created from the header component.
+    property alias headerItem : headerLoader.item
+
     // The default footer. User may simplify override it.
     property Component footer : Item {
         width: parent.width
@@ -54,6 +57,9 @@ Item {
             text: footerTitle
         }
     }
+
+    /// This holds the footer item created from the footer component.
+    property alias footerItem : footerLoader.item
 
     signal selected(int index,var item)
 

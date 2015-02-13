@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.2
 import QtTest 1.0
 import QuickIOS 0.1
 
@@ -10,41 +11,51 @@ ViewController {
     visible: true
     tintColor : "#000000"
 
-    Column {
-        anchors.fill:parent
+    ScrollView {
+        anchors.fill: parent
 
-        TableSection {
-            // It is part of UITableView in grouped style
-            width: parent.width
+        flickableItem.interactive : true;
 
-            headerTitle : "Start of Session"
-            model : ListModel {
-                ListElement { title: "A" ; value: 1}
-                ListElement { title: "B" ; value: 2}
-                ListElement { title: "C" ; value: 3}
+        Column {
+            id : column
+            width: window.width
+
+            TableSection {
+                // It is part of UITableView in grouped style
+
+                id : section1
+                width: parent.width
+
+                headerTitle : "Start of Session"
+                model : ListModel {
+                    ListElement { title: "A" ; value: 1}
+                    ListElement { title: "B" ; value: 2}
+                    ListElement { title: "C" ; value: 3}
+                }
+
+                footerTitle : "End of Session"
+                separatorColor: "#1F000000"
+                separatorInsetLeft: 5
+                separatorInsetRight: 5
+                rowHeight: 44
             }
 
-            footerTitle : "End of Session"
-            separatorColor: "#1F000000"
-            separatorInsetLeft: 5
-            separatorInsetRight: 5
-            rowHeight: 44
-        }
+            TableSection {
+                // It is part of UITableView in grouped style
+                width: parent.width
 
-        TableSection {
-            // It is part of UITableView in grouped style
-            width: parent.width
+                model : ListModel {
+                    ListElement { title: "A" ; value: 1}
+                    ListElement { title: "B" ; value: 2}
+                    ListElement { title: "C" ; value: 3}
+                }
 
-            model : ListModel {
-                ListElement { title: "A" ; value: 1}
-                ListElement { title: "B" ; value: 2}
-                ListElement { title: "C" ; value: 3}
+                separatorColor: "#1F000000"
+                separatorInsetLeft: 5
+                separatorInsetRight: 5
+                rowHeight: 44
             }
 
-            separatorColor: "#1F000000"
-            separatorInsetLeft: 5
-            separatorInsetRight: 5
-            rowHeight: 44
         }
 
     }
