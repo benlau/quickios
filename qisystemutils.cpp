@@ -1,8 +1,9 @@
 #include <QCoreApplication>
 #include <QPointer>
+#include <QtCore>
 #include "qisystemutils.h"
 
-typedef bool (*handler)(QVariantMap data);
+typedef bool (*handler)(QVariantMap& data);
 static QMap<QString,handler> handlers;
 static QPointer<QISystemUtils> m_instance;
 

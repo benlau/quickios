@@ -56,6 +56,8 @@ void QuickIOS::setupWindow(QQuickWindow *window)
     }
 
     window->showFullScreen();
+#else
+    Q_UNUSED(window);
 #endif
 }
 
