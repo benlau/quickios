@@ -15,6 +15,14 @@ public:
     /// Send a message to the system
     Q_INVOKABLE bool sendMessage(QString name , QVariantMap data);
 
+    /// Register a message handler.
+    /**
+     * @brief registerMessageHandler
+     * @param name
+     * @return TRUE if it is successfully. Otherwise , it is false , it is already registered
+     */
+    bool registerMessageHandler(QString name,bool (*func)(QVariantMap&) );
+
 signals:
     /// The signal is emitted when a message is received.
     void received(QString name , QVariantMap data);
