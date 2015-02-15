@@ -23,3 +23,13 @@ bool QISystemUtils::sendMessage(QString name , QVariantMap data) {
         return false;
     return handlers[name](data);
 }
+
+bool QISystemUtils::registerMessageHandler(QString name, bool (*func)(QVariantMap&))
+{
+    if (handlers.contains(name)) {
+        qWarning() << QString("%s is already registered").arg(name);
+        return false;
+    }
+
+    handlers[name] = func;
+}
