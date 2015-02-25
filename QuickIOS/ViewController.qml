@@ -173,7 +173,6 @@ Rectangle {
           function setStatusBarHidden(view) {
               var hidden = view.prefersStatusBarHidden;
               var animation = view.preferredStatusBarUpdateAnimation;
-              console.log(hidden,animation);
               QISystem.sendMessage("applicationSetStatusBarHidden", {
                                        hidden: hidden,
                                        animation : animation
