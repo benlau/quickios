@@ -36,6 +36,7 @@ Window {
                         ListElement { title : "Image Picker" ; file :"imagePicker/ImagePickerDemo.qml" }
                         ListElement { title : "Tool Bar"; file : "toolBar/ToolBarDemo.qml" }
                         ListElement { title : "Activity Indicator" }
+                        ListElement { title : "Status Bar"; file :"statusBar/StatusBarDemo.qml"; present:true}
                     }
 
                     onSelected: {
@@ -49,7 +50,11 @@ Window {
                             break;
                         default:
                             var item = model.get(index);
-                            rootView.navigationController.push(Qt.resolvedUrl(item.file));
+                            if (item.present) {
+                                rootView.present(Qt.resolvedUrl(item.file));
+                            } else {
+                                rootView.navigationController.push(Qt.resolvedUrl(item.file));
+                            }
                             break;
                         }
                     }

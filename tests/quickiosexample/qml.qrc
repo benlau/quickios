@@ -7,5 +7,6 @@
         <file>img/ic_play@2x.png</file>
         <file>toolBar/ToolBarDemo.qml</file>
         <file>imagePicker/ImagePickerDemo.qml</file>
+        <file>statusBar/StatusBarDemo.qml</file>
     </qresource>
 </RCC>

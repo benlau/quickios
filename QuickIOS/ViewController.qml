@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Layouts 1.1
+import QuickIOS 0.1
 import "appdelegate.js" as AppDelegate
 import "./def"
 import "./priv"
@@ -27,6 +28,12 @@ Rectangle {
   property alias toolBarItems : toolBar.content
 
   property alias backgroundColor : viewController.color
+
+  /// Specifies whether the view controller prefers the status bar to be hidden or shown.
+  // @remarks: Only implemented in presentViewController now
+  property bool prefersStatusBarHidden : false
+
+  property int preferredStatusBarUpdateAnimation : 1
 
   signal viewWillAppear(bool animated)
   signal viewDidAppear(bool animated)
@@ -62,7 +69,8 @@ Rectangle {
                                                 view, { container : root , newView : view , originalView : viewController });
       view._modelTransition = transition;
 
-      var controller = viewTransitionController.createObject(view, { view: view,
+      var controller = viewTransitionController.createObject(view, {view: view,
+                                                                    originalView : viewController,
                                                                     container : root,
                                                                     transition : transition});
 
@@ -139,6 +147,11 @@ Rectangle {
           width: parent.width
           height: parent.height
           property var container;
+
+          // The previous view.
+          property var originalView
+
+          // The view that is going to present
           property var view;
           property var transition;
           property string tintColor : viewController.tintColor
@@ -155,6 +168,16 @@ Rectangle {
 
           function dismiss() {
               view._modelTransition.dismissTransition.start();
+          }
+
+          function setStatusBarHidden(view) {
+              var hidden = view.prefersStatusBarHidden;
+              var animation = view.preferredStatusBarUpdateAnimation;
+              console.log(hidden,animation);
+              QISystem.sendMessage("applicationSetStatusBarHidden", {
+                                       hidden: hidden,
+                                       animation : animation
+                                   });
           }
 
           Connections {
@@ -181,6 +204,18 @@ Rectangle {
                   view.viewDidDisappear(true);
 
                   transitionController.destroy();
+              }
+          }
+
+          Connections {
+              target: view
+              ignoreUnknownSignals: true
+              onViewWillAppear: {
+                  setStatusBarHidden(view);
+              }
+
+              onViewWillDisappear: {
+                  setStatusBarHidden(originalView);
               }
           }
 

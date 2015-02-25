@@ -290,7 +290,6 @@ bool imagePickerControllerSetIndicator(QVariantMap& data) {
 
 
 static bool applicationSetStatusBarStyle(QVariantMap& data) {
-    qDebug() << data;
     if (!data.contains("style")) {
         qWarning() << "applicationSetStatusBarStyle: Missing argument";
         return false;
@@ -299,6 +298,13 @@ static bool applicationSetStatusBarStyle(QVariantMap& data) {
     int style = data["style"].toInt();
     [[UIApplication sharedApplication] setStatusBarStyle:(UIStatusBarStyle) style];
     return true;
+}
+
+static bool applicationSetStatusBarHidden(QVariantMap& data) {
+    bool hidden = data["hidden"].toBool();
+    int animation = data["animation"].toInt();
+
+    [[UIApplication sharedApplication] setStatusBarHidden:(bool) hidden withAnimation:(UIStatusBarAnimation) animation];
 }
 
 static UIActivityIndicatorView* activityIndicator = 0;
@@ -341,6 +347,8 @@ QISystemUtils *QISystemUtils::instance()
 
         m_instance->registerMessageHandler("alertViewCreate",alertViewCreate);
         m_instance->registerMessageHandler("applicationSetStatusBarStyle",applicationSetStatusBarStyle);
+        m_instance->registerMessageHandler("applicationSetStatusBarHidden",applicationSetStatusBarHidden);
+
         m_instance->registerMessageHandler("actionSheetCreate",actionSheetCreate);
         m_instance->registerMessageHandler("imagePickerControllerPresent",imagePickerControllerPresent);
         m_instance->registerMessageHandler("imagePickerControllerDismiss",imagePickerControllerDismiss);
