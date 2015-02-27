@@ -34,5 +34,6 @@
         <file>utils/objectutils.js</file>
         <file>utils/qmldir</file>
         <file>utils/Ruler.qml</file>
+        <file>BarButtonItemStyle.qml</file>
     </qresource>
 </RCC>

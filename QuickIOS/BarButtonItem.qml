@@ -22,6 +22,8 @@ MouseArea {
     /// The tintColor for this component
     property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
 
+    property BarButtonItemStyle style : BarButtonItemStyle {}
+
     width: Math.max(textItem.contentWidth,imageItem.width)  + 16
     height: textItem.contentHeight * (title !== "" ) + imageItem.height
 
@@ -67,8 +69,7 @@ MouseArea {
 
             PropertyChanges {
                 target: barButtonItem
-                opacity : 0.2
-
+                opacity : style.pressedOpacity
             }
         }
     ]
