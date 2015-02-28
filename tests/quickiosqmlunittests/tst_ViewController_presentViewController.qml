@@ -89,6 +89,9 @@ Rectangle {
             compare(view.listener.willDisappearCount,0);
 
             compare(rootView.enabled , false);
+
+            // Beside the caller of presentViewController(), the connected navigationController should also be disabled
+            compare(navigationController.enabled,false);
             compare(view.parent !== rootView, true);
 
             compare(view.x,0);
@@ -105,6 +108,7 @@ Rectangle {
 
             wait(500);
             compare(rootView.enabled , true);
+            compare(navigationController.enabled,true);
 
             compare(view.listener.didAppearCount,1);
             compare(view.listener.willAppearCount,1);

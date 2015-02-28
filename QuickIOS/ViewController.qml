@@ -59,7 +59,7 @@ Rectangle {
   function presentViewController(view,animated) {
       var root = viewController.parent;
       if (navigationController)
-          root = navigationController;
+          root = navigationController.parent;
 
       if (animated === undefined)
           animated = true;
@@ -78,6 +78,8 @@ Rectangle {
 
       controller.present(animated);
       viewController.enabled = false;
+      if (viewController.navigationController)
+          viewController.navigationController.enabled = false;
       return view;
   }
 
@@ -200,6 +202,8 @@ Rectangle {
                   transition.dismissTransitionFinished();
 
                   viewController.enabled = true;
+                  if (viewController.navigationController)
+                      viewController.navigationController.enabled = true;
                   view.viewDidDisappear(true);
 
                   transitionController.destroy();
