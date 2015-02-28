@@ -98,6 +98,16 @@ Rectangle {
       }
   }
 
+  // Indicates to the system that the view controller status bar attributes have changed.
+  function setNeedsStatusBarAppearanceUpdate() {
+      var hidden = prefersStatusBarHidden;
+      var animation = preferredStatusBarUpdateAnimation;
+      QISystem.sendMessage("applicationSetStatusBarHidden", {
+                               hidden: hidden,
+                               animation : animation
+                           });
+  }
+
 
   ColumnLayout {
       anchors.fill: parent
