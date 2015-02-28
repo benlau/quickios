@@ -35,5 +35,6 @@
         <file>utils/qmldir</file>
         <file>utils/Ruler.qml</file>
         <file>BarButtonItemStyle.qml</file>
+        <file>priv/ViewTransitionCoordinator.qml</file>
     </qresource>
 </RCC>

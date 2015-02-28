@@ -70,15 +70,25 @@ Rectangle {
 
       // Only a kind of transition is supported now.
       var transition = ObjectUtils.createObject(Qt.resolvedUrl("./transitions/CoverVerticalTransition.qml") ,
-                                                view, { container : rootController , newView : view , originalView : viewController });
+                                                view, { container : rootController ,
+                                                        newView : view ,
+                                                        originalView : viewController });
       view._modelTransition = transition;
 
-      var controller = viewTransitionController.createObject(root, {view: view,
-                                                                    originalView : viewController,
-                                                                    container : rootController,
-                                                                    transition : transition});
+      var coordinator =  ObjectUtils.createObject(Qt.resolvedUrl("./priv/ViewTransitionCoordinator.qml") ,
+                                                                    root,
+                                                                    {view: view,
+                                                                     origView : viewController,
+                                                                     container : rootController,
+                                                                     transition : transition});
 
-      controller.present(animated);
+      coordinator.onDismissed.connect(function() {
+          viewController.enabled = true;
+          if (viewController.navigationController)
+              viewController.navigationController.enabled = true;
+      });
+
+      coordinator.present(animated);
       viewController.enabled = false;
       if (viewController.navigationController)
           viewController.navigationController.enabled = false;
@@ -149,106 +159,6 @@ Rectangle {
               break;
           }
           p = p.parent;
-      }
-  }
-
-  Component { // Create a container for the view added by presentViewController
-      id: viewTransitionController
-      Item {
-          id: transitionController
-          x: 0
-          y: 0
-          width: parent.width
-          height: parent.height
-
-          property var container;
-
-          // The previous view.
-          property var originalView
-
-          // The view that is going to present
-          property var view;
-          property var transition;
-          property string tintColor : viewController.tintColor
-
-          function present(animated) {
-              if (animated) {
-                  view._modelTransition.presentTransition.start();
-              } else {
-                  view.viewWillAppear(false);
-                  transition.presentTransitionFinished();
-                  view.viewDidAppear(false);
-              }
-          }
-
-          function dismiss() {
-              view._modelTransition.dismissTransition.start();
-          }
-
-          function setStatusBarHidden(view) {
-              var hidden = view.prefersStatusBarHidden;
-              var animation = view.preferredStatusBarUpdateAnimation;
-              QISystem.sendMessage("applicationSetStatusBarHidden", {
-                                       hidden: hidden,
-                                       animation : animation
-                                   });
-          }
-
-          Item {
-              // Provide tintColor to view but it don't let enabled change propagate to the newView
-              id : bridge
-              property color tintColor: originalView.tintColor
-          }
-
-          Connections {
-              target: transition
-
-              onAboutToPresent: {
-                  view.viewWillAppear(true);
-              }
-
-              onPresented: {
-                  transition.presentTransitionFinished();
-
-                  view.viewDidAppear(true);
-              }
-
-              onAboutToDismiss: {
-                  view.viewWillDisappear(true);
-              }
-
-              onDismissed: {
-                  transition.dismissTransitionFinished();
-
-                  view.viewDidDisappear(true);
-
-                  transitionController.destroy();
-              }
-          }
-
-          Connections {
-              target: view
-              ignoreUnknownSignals: true
-              onViewWillAppear: {
-                  setStatusBarHidden(view);
-              }
-
-              onViewWillDisappear: {
-                  viewController.enabled = true;
-                  if (viewController.navigationController)
-                      viewController.navigationController.enabled = true;
-
-                  setStatusBarHidden(originalView);
-              }
-          }
-
-          onViewChanged: {
-              if (view) {
-                  view.parent = bridge;
-                  view.width = Qt.binding(function() {return container.width });
-                  view.height = Qt.binding(function() {return container.height });
-              }
-          }
       }
   }
 
