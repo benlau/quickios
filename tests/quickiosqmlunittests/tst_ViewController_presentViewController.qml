@@ -147,6 +147,7 @@ Rectangle {
 
         function test_nestedPresentViewController() {
             var view1 = overlayView.createObject();
+            compare(view1.enabled,true);
             rootView.presentViewController(view1);
             compare(view1.enabled,true);
 

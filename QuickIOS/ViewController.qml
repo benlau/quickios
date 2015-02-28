@@ -57,24 +57,26 @@ Rectangle {
   }
 
   function presentViewController(view,animated) {
-      var root = viewController.parent;
-      if (navigationController)
-          root = navigationController.parent;
+      var rootController = viewController;
+
+      if (navigationController) {
+          rootController = navigationController;
+      }
+
+      var root = rootController.parent;
 
       if (animated === undefined)
           animated = true;
 
       // Only a kind of transition is supported now.
       var transition = ObjectUtils.createObject(Qt.resolvedUrl("./transitions/CoverVerticalTransition.qml") ,
-                                                view, { container : root , newView : view , originalView : viewController });
+                                                view, { container : rootController , newView : view , originalView : viewController });
       view._modelTransition = transition;
 
-      var controller = viewTransitionController.createObject(view, {view: view,
+      var controller = viewTransitionController.createObject(root, {view: view,
                                                                     originalView : viewController,
-                                                                    container : root,
+                                                                    container : rootController,
                                                                     transition : transition});
-
-      view.parent = root;
 
       controller.present(animated);
       viewController.enabled = false;
@@ -148,6 +150,7 @@ Rectangle {
           y: 0
           width: parent.width
           height: parent.height
+
           property var container;
 
           // The previous view.
@@ -181,6 +184,12 @@ Rectangle {
                                    });
           }
 
+          Item {
+              // Provide tintColor to view but it don't let enabled change propagate to the newView
+              id : bridge
+              property color tintColor: originalView.tintColor
+          }
+
           Connections {
               target: transition
 
@@ -201,9 +210,6 @@ Rectangle {
               onDismissed: {
                   transition.dismissTransitionFinished();
 
-                  viewController.enabled = true;
-                  if (viewController.navigationController)
-                      viewController.navigationController.enabled = true;
                   view.viewDidDisappear(true);
 
                   transitionController.destroy();
@@ -218,12 +224,17 @@ Rectangle {
               }
 
               onViewWillDisappear: {
+                  viewController.enabled = true;
+                  if (viewController.navigationController)
+                      viewController.navigationController.enabled = true;
+
                   setStatusBarHidden(originalView);
               }
           }
 
           onViewChanged: {
               if (view) {
+                  view.parent = bridge;
                   view.width = Qt.binding(function() {return container.width });
                   view.height = Qt.binding(function() {return container.height });
               }

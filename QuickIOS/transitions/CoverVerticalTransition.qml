@@ -8,7 +8,7 @@ import "../priv"
 
 QtObject {
 
-    /// The parent of newView
+    /// The container provide the geometry information
     property Item container : null;
 
     /// The view going to be presented or dismissed.
