@@ -12,10 +12,10 @@ QtObject {
     property Item container : null;
 
     /// The view going to be presented or dismissed.
-    property Item newView : Item {}
+    property Item nextView : Item {}
 
     /// The original view.
-    property Item originalView : Item {}
+    property Item prevView : Item {}
 
     readonly property int duration : 300;
 
@@ -24,27 +24,27 @@ QtObject {
     signal aboutToPresent
     signal presented
 
-    property int _height : newView ? newView.height : 0
+    property int _height : nextView ? nextView.height : 0
 
     function presentTransitionFinished() {
-        newView.x = Qt.binding(function() { return container ? container.x  : 0});
-        newView.y = Qt.binding(function() { return container ? container.y : 0});
-        newView.width = Qt.binding(function() { return container ? container.width : 0 });
-        newView.height = Qt.binding(function() { return container ? container.height : 0});
-        originalView.enabled = false;
-        newView.enabled = true;
+        nextView.x = Qt.binding(function() { return container ? container.x  : 0});
+        nextView.y = Qt.binding(function() { return container ? container.y : 0});
+        nextView.width = Qt.binding(function() { return container ? container.width : 0 });
+        nextView.height = Qt.binding(function() { return container ? container.height : 0});
+        prevView.enabled = false;
+        nextView.enabled = true;
     }
 
     function dismissTransitionFinished() {
-        newView.visible = false;
-        newView.enabled = false;
-        originalView.enabled = true;
+        nextView.visible = false;
+        nextView.enabled = false;
+        prevView.enabled = true;
     }
 
     property var presentTransition: ParallelAnimation {
 
         PropertyAnimation {
-            target: newView
+            target: nextView
             property: "y"
             from: _height
             to: 0
@@ -62,7 +62,7 @@ QtObject {
 
     property var dismissTransition: ParallelAnimation {
         PropertyAnimation {
-            target: newView
+            target: nextView
             property: "y"
             from: 0
             to: _height

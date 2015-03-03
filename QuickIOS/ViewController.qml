@@ -71,14 +71,14 @@ Rectangle {
       // Only a kind of transition is supported now.
       var transition = ObjectUtils.createObject(Qt.resolvedUrl("./transitions/CoverVerticalTransition.qml") ,
                                                 view, { container : rootController ,
-                                                        newView : view ,
-                                                        originalView : viewController });
+                                                        nextView : view ,
+                                                        prevView : viewController });
       view._modelTransition = transition;
 
       var coordinator =  ObjectUtils.createObject(Qt.resolvedUrl("./priv/ViewTransitionCoordinator.qml") ,
                                                                     root,
-                                                                    {view: view,
-                                                                     origView : viewController,
+                                                                    {nextView: view,
+                                                                     prevView : viewController,
                                                                      container : rootController,
                                                                      transition : transition});
 

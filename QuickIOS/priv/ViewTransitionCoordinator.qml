@@ -11,26 +11,26 @@ Item {
     property var container;
 
     // The previous view.
-    property var origView
+    property var prevView
 
     // The view that is going to present
-    property var view;
+    property var nextView;
     property var transition;
 
     signal dismissed();
 
     function present(animated) {
         if (animated) {
-            view._modelTransition.presentTransition.start();
+            nextView._modelTransition.presentTransition.start();
         } else {
-            view.viewWillAppear(false);
+            nextView.viewWillAppear(false);
             transition.presentTransitionFinished();
-            view.viewDidAppear(false);
+            nextView.viewDidAppear(false);
         }
     }
 
     function dismiss() {
-        view._modelTransition.dismissTransition.start();
+        nextView._modelTransition.dismissTransition.start();
     }
 
     function setStatusBarHidden(view) {
@@ -45,53 +45,53 @@ Item {
     Item {
         // Provide tintColor to view but it don't let enabled change propagate to the newView
         id : bridge
-        property color tintColor: origView.tintColor
+        property color tintColor: prevView.tintColor
     }
 
     Connections {
         target: transition
 
         onAboutToPresent: {
-            view.viewWillAppear(true);
+            nextView.viewWillAppear(true);
         }
 
         onPresented: {
             transition.presentTransitionFinished();
 
-            view.viewDidAppear(true);
+            nextView.viewDidAppear(true);
         }
 
         onAboutToDismiss: {
-            view.viewWillDisappear(true);
+            nextView.viewWillDisappear(true);
         }
 
         onDismissed: {
             transition.dismissTransitionFinished();
 
-            view.viewDidDisappear(true);
+            nextView.viewDidDisappear(true);
 
             coordinator.destroy();
         }
     }
 
     Connections {
-        target: view
+        target: nextView
         ignoreUnknownSignals: true
         onViewWillAppear: {
-            view.setNeedsStatusBarAppearanceUpdate();
+            nextView.setNeedsStatusBarAppearanceUpdate();
         }
 
         onViewWillDisappear: {
-            origView.setNeedsStatusBarAppearanceUpdate();
+            prevView.setNeedsStatusBarAppearanceUpdate();
             coordinator.dismissed();
         }
     }
 
-    onViewChanged: {
-        if (view) {
-            view.parent = bridge;
-            view.width = Qt.binding(function() {return container.width });
-            view.height = Qt.binding(function() {return container.height });
+    onNextViewChanged: {
+        if (nextView) {
+            nextView.parent = bridge;
+            nextView.width = Qt.binding(function() {return container.width });
+            nextView.height = Qt.binding(function() {return container.height });
         }
     }
 }
