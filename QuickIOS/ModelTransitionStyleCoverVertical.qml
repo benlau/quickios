@@ -7,6 +7,7 @@ import QtQuick 2.0
 import "./priv"
 
 QtObject {
+    id: transition
 
     /// The container provide the geometry information
     property Item container : null;
@@ -48,8 +49,8 @@ QtObject {
             property: "y"
             from: _height
             to: 0
-            duration: duration
-            easing.type: Easing.Linear
+            duration: transition.duration
+            easing.type: Easing.OutExpo
             alwaysRunToEnd : true
         }
 
@@ -66,7 +67,7 @@ QtObject {
             property: "y"
             from: 0
             to: _height
-            duration: duration
+            duration: transition.duration
             easing.type: Easing.Linear
         }
 
