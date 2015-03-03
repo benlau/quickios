@@ -19,3 +19,4 @@ SegmentedControl 0.1 SegmentedControl.qml
 Segment 0.1 Segment.qml
 TableSection 0.1 TableSection.qml
 ToolBar 0.1 ToolBar.qml
+ModelTransitionStyleCoverVertical 0.1 ModelTransitionStyleCoverVertical.qml

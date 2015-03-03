@@ -45,7 +45,9 @@ Rectangle {
 
   signal pageChanged(var dstItem)
 
-  // The transition component for presentViewController and dismissViewController
+  property Component modelTransitionStyle : ModelTransitionStyleCoverVertical { }
+
+  // The transition component instance for presentViewController and dismissViewController
   property var _modelTransition;
 
   // present is a wrapper of presentViewController that accept multiple data type include string , Component etc.
@@ -69,8 +71,7 @@ Rectangle {
           animated = true;
 
       // Only a kind of transition is supported now.
-      var transition = ObjectUtils.createObject(Qt.resolvedUrl("./transitions/CoverVerticalTransition.qml") ,
-                                                view, { container : rootController ,
+      var transition = modelTransitionStyle.createObject(view, { container : rootController ,
                                                         nextView : view ,
                                                         prevView : viewController });
       view._modelTransition = transition;

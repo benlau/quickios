@@ -4,7 +4,7 @@ License: Apache License
 Project: https://github.com/hilarycheng/quickios
 */
 import QtQuick 2.0
-import "../priv"
+import "./priv"
 
 QtObject {
 

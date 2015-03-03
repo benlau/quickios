@@ -25,7 +25,7 @@
         <file>priv/qmldir</file>
         <file>SegmentedControl.qml</file>
         <file>priv/NavigationStack.qml</file>
-        <file>transitions/CoverVerticalTransition.qml</file>
+        <file>ModelTransitionStyleCoverVertical.qml</file>
         <file>Segment.qml</file>
         <file>def/Constant.qml</file>
         <file>def/qmldir</file>
