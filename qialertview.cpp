@@ -1,5 +1,8 @@
 #include "qialertview.h"
 #include "qisystemutils.h"
+#ifndef Q_OS_IOS
+
+#endif
 
 QIAlertView::QIAlertView(QQuickItem *parent) :
     QQuickItem(parent)
@@ -39,7 +42,7 @@ void QIAlertView::show()
         return;
 
     QISystemUtils* system = QISystemUtils::instance();
-
+#ifdef Q_OS_IOS
     QVariantMap data;
     data["title"] = m_title;
     data["message"] = m_message;
@@ -50,6 +53,23 @@ void QIAlertView::show()
             this,SLOT(onReceived(QString,QVariantMap)));
 
     system->sendMessage("alertViewCreate",data);
+#else
+
+    QMessageBox dialog;
+
+    dialog.setWindowTitle(m_title);
+    dialog.setText(m_message);
+
+    for (int i = 0 ; i < m_buttons.size() ; i++) {
+        dialog.addButton(m_buttons.at(i),QMessageBox::ActionRole);
+    }
+
+    int result = dialog.exec();
+    // Reserve the direction to fit iOS style
+    result = m_buttons.count() - 1 - result;
+    setClickedButtonIndex(result);
+    emit clicked(result);
+#endif
 }
 
 void QIAlertView::onReceived(QString name, QVariantMap data)
