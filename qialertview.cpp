@@ -65,8 +65,6 @@ void QIAlertView::show()
     }
 
     int result = dialog.exec();
-    // Reserve the direction to fit iOS style
-    result = m_buttons.count() - 1 - result;
     setClickedButtonIndex(result);
     emit clicked(result);
 #endif
