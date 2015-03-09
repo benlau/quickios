@@ -4,6 +4,7 @@
 QIActivityIndicator::QIActivityIndicator(QQuickItem* parent) : QQuickItem(parent)
 {
     m_isAnimating = false;
+    m_style = Gray;
 }
 
 QIActivityIndicator::~QIActivityIndicator()
@@ -16,7 +17,10 @@ void QIActivityIndicator::startAnimation()
     if (m_isAnimating)
         return;
 
-    QISystemUtils::instance()->sendMessage("activityIndicatorStartAnimation",QVariantMap());
+    QVariantMap map;
+    map["style"] = m_style;
+
+    QISystemUtils::instance()->sendMessage("activityIndicatorStartAnimation",map);
     setIsAnimating(true);
 }
 
@@ -39,5 +43,17 @@ void QIActivityIndicator::setIsAnimating(bool isAnimating)
     m_isAnimating = isAnimating;
     emit isAnimatingChanged();
 }
+
+QIActivityIndicator::Style QIActivityIndicator::style() const
+{
+    return m_style;
+}
+
+void QIActivityIndicator::setStyle(const Style &style)
+{
+    m_style = style;
+    emit styleChanged();
+}
+
 
 

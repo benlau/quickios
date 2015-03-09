@@ -305,6 +305,7 @@ static bool applicationSetStatusBarHidden(QVariantMap& data) {
     int animation = data["animation"].toInt();
 
     [[UIApplication sharedApplication] setStatusBarHidden:(bool) hidden withAnimation:(UIStatusBarAnimation) animation];
+    return true;
 }
 
 static UIActivityIndicatorView* activityIndicator = 0;
@@ -312,13 +313,14 @@ static UIActivityIndicatorView* activityIndicator = 0;
 static bool activityIndicatorStartAniamtion(QVariantMap& data) {
     Q_UNUSED(data);
     if (!activityIndicator) {
+        int style = data["style"].toInt();
+
         UIViewController* rootView = rootViewController();
 
-        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle) style];
         activityIndicator.center = rootView.view.center;
         activityIndicator.hidesWhenStopped = YES;
 
-        qDebug() << rootView.view.tintColor;
         [rootView.view addSubview:activityIndicator];
     }
 

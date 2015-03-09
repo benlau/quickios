@@ -89,7 +89,11 @@ Window {
         Timer {
             id : activityIndicatorTimer;
             interval : 3000
-            onTriggered: activityIndicator.stopAnimation();
+            onTriggered: {
+                activityIndicator.stopAnimation();
+                activityIndicator.style++;
+                activityIndicator.style = activityIndicator.style % 3;
+            }
         }
     }
 
