@@ -29,17 +29,36 @@ static int exifOrientationToDegree(int orientation) {
     return value;
 }
 
-static QImage cloneAsQImage(UIImage* image,int degree) {
+static QImage cloneAsQImage(UIImage* image,int exifOrientation) {
     QImage::Format format = QImage::Format_RGB32;
 
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
     CGFloat cols = image.size.width;
     CGFloat rows = image.size.height;
 
+    int degree = 0;
+
+    switch (exifOrientation) {
+    case 8:
+        degree = -90;
+        break;
+    case 3:
+        degree = 180;
+        break;
+    case 6:
+        degree = 90;
+        break;
+    }
+
+    if (degree == 90 || degree == -90)  {
+        CGFloat tmp = cols;
+        cols = rows;
+        rows = tmp;
+    }
+
     QSize size(cols,rows);
 
     QImage result = QImage(size,format);
-
 
     CGContextRef contextRef = CGBitmapContextCreate(result.bits(),                 // Pointer to  data
                                                    cols,                       // Width of bitmap
@@ -200,7 +219,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
     delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
                                                                      NSDictionary* info) {
 
-        int degree = 0;
+        int orientation = 0;
         QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
         QVariantMap data;
 
@@ -212,8 +231,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
 
 //        qDebug() << QString::fromNSString([metaInfo description]);
         if (metaInfo) {
-            int orientation = [metaInfo[@"Orientation"] integerValue];
-            degree = exifOrientationToDegree(orientation);
+            orientation = [metaInfo[@"Orientation"] integerValue];
         }
 
         UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
@@ -225,7 +243,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
             qWarning() << "Image Picker: Failed to take image";
             name = "imagePickerControllerDidCancel";
         } else {
-            QImage chosenQImage = cloneAsQImage(chosenImage,degree);
+            QImage chosenQImage = cloneAsQImage(chosenImage,orientation);
             data["image"] = QVariant::fromValue<QImage>(chosenQImage);
         }
 
