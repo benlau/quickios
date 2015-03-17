@@ -7,7 +7,7 @@
 #include <QThreadPool>
 #include <QImageWriter>
 #include <QImageReader>
-#include "qisystemutils.h"
+#include "qisystemmessenger.h"
 #include "qiimagepicker.h"
 
 class QIImagePickerSaver : public QRunnable {
@@ -61,7 +61,7 @@ void QIImagePicker::show(bool animated)
     }
 
 #ifdef Q_OS_IOS
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
 
     QVariantMap data;
     data["sourceType"] = m_sourceType;
@@ -112,7 +112,7 @@ void QIImagePicker::show(bool animated)
 
 void QIImagePicker::close(bool animated)
 {
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
     QVariantMap data;
     data["animated"] = animated;
 
@@ -177,7 +177,7 @@ void QIImagePicker::setStatus(const Status &status)
 
 void QIImagePicker::onReceived(QString name, QVariantMap data)
 {
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
 
     if (name == "imagePickerControllerDidCancel") {
         setStatus(Null);
@@ -255,7 +255,7 @@ void QIImagePicker::setBusy(bool busy)
         return;
 
     m_busy = busy;
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
 
     QVariantMap data;
     data["active"] = m_busy;

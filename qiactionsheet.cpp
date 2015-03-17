@@ -1,4 +1,4 @@
-#include "qisystemutils.h"
+#include "qisystemmessenger.h"
 #include "qiactionsheet.h"
 
 QIActionSheet::QIActionSheet(QQuickItem* parent) : QQuickItem(parent)
@@ -42,7 +42,7 @@ void QIActionSheet::show()
 
     running = true;
 
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
 
     QVariantMap data;
     data["title"] = m_title;
@@ -72,7 +72,7 @@ void QIActionSheet::onReceived(QString name, QVariantMap data)
 
     running = false;
 
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
     system->disconnect(this);
     setClickedButtonIndex(buttonIndex);
     emit clicked(buttonIndex);

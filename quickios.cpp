@@ -4,7 +4,7 @@
 #include <QPointer>
 #include "quickios.h"
 #include "qialertview.h"
-#include "qisystemutils.h"
+#include "qisystemmessenger.h"
 #include "qidevice.h"
 #include "qiactionsheet.h"
 #include "qiimagepicker.h"
@@ -14,7 +14,7 @@ static QPointer<QIDevice> deviceInstance;
 
 static QJSValue systemProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
-    QISystemUtils *system = QISystemUtils::instance();
+    QISystemMessenger *system = QISystemMessenger::instance();
 
     QJSValue value = scriptEngine->newQObject(system);
     return value;
@@ -38,7 +38,7 @@ static QJSValue deviceProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
 
 void QuickIOS::registerTypes()
 {
-  qmlRegisterSingletonType("QuickIOS", 0, 1, "QISystem", systemProvider);
+  qmlRegisterSingletonType("QuickIOS", 0, 1, "SystemMessenger", systemProvider);
   qmlRegisterSingletonType("QuickIOS", 0, 1, "QIDevice", deviceProvider);
 
   qmlRegisterType<QIAlertView>("QuickIOS",0,1,"AlertView");
@@ -63,7 +63,7 @@ void QuickIOS::setupWindow(QQuickWindow *window)
 
 void QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyle style)
 {
-    QISystemUtils *system = QISystemUtils::instance();
+    QISystemMessenger *system = QISystemMessenger::instance();
     QVariantMap data;
     data["style"] = style;
 

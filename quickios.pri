@@ -7,13 +7,13 @@ INCLUDEPATH += $$PWD
 RESOURCES += $$PWD/QuickIOS/quickios.qrc
 
 HEADERS += $$PWD/quickios.h \
-    $$PWD/qisystemutils.h \
     $$PWD/qiviewdelegate.h \
     $$PWD/qialertview.h \
     $$PWD/qidevice.h \
     $$PWD/qiactionsheet.h \
     $$PWD/qiimagepicker.h \
-    $$PWD/qiactivityindicator.h
+    $$PWD/qiactivityindicator.h \
+    $$PWD/qisystemmessenger.h
 
 SOURCES += $$PWD/quickios.cpp \
     $$PWD/qialertview.cpp \
@@ -21,7 +21,7 @@ SOURCES += $$PWD/quickios.cpp \
     $$PWD/qiactionsheet.cpp \
     $$PWD/qiimagepicker.cpp \
     $$PWD/qiactivityindicator.cpp \
-    $$PWD/qisystemutils.cpp
+    $$PWD/qisystemmessenger.cpp
 
 ios {
     QT += gui-private

@@ -36,7 +36,7 @@ Item {
     function setStatusBarHidden(view) {
         var hidden = view.prefersStatusBarHidden;
         var animation = view.preferredStatusBarUpdateAnimation;
-        QISystem.sendMessage("applicationSetStatusBarHidden", {
+        SystemMessenger.sendMessage("applicationSetStatusBarHidden", {
                                  hidden: hidden,
                                  animation : animation
                              });

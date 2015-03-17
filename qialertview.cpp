@@ -1,5 +1,5 @@
 #include "qialertview.h"
-#include "qisystemutils.h"
+#include "qisystemmessenger.h"
 #ifndef Q_OS_IOS
 
 #endif
@@ -41,7 +41,7 @@ void QIAlertView::show()
     if (m_opened)
         return;
 
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
 #ifdef Q_OS_IOS
     QVariantMap data;
     data["title"] = m_title;
@@ -79,7 +79,7 @@ void QIAlertView::onReceived(QString name, QVariantMap data)
     int buttonIndex = data["buttonIndex"].toInt();
     setClickedButtonIndex(buttonIndex);
     m_opened = false;
-    QISystemUtils* system = QISystemUtils::instance();
+    QISystemMessenger* system = QISystemMessenger::instance();
     system->disconnect(this);
     emit clicked(buttonIndex);
 }

@@ -3,7 +3,7 @@
 #include <QPointer>
 #include <QtCore>
 #include <QImage>
-#include "qisystemutils.h"
+#include "qisystemmessenger.h"
 #include "qiviewdelegate.h"
 
 static bool isPad() {
@@ -77,14 +77,14 @@ static UIViewController* rootViewController() {
 static bool alertViewCreate(QVariantMap& data) {
     Q_UNUSED(data);
 
-    QISystemUtils* m_instance = QISystemUtils::instance();
+    QISystemMessenger* m_instance = QISystemMessenger::instance();
     QIViewDelegate *delegate = [QIViewDelegate alloc];
 
     delegate->alertViewClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "alertViewClickedButtonAtIndex";
         QVariantMap data;
         data["buttonIndex"] = buttonIndex;
-        QISystemUtils* m_instance = QISystemUtils::instance();
+        QISystemMessenger* m_instance = QISystemMessenger::instance();
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
@@ -115,13 +115,13 @@ static bool alertViewCreate(QVariantMap& data) {
 
 static bool actionSheetCreate(QVariantMap& data) {
     QIViewDelegate *delegate = [QIViewDelegate alloc];
-    QISystemUtils* m_instance = QISystemUtils::instance();
+    QISystemMessenger* m_instance = QISystemMessenger::instance();
 
     delegate->actionSheetClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "actionSheetClickedButtonAtIndex";
         QVariantMap data;
         data["buttonIndex"] = buttonIndex;
-        QISystemUtils* m_instance = QISystemUtils::instance();
+        QISystemMessenger* m_instance = QISystemMessenger::instance();
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
@@ -176,7 +176,7 @@ static UIActivityIndicatorView* imagePickerControllerActivityIndicator = 0;
 static bool imagePickerControllerPresent(QVariantMap& data) {
 
     UIApplication* app = [UIApplication sharedApplication];
-    QISystemUtils* m_instance = QISystemUtils::instance();
+    QISystemMessenger* m_instance = QISystemMessenger::instance();
 
     if (app.windows.count <= 0)
         return false;
@@ -235,7 +235,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
             data["image"] = QVariant::fromValue<QImage>(chosenQImage);
         }
 
-        QISystemUtils* m_instance = QISystemUtils::instance();
+        QISystemMessenger* m_instance = QISystemMessenger::instance();
 
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
@@ -248,7 +248,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
 
         QString name = "imagePickerControllerDidCancel";
         QVariantMap data;
-        QISystemUtils* m_instance = QISystemUtils::instance();
+        QISystemMessenger* m_instance = QISystemMessenger::instance();
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
@@ -353,19 +353,19 @@ static bool activityIndicatorStopAnimation(QVariantMap& data) {
 class QISystemUtilsRegisterHelper {
 public:
     QISystemUtilsRegisterHelper() {
-        QISystemUtils* m_instance = QISystemUtils::instance();
+        QISystemMessenger* messenger = QISystemMessenger::instance();
 
-        m_instance->registerMessageHandler("alertViewCreate",alertViewCreate);
-        m_instance->registerMessageHandler("applicationSetStatusBarStyle",applicationSetStatusBarStyle);
-        m_instance->registerMessageHandler("applicationSetStatusBarHidden",applicationSetStatusBarHidden);
+        messenger->registerMessageHandler("alertViewCreate",alertViewCreate);
+        messenger->registerMessageHandler("applicationSetStatusBarStyle",applicationSetStatusBarStyle);
+        messenger->registerMessageHandler("applicationSetStatusBarHidden",applicationSetStatusBarHidden);
 
-        m_instance->registerMessageHandler("actionSheetCreate",actionSheetCreate);
-        m_instance->registerMessageHandler("imagePickerControllerPresent",imagePickerControllerPresent);
-        m_instance->registerMessageHandler("imagePickerControllerDismiss",imagePickerControllerDismiss);
-        m_instance->registerMessageHandler("imagePickerControllerSetIndicator",imagePickerControllerSetIndicator);
+        messenger->registerMessageHandler("actionSheetCreate",actionSheetCreate);
+        messenger->registerMessageHandler("imagePickerControllerPresent",imagePickerControllerPresent);
+        messenger->registerMessageHandler("imagePickerControllerDismiss",imagePickerControllerDismiss);
+        messenger->registerMessageHandler("imagePickerControllerSetIndicator",imagePickerControllerSetIndicator);
 
-        m_instance->registerMessageHandler("activityIndicatorStartAnimation",activityIndicatorStartAniamtion);
-        m_instance->registerMessageHandler("activityIndicatorStopAnimation",activityIndicatorStopAnimation);
+        messenger->registerMessageHandler("activityIndicatorStartAnimation",activityIndicatorStartAniamtion);
+        messenger->registerMessageHandler("activityIndicatorStopAnimation",activityIndicatorStopAnimation);
     }
 
 };
