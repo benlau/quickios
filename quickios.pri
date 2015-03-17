@@ -20,7 +20,8 @@ SOURCES += $$PWD/quickios.cpp \
     $$PWD/qidevice.cpp \
     $$PWD/qiactionsheet.cpp \
     $$PWD/qiimagepicker.cpp \
-    $$PWD/qiactivityindicator.cpp
+    $$PWD/qiactivityindicator.cpp \
+    $$PWD/qisystemutils.cpp
 
 ios {
     QT += gui-private
@@ -39,9 +40,6 @@ ios {
 
     QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Add :UIViewControllerBasedStatusBarAppearance bool false\" $${OUT_PWD}/Info.plist
 
-} else {
-
-    SOURCES += $$PWD/qisystemutils.cpp
 }
 
 DISTFILES += \

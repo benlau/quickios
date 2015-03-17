@@ -6,10 +6,6 @@
 #include "qisystemutils.h"
 #include "qiviewdelegate.h"
 
-typedef bool (*handler)(QVariantMap& data);
-static QMap<QString,handler> handlers;
-static QPointer<QISystemUtils> m_instance;
-
 static bool isPad() {
     return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 }
@@ -81,12 +77,14 @@ static UIViewController* rootViewController() {
 static bool alertViewCreate(QVariantMap& data) {
     Q_UNUSED(data);
 
+    QISystemUtils* m_instance = QISystemUtils::instance();
     QIViewDelegate *delegate = [QIViewDelegate alloc];
 
     delegate->alertViewClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "alertViewClickedButtonAtIndex";
         QVariantMap data;
         data["buttonIndex"] = buttonIndex;
+        QISystemUtils* m_instance = QISystemUtils::instance();
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
@@ -117,11 +115,13 @@ static bool alertViewCreate(QVariantMap& data) {
 
 static bool actionSheetCreate(QVariantMap& data) {
     QIViewDelegate *delegate = [QIViewDelegate alloc];
+    QISystemUtils* m_instance = QISystemUtils::instance();
 
     delegate->actionSheetClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "actionSheetClickedButtonAtIndex";
         QVariantMap data;
         data["buttonIndex"] = buttonIndex;
+        QISystemUtils* m_instance = QISystemUtils::instance();
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
@@ -176,6 +176,7 @@ static UIActivityIndicatorView* imagePickerControllerActivityIndicator = 0;
 static bool imagePickerControllerPresent(QVariantMap& data) {
 
     UIApplication* app = [UIApplication sharedApplication];
+    QISystemUtils* m_instance = QISystemUtils::instance();
 
     if (app.windows.count <= 0)
         return false;
@@ -205,6 +206,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
 
     delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
                                                                      NSDictionary* info) {
+        Q_UNUSED(picker);
 
         QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
         QVariantMap data;
@@ -233,6 +235,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
             data["image"] = QVariant::fromValue<QImage>(chosenQImage);
         }
 
+        QISystemUtils* m_instance = QISystemUtils::instance();
 
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
@@ -241,8 +244,11 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
     };
 
     delegate->imagePickerControllerDidCancel = ^(UIImagePickerController *picker) {
+        Q_UNUSED(picker);
+
         QString name = "imagePickerControllerDidCancel";
         QVariantMap data;
+        QISystemUtils* m_instance = QISystemUtils::instance();
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
@@ -252,7 +258,6 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
 
     imagePickerControllerActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     imagePickerControllerActivityIndicator.center = picker.view.center;
-    imagePickerControllerActivityIndicator.hidesWhenStopped;
     [picker.view addSubview:imagePickerControllerActivityIndicator];
 
     [rootViewController presentViewController:picker animated:animated completion:NULL];
@@ -345,11 +350,10 @@ static bool activityIndicatorStopAnimation(QVariantMap& data) {
     return true;
 }
 
-QISystemUtils *QISystemUtils::instance()
-{
-    if (!m_instance) {
-        QCoreApplication* app = QCoreApplication::instance();
-        m_instance = new QISystemUtils(app);
+class QISystemUtilsRegisterHelper {
+public:
+    QISystemUtilsRegisterHelper() {
+        QISystemUtils* m_instance = QISystemUtils::instance();
 
         m_instance->registerMessageHandler("alertViewCreate",alertViewCreate);
         m_instance->registerMessageHandler("applicationSetStatusBarStyle",applicationSetStatusBarStyle);
@@ -363,25 +367,7 @@ QISystemUtils *QISystemUtils::instance()
         m_instance->registerMessageHandler("activityIndicatorStartAnimation",activityIndicatorStartAniamtion);
         m_instance->registerMessageHandler("activityIndicatorStopAnimation",activityIndicatorStopAnimation);
     }
-    return m_instance;
-}
 
-QISystemUtils::QISystemUtils(QObject *parent) : QObject(parent) {
-}
+};
 
-bool QISystemUtils::sendMessage(QString name , QVariantMap data) {
-    if (!handlers.contains(name))
-        return false;
-    return handlers[name](data);
-}
-
-bool QISystemUtils::registerMessageHandler(QString name, bool (*func)(QVariantMap&))
-{
-    if (handlers.contains(name)) {
-        qWarning() << QString("%s is already registered").arg(name);
-        return false;
-    }
-
-    handlers[name] = func;
-    return true;
-}
+static QISystemUtilsRegisterHelper registerHelper;

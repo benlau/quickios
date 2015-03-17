@@ -33,4 +33,5 @@ bool QISystemUtils::registerMessageHandler(QString name, bool (*func)(QVariantMa
     }
 
     handlers[name] = func;
+    return true;
 }
