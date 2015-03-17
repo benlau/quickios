@@ -10,7 +10,7 @@ static bool isPad() {
     return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 }
 
-static QImage cloneAsQImage(UIImage* image) {
+static QImage fromUIImage(UIImage* image) {
     QImage::Format format = QImage::Format_RGB32;
 
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
@@ -77,7 +77,6 @@ static UIViewController* rootViewController() {
 static bool alertViewCreate(QVariantMap& data) {
     Q_UNUSED(data);
 
-    QISystemMessenger* m_instance = QISystemMessenger::instance();
     QIViewDelegate *delegate = [QIViewDelegate alloc];
 
     delegate->alertViewClickedButtonAtIndex = ^(int buttonIndex) {
@@ -115,7 +114,6 @@ static bool alertViewCreate(QVariantMap& data) {
 
 static bool actionSheetCreate(QVariantMap& data) {
     QIViewDelegate *delegate = [QIViewDelegate alloc];
-    QISystemMessenger* m_instance = QISystemMessenger::instance();
 
     delegate->actionSheetClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "actionSheetClickedButtonAtIndex";
@@ -136,7 +134,7 @@ static bool actionSheetCreate(QVariantMap& data) {
 
     NSString* cancelButtonTitle = data["cancelButtonTitle"].toString().toNSString();
     QStringList buttons = data["otherButtonTitles"].toStringList();
-    QRect rect = data["rect"].value<QRect>();
+    QRect rect = data["sourceRect"].value<QRect>();
 
     UIActionSheet* actionSheet = [UIActionSheet alloc];
 
@@ -158,7 +156,6 @@ static bool actionSheetCreate(QVariantMap& data) {
     actionSheet.cancelButtonIndex = buttons.size();
 
     if (isPad()) {
-        qDebug() << "showFromRect";
         [actionSheet showFromRect:CGRectMake(rect.x(),rect.y(),rect.width(),rect.height())
                 inView:[rootViewController() view] animated:YES];
 
@@ -176,7 +173,6 @@ static UIActivityIndicatorView* imagePickerControllerActivityIndicator = 0;
 static bool imagePickerControllerPresent(QVariantMap& data) {
 
     UIApplication* app = [UIApplication sharedApplication];
-    QISystemMessenger* m_instance = QISystemMessenger::instance();
 
     if (app.windows.count <= 0)
         return false;
@@ -231,7 +227,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
             qWarning() << "Image Picker: Failed to take image";
             name = "imagePickerControllerDidCancel";
         } else {
-            QImage chosenQImage = cloneAsQImage(chosenImage);
+            QImage chosenQImage = fromUIImage(chosenImage);
             data["image"] = QVariant::fromValue<QImage>(chosenQImage);
         }
 

@@ -51,7 +51,7 @@ void QIActionSheet::show()
 
     QRect rect(x(),y(),width(),height());
 
-    data["rect"] = mapRectToScene(rect);
+    data["sourceRect"] = mapRectToScene(rect);
 
     running = true;
     connect(system,SIGNAL(received(QString,QVariantMap)),
