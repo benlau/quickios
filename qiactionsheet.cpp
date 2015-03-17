@@ -49,6 +49,10 @@ void QIActionSheet::show()
     data["otherButtonTitles"] = m_otherButtonTitles;
     data["cancelButtonTitle"] = m_cancelButtonTitle;
 
+    QRect rect(x(),y(),width(),height());
+
+    data["rect"] = mapRectToScene(rect);
+
     running = true;
     connect(system,SIGNAL(received(QString,QVariantMap)),
             this,SLOT(onReceived(QString,QVariantMap)));

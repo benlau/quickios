@@ -10,23 +10,8 @@ typedef bool (*handler)(QVariantMap& data);
 static QMap<QString,handler> handlers;
 static QPointer<QISystemUtils> m_instance;
 
-/// Convert the value of "EXIF orientation" to the degree of rotation
-static int exifOrientationToDegree(int orientation) {
-    int value = 0;
-
-    switch (orientation) {
-    case 8:
-        value = -90;
-        break;
-    case 3:
-        value = 180;
-        break;
-    case 6:
-        value = 90;
-        break;
-    }
-
-    return value;
+static bool isPad() {
+    return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 }
 
 static QImage cloneAsQImage(UIImage* image) {
@@ -90,13 +75,7 @@ static QString fromNSUrl(NSURL* url) {
 
 static UIViewController* rootViewController() {
     UIApplication* app = [UIApplication sharedApplication];
-
-    if (app.windows.count <= 0)
-        return 0;
-
-    UIWindow* rootWindow = app.keyWindow;
-    UIViewController* rootViewController = rootWindow.rootViewController;
-    return rootViewController;
+    return app.keyWindow.rootViewController;
 }
 
 static bool alertViewCreate(QVariantMap& data) {
@@ -157,9 +136,9 @@ static bool actionSheetCreate(QVariantMap& data) {
 
     NSString* cancelButtonTitle = data["cancelButtonTitle"].toString().toNSString();
     QStringList buttons = data["otherButtonTitles"].toStringList();
+    QRect rect = data["rect"].value<QRect>();
 
     UIActionSheet* actionSheet = [UIActionSheet alloc];
-
 
     [actionSheet initWithTitle:title
         delegate:delegate
@@ -178,7 +157,14 @@ static bool actionSheetCreate(QVariantMap& data) {
 
     actionSheet.cancelButtonIndex = buttons.size();
 
-    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    if (isPad()) {
+        qDebug() << "showFromRect";
+        [actionSheet showFromRect:CGRectMake(rect.x(),rect.y(),rect.width(),rect.height())
+                inView:[rootViewController() view] animated:YES];
+
+    } else {
+        [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    }
     [actionSheet release];
 
     return true;
@@ -220,7 +206,6 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
     delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
                                                                      NSDictionary* info) {
 
-//        int orientation = 0;
         QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
         QVariantMap data;
 
@@ -228,7 +213,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
         data["mediaUrl"] = fromNSUrl(info[UIImagePickerControllerMediaURL]);
         data["referenceUrl"] = fromNSUrl(info[UIImagePickerControllerReferenceURL]);
 
-        NSDictionary *metaInfo = info[UIImagePickerControllerMediaMetadata];
+//        NSDictionary *metaInfo = info[UIImagePickerControllerMediaMetadata];
 
 //        qDebug() << QString::fromNSString([metaInfo description]);
 //        if (metaInfo) {
@@ -398,4 +383,5 @@ bool QISystemUtils::registerMessageHandler(QString name, bool (*func)(QVariantMa
     }
 
     handlers[name] = func;
+    return true;
 }

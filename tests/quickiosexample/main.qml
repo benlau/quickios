@@ -32,7 +32,7 @@ Window {
                     headerTitle: "System Components"
                     model: ListModel {
                         ListElement { title : "Alert View" ; file : "alertview/AlertViewDemo.qml" }
-                        ListElement { title : "Action Sheet" }
+                        ListElement { title : "Action Sheet" ; file : "actionSheet/ActionSheetDemo.qml"}
                         ListElement { title : "Image Picker" ; file :"imagePicker/ImagePickerDemo.qml" }
                         ListElement { title : "Tool Bar"; file : "toolBar/ToolBarDemo.qml" }
                         ListElement { title : "Activity Indicator" }
@@ -41,9 +41,6 @@ Window {
 
                     onSelected: {
                         switch (index) {
-                        case 1:
-                            actionSheet.show();
-                            break;
                         case 4:
                             activityIndicator.startAnimation();
                             activityIndicatorTimer.start();
@@ -60,16 +57,6 @@ Window {
                     }
                 }
             }
-        }
-    }
-
-    ActionSheet {
-        id: actionSheet
-        title : "Action Sheet Demo"
-        otherButtonTitles : ["Button 1","Button2"]
-        cancelButtonTitle : "Cancel"
-        onClickedButtonIndexChanged: {
-            console.log("Clicked Button")
         }
     }
 
