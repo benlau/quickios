@@ -29,47 +29,48 @@ static int exifOrientationToDegree(int orientation) {
     return value;
 }
 
-static QImage cloneAsQImage(UIImage* image,int exifOrientation) {
+static QImage cloneAsQImage(UIImage* image) {
     QImage::Format format = QImage::Format_RGB32;
 
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
-    CGFloat cols = image.size.width;
-    CGFloat rows = image.size.height;
+    CGFloat width = image.size.width;
+    CGFloat height = image.size.height;
 
+    int orientation = [image imageOrientation];
     int degree = 0;
 
-    switch (exifOrientation) {
-    case 8:
+    switch (orientation) {
+    case UIImageOrientationLeft:
         degree = -90;
         break;
-    case 3:
+    case UIImageOrientationDown: // Down
         degree = 180;
         break;
-    case 6:
+    case UIImageOrientationRight:
         degree = 90;
         break;
     }
 
     if (degree == 90 || degree == -90)  {
-        CGFloat tmp = cols;
-        cols = rows;
-        rows = tmp;
+        CGFloat tmp = width;
+        width = height;
+        height = tmp;
     }
 
-    QSize size(cols,rows);
+    QSize size(width,height);
 
     QImage result = QImage(size,format);
 
     CGContextRef contextRef = CGBitmapContextCreate(result.bits(),                 // Pointer to  data
-                                                   cols,                       // Width of bitmap
-                                                   rows,                       // Height of bitmap
+                                                   width,                       // Width of bitmap
+                                                   height,                       // Height of bitmap
                                                    8,                          // Bits per component
                                                    result.bytesPerLine(),              // Bytes per row
                                                    colorSpace,                 // Colorspace
                                                    kCGImageAlphaNoneSkipFirst |
                                                    kCGBitmapByteOrder32Little); // Bitmap info flags
 
-    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
+    CGContextDrawImage(contextRef, CGRectMake(0, 0, width, height), image.CGImage);
     CGContextRelease(contextRef);
 
     if (degree != 0) {
@@ -219,7 +220,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
     delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
                                                                      NSDictionary* info) {
 
-        int orientation = 0;
+//        int orientation = 0;
         QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
         QVariantMap data;
 
@@ -230,9 +231,9 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
         NSDictionary *metaInfo = info[UIImagePickerControllerMediaMetadata];
 
 //        qDebug() << QString::fromNSString([metaInfo description]);
-        if (metaInfo) {
-            orientation = [metaInfo[@"Orientation"] integerValue];
-        }
+//        if (metaInfo) {
+//            orientation = [metaInfo[@"Orientation"] integerValue];
+//        }
 
         UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
         if (!chosenImage) {
@@ -243,7 +244,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
             qWarning() << "Image Picker: Failed to take image";
             name = "imagePickerControllerDidCancel";
         } else {
-            QImage chosenQImage = cloneAsQImage(chosenImage,orientation);
+            QImage chosenQImage = cloneAsQImage(chosenImage);
             data["image"] = QVariant::fromValue<QImage>(chosenQImage);
         }
 
