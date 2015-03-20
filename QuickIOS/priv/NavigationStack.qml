@@ -78,21 +78,21 @@ Item {
             Stack.onStatusChanged:  {
                 var child = children[0];
                 switch (Stack.status) {
-                case Stack.Inactive :
+                case Stack.Inactive : //0
                     if (child.hasOwnProperty("viewDidDisappear"))
                         child.viewDidDisappear(true);
                     break;
-                case Stack.Activating :
+                case Stack.Activating : //2
                     if (child.hasOwnProperty("viewWillAppear"))
                         child.viewWillAppear(true);
                     break;
-                case Stack.Active :
+                case Stack.Active : //3
                     if (child.hasOwnProperty("viewDidAppear"))
                         child.viewDidAppear(true);
                     break;
-                case Stack.Deactivating :
+                case Stack.Deactivating : // 1
                     if (child.hasOwnProperty("viewWillDisappear"))
-                        child.viewDidDisappear(true);
+                        child.viewWillDisappear(true);
                     break;
                 }
             }

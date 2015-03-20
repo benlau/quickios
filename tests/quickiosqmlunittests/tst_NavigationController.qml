@@ -236,6 +236,7 @@ Rectangle {
         id : viewWithCustomTintColor
 
         ViewController {
+            id: controller
             title: "Custom tintColor"
             tintColor : "#333333"
 
@@ -247,6 +248,10 @@ Rectangle {
                 rightBarButtonItem: BarButtonItem {
                     title: "Right";
                 }
+            }
+
+            property ViewControllerListener listener : ViewControllerListener {
+                viewController: controller
             }
         }
     }
@@ -463,6 +468,45 @@ Rectangle {
 
             navigationView.pop();
             wait(500);
+        }
+
+        function test_signal() {
+            var object = viewWithCustomTintColor.createObject(this);
+            compare(object.listener.didAppearCount,0);
+            compare(object.listener.willAppearCount,0);
+            compare(object.listener.didDisappearCount,0);
+            compare(object.listener.willDisappearCount,0);
+
+            navigationView.push(object);
+
+            compare(object.listener.didAppearCount,0);
+            compare(object.listener.willAppearCount,1);
+            compare(object.listener.didDisappearCount,0);
+            compare(object.listener.willDisappearCount,0);
+
+            wait(800);
+            compare(object.listener.willAppearCount,1);
+            compare(object.listener.didAppearCount,1);
+            compare(object.listener.didDisappearCount,0);
+            compare(object.listener.willDisappearCount,0);
+
+            compare(navigationView.viewControllers.length,2);
+            var view = navigationView.navigationBar.views.get(1).object;
+            compare(view , object);
+
+            navigationView.pop();
+
+            compare(object.listener.willAppearCount,1);
+            compare(object.listener.didAppearCount,1);
+            compare(object.listener.willDisappearCount,1);
+            compare(object.listener.didDisappearCount,0);
+
+            wait(600);
+
+            compare(object.listener.willAppearCount,1);
+            compare(object.listener.didAppearCount,1);
+            compare(object.listener.willDisappearCount,1);
+            compare(object.listener.didDisappearCount,1);
         }
 
         function test_statusBar() {
