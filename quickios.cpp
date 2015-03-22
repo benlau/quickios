@@ -10,8 +10,6 @@
 #include "qiimagepicker.h"
 #include "qiactivityindicator.h"
 
-static QPointer<QIDevice> deviceInstance;
-
 static QJSValue systemProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
     QISystemMessenger *system = QISystemMessenger::instance();
@@ -23,15 +21,13 @@ static QJSValue systemProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
 static QJSValue deviceProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
 
-    if (deviceInstance.isNull()) {
-        deviceInstance = new QIDevice();
-    }
+    QIDevice* device = QIDevice::instance();
 
     QScreen *src = QGuiApplication::screens().at(0); // @TODO: Dynamic update
-    deviceInstance->setScreenWidth(src->availableGeometry().width());
-    deviceInstance->setScreenHeight(src->availableGeometry().height());
+    device->setScreenWidth(src->availableGeometry().width());
+    device->setScreenHeight(src->availableGeometry().height());
 
-    QJSValue value = scriptEngine->newQObject(deviceInstance.data());
+    QJSValue value = scriptEngine->newQObject(device);
     return value;
 }
 
@@ -51,10 +47,8 @@ void QuickIOS::registerTypes()
 void QuickIOS::setupWindow(QQuickWindow *window)
 {
 #ifdef Q_OS_IOS
-    if (!deviceInstance.isNull()) {
-        deviceInstance->setScreenFillStatusBar(true);
-    }
-
+    QIDevice* device = QIDevice::instance();
+    device->setScreenFillStatusBar(true);
     window->showFullScreen();
 #else
     Q_UNUSED(window);

@@ -6,10 +6,23 @@
 #include <QtCore>
 #include "qisystemmessenger.h"
 #include "quickios.h"
+#include "qidevice.h"
 
 #ifndef Q_OS_IOS
 #include <QApplication>
 #endif
+
+void printSystemInformation() {
+    QIDevice* device = QIDevice::instance();
+
+    QStringList properties;
+    properties << "identifierForVendor";
+
+    for (int i = 0 ; i < properties.count() ;i++) {
+        QString property = properties.at(i);
+        qDebug() << property  << device->property(property.toLocal8Bit().constData());
+    }
+}
 
 int main(int argc, char *argv[])
 {
@@ -27,6 +40,7 @@ int main(int argc, char *argv[])
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
+
     QQuickWindow *window = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
 
     /// Setup the QQuickWindow instance to fit the iOS environment
@@ -35,6 +49,8 @@ int main(int argc, char *argv[])
     QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyleDefault);
 
     QISystemMessenger::instance()->sendMessage("activityIndicatorStart",QVariantMap());
+
+    printSystemInformation();
 
     return app.exec();
 }

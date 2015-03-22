@@ -44,3 +44,6 @@ ios {
 
 DISTFILES += \
     $$PWD/QuickIOS/def/qmldir.txt
+
+OBJECTIVE_SOURCES += \
+    $$PWD/qidevice.mm
