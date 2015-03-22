@@ -28,7 +28,8 @@ ios {
 
     OBJECTIVE_SOURCES += \
         $$PWD/qisystemutils.mm \
-        $$PWD/qiviewdelegate.mm
+        $$PWD/qiviewdelegate.mm \
+        $$PWD/qidevice.mm
 
     #Qt Quick Controls
     QTPLUGIN += qtquickcontrolsplugin modelsplugin
@@ -42,8 +43,3 @@ ios {
 
 }
 
-DISTFILES += \
-    $$PWD/QuickIOS/def/qmldir.txt
-
-OBJECTIVE_SOURCES += \
-    $$PWD/qidevice.mm
