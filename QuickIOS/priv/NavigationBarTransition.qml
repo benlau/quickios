@@ -4,8 +4,10 @@ import QtQuick.Controls 1.2
 StackViewDelegate {
     id: root
 
-    readonly property int fastDuration : 400
-    readonly property int slowDuration : 460
+    readonly property int duration : 400
+
+    readonly property int movingEasing : Easing.OutQuart
+    readonly property int opacityEasing : Easing.OutQuart
 
     function transitionFinished(properties)
     {
@@ -19,8 +21,17 @@ StackViewDelegate {
            property: "x"
            from: target.width
            to: 0
-           duration: root.fastDuration
-           easing.type: Easing.OutQuad
+           duration: root.duration
+           easing.type: movingEasing
+       }
+
+       PropertyAnimation {
+           target: enterItem.titleView
+           property: "opacity"
+           from : 0
+           to : 1
+           duration: root.duration
+           easing.type: opacityEasing
        }
 
        PropertyAnimation {
@@ -28,8 +39,8 @@ StackViewDelegate {
            property: "x"
            from: 0
            to: -target.width
-           duration: root.fastDuration
-           easing.type: Easing.OutQuad
+           duration: root.duration
+           easing.type: movingEasing
 
        }
 
@@ -38,8 +49,8 @@ StackViewDelegate {
            property : "opacity"
            from : 1
            to : 0
-           duration: root.fastDuration
-           easing.type: Easing.OutQuad
+           duration: root.duration
+           easing.type:opacityEasing
 
        }
     }
@@ -50,7 +61,8 @@ StackViewDelegate {
            property: "x"
            from: -target.width
            to: 0
-           duration: root.slowDuration
+           duration: root.duration
+           easing.type: movingEasing
        }
 
        PropertyAnimation {
@@ -58,7 +70,8 @@ StackViewDelegate {
            property : "opacity"
            from : 0
            to : 1
-           duration: root.slowDuration
+           duration: root.duration
+           easing.type: opacityEasing
        }
 
        PropertyAnimation {
@@ -66,7 +79,8 @@ StackViewDelegate {
            property: "x"
            from: 0
            to: target.width
-           duration: root.fastDuration
+           duration: root.duration
+           easing.type: movingEasing
        }
    }
 

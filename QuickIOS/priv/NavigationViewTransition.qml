@@ -4,8 +4,9 @@ import QtQuick.Controls 1.2
 StackViewDelegate {
     id: root
 
-    readonly property int fastDuration : 300
-    readonly property int slowDuration : 600
+    readonly property int duration : 460
+    readonly property int easingType : Easing.OutExpo
+    readonly property real margin : 0.4
 
     function transitionFinished(properties)
     {
@@ -19,15 +20,17 @@ StackViewDelegate {
            property: "x"
            from: target.width
            to: 0
-           duration: root.fastDuration
-           easing.type: Easing.OutQuad
+           duration: root.duration
+           easing.type: easingType
        }
+
        PropertyAnimation {
            target: exitItem
            property: "x"
            from: 0
-           to: -target.width
-           duration: root.slowDuration
+           to: -target.width * root.margin
+           easing.type: easingType
+           duration: root.duration
        }
     }
 
@@ -35,16 +38,18 @@ StackViewDelegate {
        PropertyAnimation {
            target: enterItem
            property: "x"
-           from: -target.width
+           from: -target.width * root.margin
            to: 0
-           duration: root.fastDuration
+           duration: root.duration
+           easing.type:  easingType
        }
        PropertyAnimation {
            target: exitItem
            property: "x"
            from: 0
            to: target.width
-           duration: root.fastDuration
+           duration: root.duration
+           easing.type:  easingType
        }
    }
 
