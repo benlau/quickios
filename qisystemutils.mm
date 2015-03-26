@@ -285,9 +285,9 @@ bool imagePickerControllerSetIndicator(QVariantMap& data) {
     bool active = data["active"].toBool();
 
     if (active) {
-        [imagePickerControllerActivityIndicator startAnimation];
+        [imagePickerControllerActivityIndicator startAnimating];
     } else {
-        [imagePickerControllerActivityIndicator stopAnimation];
+        [imagePickerControllerActivityIndicator stopAnimating];
     }
 
     return true;
