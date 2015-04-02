@@ -5,6 +5,7 @@
 #include <QImage>
 #include "qisystemmessenger.h"
 #include "qiviewdelegate.h"
+#include "elcimagepicker/Classes/ELCImagePicker/ELCImagePickerController.h"
 
 static bool isPad() {
     return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
@@ -346,6 +347,120 @@ static bool activityIndicatorStopAnimation(QVariantMap& data) {
     return true;
 }
 
+
+static ELCImagePickerController* elcImagePickerController = 0;
+
+static bool elcImagePickerControllerPresent(QVariantMap& data) {
+
+    UIViewController* rootView = rootViewController();
+
+    int sourceType = data["sourceType"].toInt();
+    bool animated = data["animated"].toBool();
+
+//    if (![UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceType) sourceType]) {
+//        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
+//                          message:@"The operation is not supported in this device"
+//                          delegate:nil
+//                          cancelButtonTitle:@"OK"
+//                          otherButtonTitles: nil];
+//        [myAlertView show];
+//        [myAlertView release];
+//        return false;
+//    }
+
+    ELCImagePickerController *picker = [[ELCImagePickerController alloc] initImagePicker];
+    picker.maximumImagesCount = 4; //Set the maximum number of images to select, defaults to 4
+    picker.returnsOriginalImage = NO; //Only return the fullScreenImage, not the fullResolutionImage
+    picker.returnsImage = YES; //Return UIimage if YES. If NO, only return asset location information
+    picker.onOrder = YES; //For multiple image selection, display and return selected order of images
+//    elcPicker.imagePickerDelegate = self;
+
+    elcImagePickerController = picker;
+//    picker.sourceType = (UIImagePickerControllerSourceType) sourceType;
+
+    QIViewDelegate *delegate = [QIViewDelegate alloc];
+
+    /*
+    delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
+                                                                     NSDictionary* info) {
+        Q_UNUSED(picker);
+
+        QString name = "imagePickerControllerDisFinishPickingMetaWithInfo";
+        QVariantMap data;
+
+        data["mediaType"] = QString::fromNSString(info[UIImagePickerControllerMediaType]);
+        data["mediaUrl"] = fromNSUrl(info[UIImagePickerControllerMediaURL]);
+        data["referenceUrl"] = fromNSUrl(info[UIImagePickerControllerReferenceURL]);
+
+//        NSDictionary *metaInfo = info[UIImagePickerControllerMediaMetadata];
+
+//        qDebug() << QString::fromNSString([metaInfo description]);
+//        if (metaInfo) {
+//            orientation = [metaInfo[@"Orientation"] integerValue];
+//        }
+
+        UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+        if (!chosenImage) {
+            chosenImage = info[UIImagePickerControllerOriginalImage];
+        }
+
+        if (!chosenImage) {
+            qWarning() << "Image Picker: Failed to take image";
+            name = "imagePickerControllerDidCancel";
+        } else {
+            QImage chosenQImage = fromUIImage(chosenImage);
+            data["image"] = QVariant::fromValue<QImage>(chosenQImage);
+        }
+
+        QISystemMessenger* m_instance = QISystemMessenger::instance();
+
+        QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
+                                  Q_ARG(QString , name),
+                                  Q_ARG(QVariantMap,data));
+
+    };
+
+    delegate->imagePickerControllerDidCancel = ^(UIImagePickerController *picker) {
+        Q_UNUSED(picker);
+
+        QString name = "imagePickerControllerDidCancel";
+        QVariantMap data;
+        QISystemMessenger* m_instance = QISystemMessenger::instance();
+        QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
+                                  Q_ARG(QString , name),
+                                  Q_ARG(QVariantMap,data));
+    };
+
+    picker.delegate = delegate;
+
+    imagePickerControllerActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    imagePickerControllerActivityIndicator.center = picker.view.center;
+    [picker.view addSubview:imagePickerControllerActivityIndicator];
+*/
+
+    [rootView presentViewController:picker animated:animated completion:NULL];
+
+    return true;
+}
+
+bool elcImagePickerControllerDismiss(QVariantMap& data) {
+    Q_UNUSED(data);
+    if (!imagePickerController)
+        return false;
+
+    bool animated = data["animated"].toBool();
+
+    [imagePickerController dismissViewControllerAnimated:animated completion:NULL];
+    [imagePickerController release];
+
+    [imagePickerControllerActivityIndicator release];
+
+    imagePickerController = 0;
+    imagePickerControllerActivityIndicator = 0;
+    return true;
+}
+
+
 class QISystemUtilsRegisterHelper {
 public:
     QISystemUtilsRegisterHelper() {
@@ -356,7 +471,9 @@ public:
         messenger->registerMessageHandler("applicationSetStatusBarHidden",applicationSetStatusBarHidden);
 
         messenger->registerMessageHandler("actionSheetCreate",actionSheetCreate);
-        messenger->registerMessageHandler("imagePickerControllerPresent",imagePickerControllerPresent);
+//        messenger->registerMessageHandler("imagePickerControllerPresent",imagePickerControllerPresent);
+        messenger->registerMessageHandler("imagePickerControllerPresent",elcImagePickerControllerPresent);
+
         messenger->registerMessageHandler("imagePickerControllerDismiss",imagePickerControllerDismiss);
         messenger->registerMessageHandler("imagePickerControllerSetIndicator",imagePickerControllerSetIndicator);
 
