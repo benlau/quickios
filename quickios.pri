@@ -26,6 +26,8 @@ SOURCES += $$PWD/quickios.cpp \
 ios {
     QT += gui-private
 
+    QMAKE_CXXFLAGS += -fobjc-arc
+
     OBJECTIVE_SOURCES += \
         $$PWD/qisystemutils.mm \
         $$PWD/qiviewdelegate.mm \

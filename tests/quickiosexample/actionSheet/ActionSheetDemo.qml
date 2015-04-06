@@ -25,7 +25,7 @@ ViewController {
                     otherButtonTitles : ["Button 1","Button2"]
                     cancelButtonTitle : "Cancel"
                     onClickedButtonIndexChanged: {
-                        console.log("Clicked Button")
+                        console.log("Clicked Button",clickedButtonIndex);
                     }
                 }
             }

@@ -77,7 +77,8 @@ static UIViewController* rootViewController() {
 static bool alertViewCreate(QVariantMap& data) {
     Q_UNUSED(data);
 
-    QIViewDelegate *delegate = [QIViewDelegate alloc];
+    static QIViewDelegate *delegate = 0;
+    delegate = [QIViewDelegate alloc];
 
     delegate->alertViewClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "alertViewClickedButtonAtIndex";
@@ -87,6 +88,7 @@ static bool alertViewCreate(QVariantMap& data) {
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
+        delegate = nil;
     };
 
     NSString* title = data["title"].toString().toNSString();
@@ -107,13 +109,14 @@ static bool alertViewCreate(QVariantMap& data) {
     }
 
     [alert show];
-    [alert release];
 
     return true;
 }
 
 static bool actionSheetCreate(QVariantMap& data) {
-    QIViewDelegate *delegate = [QIViewDelegate alloc];
+    static QIViewDelegate *delegate;
+
+    delegate = [QIViewDelegate alloc];
 
     delegate->actionSheetClickedButtonAtIndex = ^(int buttonIndex) {
         QString name = "actionSheetClickedButtonAtIndex";
@@ -123,7 +126,7 @@ static bool actionSheetCreate(QVariantMap& data) {
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
-
+        delegate = nil;
     };
 
     NSString* title = nil;
@@ -162,7 +165,6 @@ static bool actionSheetCreate(QVariantMap& data) {
     } else {
         [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     }
-    [actionSheet release];
 
     return true;
 }
@@ -190,7 +192,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
                           cancelButtonTitle:@"OK"
                           otherButtonTitles: nil];
         [myAlertView show];
-        [myAlertView release];
+//        [myAlertView release];
         return false;
     }
 
@@ -198,7 +200,8 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
     imagePickerController = picker;
     picker.sourceType = (UIImagePickerControllerSourceType) sourceType;
 
-    QIViewDelegate *delegate = [QIViewDelegate alloc];
+    static QIViewDelegate *delegate = 0;
+    delegate = [QIViewDelegate alloc];
 
     delegate->imagePickerControllerDidFinishPickingMediaWithInfo = ^(UIImagePickerController *picker,
                                                                      NSDictionary* info) {
@@ -210,13 +213,6 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
         data["mediaType"] = QString::fromNSString(info[UIImagePickerControllerMediaType]);
         data["mediaUrl"] = fromNSUrl(info[UIImagePickerControllerMediaURL]);
         data["referenceUrl"] = fromNSUrl(info[UIImagePickerControllerReferenceURL]);
-
-//        NSDictionary *metaInfo = info[UIImagePickerControllerMediaMetadata];
-
-//        qDebug() << QString::fromNSString([metaInfo description]);
-//        if (metaInfo) {
-//            orientation = [metaInfo[@"Orientation"] integerValue];
-//        }
 
         UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
         if (!chosenImage) {
@@ -237,6 +233,7 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
 
+        delegate = nil;
     };
 
     delegate->imagePickerControllerDidCancel = ^(UIImagePickerController *picker) {
@@ -248,6 +245,8 @@ static bool imagePickerControllerPresent(QVariantMap& data) {
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
+
+        delegate = nil;
     };
 
     picker.delegate = delegate;
@@ -269,9 +268,9 @@ bool imagePickerControllerDismiss(QVariantMap& data) {
     bool animated = data["animated"].toBool();
 
     [imagePickerController dismissViewControllerAnimated:animated completion:NULL];
-    [imagePickerController release];
+//    [imagePickerController release];
 
-    [imagePickerControllerActivityIndicator release];
+//    [imagePickerControllerActivityIndicator release];
 
     imagePickerController = 0;
     imagePickerControllerActivityIndicator = 0;
@@ -341,7 +340,7 @@ static bool activityIndicatorStopAnimation(QVariantMap& data) {
     }
 
     [activityIndicator stopAnimating];
-    [activityIndicator release];
+//    [activityIndicator release];
     activityIndicator = 0;
     return true;
 }
