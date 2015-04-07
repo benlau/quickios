@@ -15,6 +15,7 @@
     void ( ^ alertViewDismissWithButtonIndex )( int );
 
     void ( ^ actionSheetClickedButtonAtIndex) (int);
+    void ( ^ actionSheetDidDismissWithButtonIndex) (int);
 
     void (^ imagePickerControllerDidFinishPickingMediaWithInfo)(UIImagePickerController* picker,NSDictionary* info);
     void (^ imagePickerControllerDidCancel)(UIImagePickerController* picker);

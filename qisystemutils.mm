@@ -126,6 +126,15 @@ static bool actionSheetCreate(QVariantMap& data) {
         QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
                                   Q_ARG(QString , name),
                                   Q_ARG(QVariantMap,data));
+    };
+
+    delegate->actionSheetDidDismissWithButtonIndex = ^(int buttonIndex) {
+        QString name = "actionSheetDidDismissWithButtonIndex";
+        QVariantMap data;
+        data["buttonIndex"] = buttonIndex;
+
+        QISystemMessenger* m_instance = QISystemMessenger::instance();
+        m_instance->sendMessage(name,data);
         delegate = nil;
     };
 

@@ -62,7 +62,8 @@ void QIActionSheet::show()
 
 void QIActionSheet::onReceived(QString name, QVariantMap data)
 {
-    if (name != "actionSheetClickedButtonAtIndex"){
+    if (name != "actionSheetClickedButtonAtIndex" &&
+        name != "actionSheetDidDismissWithButtonIndex"){
         return;
     }
 
@@ -70,14 +71,21 @@ void QIActionSheet::onReceived(QString name, QVariantMap data)
     if (buttonIndex >= m_otherButtonTitles.size())
         buttonIndex = -1;
 
-    running = false;
+    if (name == "actionSheetClickedButtonAtIndex") {
+        setClickedButtonIndex(buttonIndex);
+        emit clicked(buttonIndex);
 
-    QISystemMessenger* system = QISystemMessenger::instance();
-    system->disconnect(this);
-    setClickedButtonIndex(buttonIndex);
-    emit clicked(buttonIndex);
+    } else {
+        running = false;
+
+        QISystemMessenger* system = QISystemMessenger::instance();
+        system->disconnect(this);
+        emit dismissed(buttonIndex);
+    }
 
 }
+
+
 QString QIActionSheet::cancelButtonTitle() const
 {
     return m_cancelButtonTitle;

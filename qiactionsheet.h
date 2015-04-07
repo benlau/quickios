@@ -31,11 +31,14 @@ public:
     void setCancelButtonTitle(const QString &cancelButtonTitle);
 
 signals:
-    void clicked(int index);
+    void clicked(int buttonIndex);
     void titleChanged();
     void otherButtonTitlesChanged();
     void clickedButtonIndexChanged();
     void cancelButtonTitleChanged();
+
+    /// The signal is emitted when the action sheet is dismissed completely.
+    void dismissed(int buttonIndex);
 
 private:
     Q_INVOKABLE void onReceived(QString name,QVariantMap data);

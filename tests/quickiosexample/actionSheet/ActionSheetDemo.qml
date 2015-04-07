@@ -27,6 +27,9 @@ ViewController {
                     onClickedButtonIndexChanged: {
                         console.log("Clicked Button",clickedButtonIndex);
                     }
+                    onDismissed: {
+                        console.log("dismissed",buttonIndex)
+                    }
                 }
             }
 

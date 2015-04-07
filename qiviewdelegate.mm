@@ -1,3 +1,4 @@
+#include <QtCore>
 #import "qiviewdelegate.h"
 
 @interface QIViewDelegate ()
@@ -21,6 +22,12 @@
     if (actionSheetClickedButtonAtIndex) {
         actionSheetClickedButtonAtIndex(buttonIndex);
     }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (actionSheetDidDismissWithButtonIndex) {
+        actionSheetDidDismissWithButtonIndex(buttonIndex);
+    };
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
