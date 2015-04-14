@@ -40,6 +40,7 @@ Item {
                    );
         views.append({object: view});
         pushed(view);
+        return view;
     }
 
     function pop() {
