@@ -11,8 +11,6 @@ Rectangle {
     width: 480
     height: 640
 
-    property int destructionCount : 0
-
     NavigationController {
         id: navigationController
         anchors.fill: parent
@@ -224,9 +222,12 @@ Rectangle {
 
         function test_gc() {
             gc();
-            window.destructionCount = 0;
+            var destructionCount = 0;
 
             var view = sampleViewController.createObject();
+            view.Component.onDestruction.connect(function() {
+                destructionCount++;
+            });
 //            view.listener.destroy();
 //            view.listener = undefined;
 
@@ -238,7 +239,7 @@ Rectangle {
 
             gc();
 
-            compare(window.destructionCount,1);
+            compare(destructionCount,1);
         }
 
     }
