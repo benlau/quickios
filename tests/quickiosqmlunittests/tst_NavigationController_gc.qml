@@ -55,11 +55,31 @@ Rectangle {
         }
     }
 
+    Component {
+        id : viewControllerCreator2
+
+        ViewController {
+            id : controller
+            anchors.fill: parent
+            color : "green"
+
+            Component.onCompleted: {
+//                console.log("completed");
+            }
+
+            Component.onDestruction: {
+//                console.log("destroyed")
+                window.destructionCount++;
+            }
+        }
+    }
+
     TestCase {
         name: "NavigationController_gc"
         when : windowShown
 
-        function test_pushComponetSource() {
+        function test_pushComponentSource() {
+            window.destructionCount = 0;
             var navigationController = navigationControllerCreator.createObject(window);
 
             for (var i = 0 ; i < 5 ; i++) {
@@ -73,6 +93,53 @@ Rectangle {
 
             gc();
             compare(window.destructionCount,5);
+            navigationController.destroy();
+        }
+
+        function test_pushStringSource() {
+            window.destructionCount = 0;
+            var navigationController = navigationControllerCreator.createObject(window);
+
+            for (var i = 0 ; i < 5 ; i++) {
+                var view = navigationController.push(Qt.resolvedUrl("./SampleView.qml"));
+                view.Component.onDestruction.connect(function() {
+                    window.destructionCount++;
+                });
+                view = undefined;
+                wait(500);
+                navigationController.pop();
+                wait(500);
+            }
+
+            gc();
+            compare(window.destructionCount,5);
+            navigationController.destroy();
+        }
+
+        function test_pushComponentSourceNested() {
+
+            window.destructionCount = 0;
+            var navigationController = navigationControllerCreator.createObject(window);
+
+            for (var i = 0 ; i < 5 ; i++) {
+                var view = viewControllerCreator1.createObject();
+                navigationController.push(view);
+                wait(500);
+
+                view = viewControllerCreator2.createObject();
+                navigationController.push(view);
+                view = undefined;
+                wait(500);
+
+                navigationController.pop();
+                wait(500);
+
+                navigationController.pop();
+                wait(500);
+            }
+
+            gc();
+            compare(window.destructionCount,10);
             navigationController.destroy();
         }
 

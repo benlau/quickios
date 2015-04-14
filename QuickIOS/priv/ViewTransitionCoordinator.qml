@@ -70,6 +70,7 @@ Item {
 
             nextView.viewDidDisappear(true);
 
+            coordinator.nextView._modelTransition.destroy(); // Destroy the transition object for GC
             coordinator.destroy();
         }
     }

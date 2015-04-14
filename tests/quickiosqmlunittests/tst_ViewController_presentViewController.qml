@@ -7,8 +7,11 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls 1.2 as Quick
 
 Rectangle {
+    id : window
     width: 480
     height: 640
+
+    property int destructionCount : 0
 
     NavigationController {
         id: navigationController
@@ -32,6 +35,11 @@ Rectangle {
             property ViewControllerListener listener : ViewControllerListener {
                 viewController: overlayViewController
             }
+
+            Component.onDestruction: {
+                console.log("overlay destruction");
+                window.destructionCount++;
+            }
         }
     }
 
@@ -52,6 +60,11 @@ Rectangle {
                     clickedCount++;
                     console.log(clickedCount);
                 }
+            }
+
+            Component.onDestruction: {
+                console.log("sampleViewController destruction");
+                window.destructionCount++;
             }
         }
     }
@@ -209,6 +222,25 @@ Rectangle {
             compare(view.listener.willDisappearCount,1);
 
             wait(500);
+        }
+
+        function test_gc() {
+            gc();
+            window.destructionCount = 0;
+
+            var view = sampleViewController.createObject();
+//            view.listener.destroy();
+//            view.listener = undefined;
+
+            rootView.presentViewController(view,false);
+            wait(500);
+            view.dismissViewController();
+            view = undefined;
+            wait(500);
+
+            gc();
+
+            compare(window.destructionCount,1);
         }
 
     }
