@@ -35,7 +35,9 @@ Item {
         if (topView)
             topView.enabled = false;
 
-        stack.push(container);
+        stack.push({ item :container,
+                     destroyOnPop: true} // For GC
+                   );
         views.append({object: view});
         pushed(view);
     }

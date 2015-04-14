@@ -163,7 +163,7 @@ Rectangle {
 
               var object = creator.createObject(stack);
 
-              stack.push(object);
+              stack.push({item : object , destroyOnPop : true});
           }
 
           Component.onDestruction: {
