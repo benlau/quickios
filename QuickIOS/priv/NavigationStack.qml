@@ -18,8 +18,8 @@ Item {
 
     property var tintColor
 
-    signal pushed(var view)
-    signal poped()
+    signal pushed(var viewController)
+    signal popped(var viewController)
 
     function push(source,options) {        
         var container = containerFactory.createObject(navigationView);
@@ -47,12 +47,13 @@ Item {
         if (stack.depth == 1)
             return;
         stack.pop();
+        var view = views.get(views.count - 1).object;
         views.remove(views.count - 1,1);
 
         var topView = top();
         if (topView)
             topView.enabled = true;
-        poped();
+        popped(view);
     }
 
     function top() {

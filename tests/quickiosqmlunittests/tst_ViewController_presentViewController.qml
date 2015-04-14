@@ -37,7 +37,6 @@ Rectangle {
             }
 
             Component.onDestruction: {
-                console.log("overlay destruction");
                 window.destructionCount++;
             }
         }
@@ -63,7 +62,6 @@ Rectangle {
             }
 
             Component.onDestruction: {
-                console.log("sampleViewController destruction");
                 window.destructionCount++;
             }
         }

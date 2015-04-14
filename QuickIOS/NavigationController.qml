@@ -27,7 +27,9 @@ ViewController {
     property var topViewController : null
 
     property var viewControllers : new Array
-//    property alias views : stack.views
+
+    signal pushed(ViewController viewController)
+    signal popped(ViewController viewController)
 
     // Create ViewController from source file or Component then push it into the stack.
     function push(source,options) {
@@ -58,23 +60,25 @@ ViewController {
 
         onPushed: {
             // Attach navigationController to a newly created view
-            if (view.hasOwnProperty("navigationController"))
-                view.navigationController = navigationController;
+            if (viewController.hasOwnProperty("navigationController"))
+                viewController.navigationController = navigationController;
 
-            topViewController = view;
-            viewControllers.push(view);
+            topViewController = viewController;
+            viewControllers.push(viewController);
             navigationController.viewControllersChanged();
+            navigationController.pushed(viewController);
         }
 
-        onPoped: {
-            var view = null;
+        onPopped: {
+            var topView = null;
             if (views.count > 0) {
-                view = views.get(views.count - 1).object;
+                topView = views.get(views.count - 1).object;
             }
             viewControllers.splice(viewControllers.length - 1 , 1);
             navigationController.viewControllersChanged();
+            topViewController = topView;
 
-            topViewController = view;
+            navigationController.popped(viewController);
         }
     }
 

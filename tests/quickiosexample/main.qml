@@ -57,6 +57,11 @@ Window {
                     }
                 }
             }
+
+        }
+
+        onPopped: {
+            console.log(viewController.title + " is popped");
         }
     }
 
