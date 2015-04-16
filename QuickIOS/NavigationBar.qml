@@ -60,6 +60,10 @@ Rectangle {
       id : dummyItemModel;
   }
 
+  MouseArea {
+      anchors.fill: parent // block all the mouse event
+  }
+
   StackView {
       id : stack
       anchors.left: parent.left
