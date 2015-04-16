@@ -55,18 +55,26 @@ void QIAlertView::show()
     system->sendMessage("alertViewCreate",data);
 #else
 
-    QMessageBox dialog;
+    QMessageBox* dialog = new QMessageBox();
 
-    dialog.setWindowTitle(m_title);
-    dialog.setText(m_message);
+    dialog->setWindowTitle(m_title);
+    dialog->setText(m_message);
 
     for (int i = 0 ; i < m_buttons.size() ; i++) {
-        dialog.addButton(m_buttons.at(i),QMessageBox::ActionRole);
+        dialog->addButton(m_buttons.at(i),QMessageBox::ActionRole);
     }
 
-    int result = dialog.exec();
-    setClickedButtonIndex(result);
-    emit clicked(result);
+    connect(dialog,SIGNAL(finished(int)),
+            this,SLOT(onFinished(int)));
+
+    connect(dialog,SIGNAL(finished(int)),
+            dialog,SLOT(close()));
+
+    connect(dialog,SIGNAL(finished(int)),
+            dialog,SLOT(deleteLater()));
+
+    dialog->show();
+
 #endif
 }
 
@@ -76,13 +84,20 @@ void QIAlertView::onReceived(QString name, QVariantMap data)
         return;
     }
 
-    int buttonIndex = data["buttonIndex"].toInt();
-    setClickedButtonIndex(buttonIndex);
-    m_opened = false;
     QISystemMessenger* system = QISystemMessenger::instance();
     system->disconnect(this);
-    emit clicked(buttonIndex);
+
+    int buttonIndex = data["buttonIndex"].toInt();
+    onFinished(buttonIndex);
 }
+
+void QIAlertView::onFinished(int index)
+{
+    m_opened = false;
+    setClickedButtonIndex(index);
+    emit clicked(index);
+}
+
 int QIAlertView::clickedButtonIndex() const
 {
     return m_clickedButtonIndex;

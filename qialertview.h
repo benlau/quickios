@@ -46,6 +46,7 @@ Q_SIGNALS:
 
 private:
     Q_INVOKABLE void onReceived(QString name,QVariantMap data);
+    Q_INVOKABLE void onFinished(int index);
     QString m_title;
     QString m_message;
 
