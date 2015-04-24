@@ -9,6 +9,6 @@
         <file>imagePicker/ImagePickerDemo.qml</file>
         <file>statusBar/StatusBarDemo.qml</file>
         <file>actionSheet/ActionSheetDemo.qml</file>
-        <file>segmentedControl/SegmentedControlDemo.qml</file>
+        <file>segment/SegmentedControlDemo.qml</file>
     </qresource>
 </RCC>
