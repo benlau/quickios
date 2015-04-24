@@ -6,7 +6,7 @@ StackViewDelegate {
 
     readonly property int duration : 460
     readonly property int easingType : Easing.OutExpo
-    readonly property real margin : 0.4
+    readonly property real margin : 0.38
 
     function transitionFinished(properties)
     {

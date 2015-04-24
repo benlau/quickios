@@ -15,11 +15,10 @@ import QtQuick.Controls 1.2 as QuickControl
 import "./priv"
 import "./def"
 
-Item {
+ViewController {
     id: segmentedControl
 
     default property alias __children : tabView.children
-    property color tintColor : parent && parent.tintColor ? parent.tintColor : Constant.tintColor
     property alias count : tabView.count
     property alias currentIndex : tabView.currentIndex
     property alias numberOfSegments : tabView.count

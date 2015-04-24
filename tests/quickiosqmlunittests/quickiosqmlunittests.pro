@@ -22,8 +22,7 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 include(../../quickios.pri)
 
 OTHER_FILES += \
-    tst_SegmentedControlTabView.qml \
-    tst_SegmentedControl.qml
+    tst_SegmentedControlTabView.qml
 
 DISTFILES += \
     tst_ViewController_presentViewController.qml \
@@ -34,7 +33,8 @@ DISTFILES += \
     tst_ToolBar.qml \
     tst_BarButtonItem.qml \
     ViewControllerListener.qml \
-    tst_NavigationController_gc.qml
+    tst_NavigationController_gc.qml \
+    tst_SegmentedViewController.qml
 
 HEADERS += \
     testenv.h

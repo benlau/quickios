@@ -23,7 +23,7 @@
         <file>NavigationBarTitleAttributes.qml</file>
         <file>priv/SegmentedControlTabViewStyle.qml</file>
         <file>priv/qmldir</file>
-        <file>SegmentedControl.qml</file>
+        <file>SegmentedViewController.qml</file>
         <file>priv/NavigationStack.qml</file>
         <file>ModelTransitionStyleCoverVertical.qml</file>
         <file>Segment.qml</file>

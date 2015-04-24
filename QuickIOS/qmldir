@@ -15,7 +15,7 @@ BarButtonItemStyle 0.1 BarButtonItemStyle.qml
 AppDelegate 0.1 appdelegate.js
 Application 0.1 Application.qml
 NavigationBarTitleAttributes 0.1 NavigationBarTitleAttributes.qml
-SegmentedControl 0.1 SegmentedControl.qml
+SegmentedViewController 0.1 SegmentedViewController.qml
 Segment 0.1 Segment.qml
 TableSection 0.1 TableSection.qml
 ToolBar 0.1 ToolBar.qml

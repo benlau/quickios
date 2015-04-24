@@ -37,6 +37,7 @@ Window {
                         ListElement { title : "Tool Bar"; file : "toolBar/ToolBarDemo.qml" }
                         ListElement { title : "Activity Indicator" }
                         ListElement { title : "Status Bar"; file :"statusBar/StatusBarDemo.qml"; present:true}
+                        ListElement { title : "Segmented Control"; file:"segmentedControl/SegmentedControlDemo.qml"}
                     }
 
                     onSelected: {

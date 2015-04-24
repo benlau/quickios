@@ -20,7 +20,7 @@ NavigationController {
         id: viewController
         title : "Segmented Control"
 
-        SegmentedControl {
+        SegmentedViewController {
             id: segmentedControl
             anchors.fill: parent
 
@@ -62,7 +62,7 @@ NavigationController {
     }
 
     TestCase {
-        name: "SegmentedControl"
+        name: "SegmentedViewController"
         when : windowShown
 
         function test_preview() {
@@ -121,7 +121,7 @@ NavigationController {
         Component {
             id: segmentedControlCreator
 
-            SegmentedControl {
+            SegmentedViewController {
                 anchors.fill: parent
 
                 Segment {
