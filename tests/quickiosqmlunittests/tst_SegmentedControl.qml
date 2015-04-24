@@ -117,6 +117,46 @@ NavigationController {
 
             wait(TestEnv.waitTime);
         }
+
+        Component {
+            id: segmentedControlCreator
+
+            SegmentedControl {
+                anchors.fill: parent
+
+                Segment {
+                    title : "green"
+                    ViewController {
+                        color : "green"
+                    }
+                }
+
+                Segment {
+                    title : "yellow"
+                    ViewController {
+                        color : "yellow"
+                    }
+                }
+
+                Segment {
+                    title : "black"
+                    ViewController {
+                        color : "black"
+                    }
+                }
+
+            }
+        }
+
+        function test_NonZeroCurrentIndex() {
+            var view = segmentedControlCreator.createObject(viewController,{
+                                                                       currentIndex : 1
+                                                                      });
+
+            wait(TestEnv.waitTime);
+            view.destroy();
+        }
+
     }
 
 

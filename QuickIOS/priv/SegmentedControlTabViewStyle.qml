@@ -17,6 +17,8 @@ TabViewStyle {
         color : backgroundColor
     }
 
+    frame : Item {} // Transparent
+
     leftCorner: Item {
         implicitHeight: contentHeight
         implicitWidth : 22 + radius

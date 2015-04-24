@@ -54,10 +54,12 @@ Item {
 
             if (previousIndex >= 0) {
                 var prevTab = getTab(previousIndex);
-                emitDisappear(prevTab.children[0]);
+                if (prevTab.children.length > 0)
+                    emitDisappear(prevTab.children[0]);
             }
 
-            emitAppear(tab.children[0]);
+            if (tab.children.length > 0)
+                emitAppear(tab.children[0]);
             previousIndex = currentIndex;
         }
 
@@ -80,7 +82,8 @@ Item {
         Component.onCompleted: {
             var tab = getTab(currentIndex);
             tab.tintColor = segmentedControl.tintColor;
-            emitAppear(tab.children[0]);
+            if (tab.children.length > 0)
+                emitAppear(tab.children[0]);
             previousIndex = currentIndex;
         }
     }
