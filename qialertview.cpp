@@ -12,6 +12,15 @@ QIAlertView::QIAlertView(QQuickItem *parent) :
     m_clickedButtonIndex = -1;
 }
 
+QIAlertView::~QIAlertView()
+{
+#ifndef Q_OS_IOS
+    if (!dialog.isNull()) {
+        dialog->reject();
+    }
+#endif
+}
+
 QString QIAlertView::title() const {
     return m_title;
 }
@@ -55,7 +64,7 @@ void QIAlertView::show()
     system->sendMessage("alertViewCreate",data);
 #else
 
-    QMessageBox* dialog = new QMessageBox();
+    dialog = new QMessageBox();
 
     dialog->setWindowTitle(m_title);
     dialog->setText(m_message);
@@ -64,14 +73,14 @@ void QIAlertView::show()
         dialog->addButton(m_buttons.at(i),QMessageBox::ActionRole);
     }
 
-    connect(dialog,SIGNAL(finished(int)),
+    connect(dialog.data(),SIGNAL(finished(int)),
             this,SLOT(onFinished(int)));
 
-    connect(dialog,SIGNAL(finished(int)),
-            dialog,SLOT(close()));
+    connect(dialog.data(),SIGNAL(finished(int)),
+            dialog.data(),SLOT(close()));
 
-    connect(dialog,SIGNAL(finished(int)),
-            dialog,SLOT(deleteLater()));
+    connect(dialog.data(),SIGNAL(finished(int)),
+            dialog.data(),SLOT(deleteLater()));
 
     dialog->show();
 

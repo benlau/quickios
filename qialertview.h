@@ -2,7 +2,11 @@
 #define QIALERTVIEW_H
 
 #include <QQuickItem>
+
+#ifndef Q_OS_IOS
 #include <QMessageBox>
+#include <QPointer>
+#endif
 
 /// QIAlertView provides an interface to access iOS's UIAlertView
 
@@ -18,6 +22,7 @@ class QIAlertView : public QQuickItem
 public:
 
     explicit QIAlertView(QQuickItem *parent = 0);
+    ~QIAlertView();
 
     virtual QString title() const;
     QString text() const;
@@ -53,6 +58,10 @@ private:
     QStringList m_buttons;
     bool m_opened;
     int m_clickedButtonIndex;
+
+#ifndef Q_OS_IOS
+    QPointer<QMessageBox> dialog;
+#endif
 };
 
 #endif // QIALERTVIEW_H
