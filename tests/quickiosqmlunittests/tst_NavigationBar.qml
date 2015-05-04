@@ -63,7 +63,7 @@ Rectangle {
             nc.ruler.parent = nc.navigationBar.currentTitleItem.parent
             nc.ruler.anchors.fill =  nc.navigationBar.currentTitleItem
             wait(500);
-            compare(nc.ruler.width,265)
+            compare(nc.ruler.width < 270) // Font size can be different in differnet system.
             compare(nc.navigationBar.currentTitleItem.paintedWidth * nc.navigationBar.currentTitleItem.scale  <= nc.ruler.width,true)
             wait(TestEnv.waitTime)
         }
