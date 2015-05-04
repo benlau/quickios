@@ -50,8 +50,9 @@ void QIAlertView::show()
     if (m_opened)
         return;
 
-    QISystemMessenger* system = QISystemMessenger::instance();
 #ifdef Q_OS_IOS
+    QISystemMessenger* system = QISystemMessenger::instance();
+
     QVariantMap data;
     data["title"] = m_title;
     data["message"] = m_message;

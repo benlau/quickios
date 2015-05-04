@@ -25,20 +25,26 @@ Rectangle {
 
   color: Constant.barTintColor
 
+  property int _titleLeftMargin : leftBarArea.x + leftBarArea.childrenRect.width
+  property int _titleRightMargin : rightBarArea.x
+  property int _titleMargin : Math.max(_titleLeftMargin,_titleRightMargin)
+
   Text {
     id: navigationTitle
     font.family: "Helvetica Neue"
     renderType: Text.NativeRendering
     text: ""
     font.weight: Font.Bold
-    width: parent.width
+    width: parent.width - _titleMargin / 2
     height: parent.height - 1
     wrapMode: Text.NoWrap
     verticalAlignment: Text.AlignVCenter
     horizontalAlignment: Text.AlignHCenter
+    anchors.horizontalCenter: parent.horizontalCenter
 
     color: "#000000"
     font.pixelSize: 16
+    scale: paintedWidth > width ? (width / paintedWidth) : 1
   }
 
   Item {
@@ -50,7 +56,6 @@ Rectangle {
       anchors.bottom: parent.bottom
 
       Row {
-//          spacing : 8
           anchors.verticalCenter: parent.verticalCenter
           Repeater {
               model : leftBarButtonItems
@@ -67,7 +72,6 @@ Rectangle {
 
       Row {
           id: rightBarRepeater
-//          spacing : 8
           anchors.verticalCenter: parent.verticalCenter
           Repeater {
               model : rightBarButtonItems

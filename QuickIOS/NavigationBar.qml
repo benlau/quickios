@@ -10,7 +10,7 @@ import "./def"
 Rectangle {
   id: navigationBar
 
-  // The tint color to apply to the navigation bar background. It is equivalent to color. It apply the naming convenient of UIKit
+  // The tint color to apply to the navigation bar background. It is equivalent to color. Follow the naming convenient of UIKit
   property string tintColor : Constant.tintColor
 
   property alias barTintColor : navigationBar.color
@@ -29,6 +29,9 @@ Rectangle {
 
   // The current title
   property string currentTitle : stack.topBarItem.title
+
+  // The current title item
+  property var currentTitleItem : stack.topBarItem.titleView
 
   // The current list of left buttons
   property var currentLeftButtonItems : navigationItem.leftBarButtonItems

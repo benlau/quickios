@@ -34,7 +34,8 @@ DISTFILES += \
     tst_BarButtonItem.qml \
     ViewControllerListener.qml \
     tst_NavigationController_gc.qml \
-    tst_SegmentedViewController.qml
+    tst_SegmentedViewController.qml \
+    tst_NavigationBar.qml
 
 HEADERS += \
     testenv.h
