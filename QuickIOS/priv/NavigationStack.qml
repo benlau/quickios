@@ -14,7 +14,6 @@ Item {
     id: navigationView
 
     property ListModel views : ListModel {}
-    property var initialViewController
 
     property var tintColor
 
@@ -104,6 +103,7 @@ Item {
         }
     }
 
+    /*
     onInitialViewControllerChanged: {
         if (initialViewController) {
             var container = containerFactory.createObject(navigationView);
@@ -114,5 +114,6 @@ Item {
             pushed(initialViewController);
         }
     }
+    */
 
 }

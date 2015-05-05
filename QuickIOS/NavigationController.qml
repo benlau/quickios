@@ -22,7 +22,7 @@ ViewController {
 
        Moreover, don't change the value after created or your have pushed any view already.
      */
-    property alias initialViewController : stack.initialViewController
+    property var initialViewController
 
     property var topViewController : null
 
@@ -79,6 +79,13 @@ ViewController {
             topViewController = topView;
 
             navigationController.popped(viewController);
+        }
+    }
+
+    Component.onCompleted: {        
+        if (initialViewController) {
+            // Push after the component is completed so that everything has been initialized.
+            stack.push(initialViewController);
         }
     }
 

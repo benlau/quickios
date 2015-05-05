@@ -70,6 +70,8 @@ NavigationController {
             compare(segmentedControl.numberOfSegments,2)
             compare(segmentedControl.selectedSegmentIndex , 0);
 
+            compare(viewController.tintColor,"#000000");
+            compare(segmentedControl.tintColor,"#000000");
             var view1 = segmentedControl.itemAt(0);
             compare(view1.tintColor, "#000000");
             compare(viewController.navigationController , window);

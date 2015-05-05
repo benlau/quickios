@@ -49,7 +49,7 @@ ViewController {
 
         onCurrentIndexChanged: {
             var tab = getTab(currentIndex);
-            tab.tintColor = segmentedControl.tintColor;
+            tab.tintColor = Qt.binding(function() { return segmentedControl.tintColor});
 
             if (previousIndex >= 0) {
                 var prevTab = getTab(previousIndex);
@@ -80,7 +80,7 @@ ViewController {
 
         Component.onCompleted: {
             var tab = getTab(currentIndex);
-            tab.tintColor = segmentedControl.tintColor;
+            tab.tintColor = Qt.binding(function() { return segmentedControl.tintColor});
             if (tab.children.length > 0)
                 emitAppear(tab.children[0]);
             previousIndex = currentIndex;
