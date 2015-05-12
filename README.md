@@ -19,6 +19,14 @@ Simulted iOS Components
     UISegmentedControl , UIAlertView
 
 
+Demonstration
+-------------
+
+An example program is available in the folder of [tests/quickiosexample](tests/quickiosexample)
+
+![Screenshot](https://raw.githubusercontent.com/benlau/quickandroid/master/tests/docs/example.jpg)
+
+
 Reference
 ---------
 
