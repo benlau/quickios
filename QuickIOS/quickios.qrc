@@ -11,7 +11,6 @@
         <file>ProgressHUD.qml</file>
         <file>ProgressView.qml</file>
         <file>Application.qml</file>
-        <file>appdelegate.js</file>
         <file>images/back.png</file>
         <file>images/back@2x.png</file>
         <file>NavigationController.qml</file>

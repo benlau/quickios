@@ -2,7 +2,6 @@ import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Layouts 1.1
 import QuickIOS 0.1
-import "appdelegate.js" as AppDelegate
 import "./def"
 import "./priv"
 import "./utils/objectutils.js" as ObjectUtils

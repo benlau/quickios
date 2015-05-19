@@ -1,6 +1,5 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
-import "appdelegate.js" as AppDelegate
 
 Rectangle {
   id: application
@@ -22,7 +21,7 @@ Rectangle {
   }
 
   Component.onCompleted: {
-    AppDelegate.application = application;
+//    AppDelegate.application = application;
   }
 
   function rootView(rootView) {
