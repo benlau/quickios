@@ -1,5 +1,5 @@
-#ifndef QISYSTEMUTILS_H
-#define QISYSTEMUTILS_H
+#ifndef QISYSTEMMESSENGER_H
+#define QISYSTEMMESSENGER_H
 
 #include <QObject>
 #include <QVariantMap>
