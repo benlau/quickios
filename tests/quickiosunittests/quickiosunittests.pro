@@ -17,5 +17,5 @@ TEMPLATE = app
 
 SOURCES += tst_quickiosunittests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
-RESOURCES += ../quickiosexample/qml.qrc
+RESOURCES += ../../examples/quickiosexample/qml.qrc
 include (../../quickios.pri)
