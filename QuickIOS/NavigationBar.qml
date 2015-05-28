@@ -97,17 +97,15 @@ Rectangle {
       width: 22 + 16;
       height: 44
 
-      BarButtonItem {
+      NavigationBackButton {
           id: backButton
-          opacity: views.count > 1 ? 1 : 0
           enabled: views.count > 1
-          image: "qrc:///QuickIOS/images/back.png"
-          objectName : "NavigationBarBackButton"
           tintColor: navigationBar.tintColor
+          anchors.fill: parent
+
           onClicked: {
               navigationBar.backClicked();
           }
-          anchors.fill: parent
       }
   }
 

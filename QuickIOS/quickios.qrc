@@ -35,5 +35,6 @@
         <file>utils/Ruler.qml</file>
         <file>BarButtonItemStyle.qml</file>
         <file>priv/ViewTransitionCoordinator.qml</file>
+        <file>priv/NavigationBackButton.qml</file>
     </qresource>
 </RCC>
