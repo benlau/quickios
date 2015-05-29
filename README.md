@@ -3,7 +3,7 @@ Quick iOS - QML Theme and Component Library for iOS
 
 [![Build Status](https://api.travis-ci.org/benlau/quickios.svg)](https://travis-ci.org/benlau/quickios)
 
-Current Status: The project is usable but the API it not stable yet.
+Current Status: The project is usable but the API is not stable yet.
 
 Simulted iOS Components
 -----------------------
@@ -15,7 +15,6 @@ Wrapped iOS Components
 ----------------------
 
     UIAlertView , UIActionSheet , UIActivityIndicatorView , UIImagePickerController
-
 
 Demonstration
 -------------
@@ -35,3 +34,9 @@ Other Qt iOS Projects
 Qt for Android
 
  1. [benlau/quickandroid](https://github.com/benlau/quickandroid)
+
+Authors
+-------
+
+Ben Lau (@benlau)
+Hilary Cheng (@hilarycheng)

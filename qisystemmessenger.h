@@ -4,9 +4,8 @@
 #include <QObject>
 #include <QVariantMap>
 
-/// QISystemMessenger provides an simple ans async messaging interface between C/C++/QML and Objective-C source code.
+/// QISystemMessenger provides an simple async messaging interface between C/C++/QML and Objective-C source code.
 /**
-  A set of helper functions for system resource has been pre-registered alreay.
  */
 
 class QISystemMessenger : public QObject {
