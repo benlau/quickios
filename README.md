@@ -3,7 +3,10 @@ Quick iOS - QML Theme and Component Library for iOS
 
 [![Build Status](https://api.travis-ci.org/benlau/quickios.svg)](https://travis-ci.org/benlau/quickios)
 
-Current Status: The project is usable but the API is not stable yet.
+Current Status: The project is usable but the API is not mature yet. May be changed without notification. 
+
+An application using QuickIOS is already released on App Store.
+[Team Proto on the App Store on iTunes](https://itunes.apple.com/app/id977559378)
 
 Simulted iOS Components
 -----------------------
