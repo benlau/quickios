@@ -38,8 +38,12 @@ Qt for Android
 
  1. [benlau/quickandroid](https://github.com/benlau/quickandroid)
 
+Related Projects
+ 1. [benlau/quickpromise](https://github.com/benlau/quickpromise) - Promise library for QML
+ 2. [benlau/quickflux](https://github.com/benlau/quickflux) - Writing QML Application in a Flux way
+
 Authors
 -------
 
-Ben Lau (@benlau)
-Hilary Cheng (@hilarycheng)
+ * Ben Lau (@benlau)
+ * Hilary Cheng (@hilarycheng)
