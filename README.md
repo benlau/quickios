@@ -40,7 +40,7 @@ Qt for Android
 
 Related Projects
  1. [benlau/quickpromise](https://github.com/benlau/quickpromise) - Promise library for QML
- 2. [benlau/quickflux](https://github.com/benlau/quickflux) - Writing QML Application in a Flux way
+ 2. [benlau/quickflux](https://github.com/benlau/quickflux) - IPC/Message Queue solution for QML
 
 Authors
 -------
