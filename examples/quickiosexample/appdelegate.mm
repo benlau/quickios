@@ -11,7 +11,7 @@
 
 // It just demonstrate how to override QIOSApplicationDelegate to get
 // launch options via didFinishLaunchingWithOptions.
-// QuickIOS won't support this code since it may conflict with
+// QuickIOS do not bundle this code since it may conflict with
 // other framework whose need this piece of information
 
 - (BOOL)application:(UIApplication *)application
