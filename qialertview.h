@@ -37,9 +37,12 @@ public:
 
 public Q_SLOTS:
     virtual void setTitle(const QString &arg);
+
     void setMessage(const QString &arg);
 
     void show();
+
+    void dismiss(int clickedButtonIndex, bool animated = true);
 
 Q_SIGNALS:
     void titleChanged();

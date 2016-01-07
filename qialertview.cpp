@@ -4,6 +4,10 @@
 
 #endif
 
+/*! \qmltype AlertView
+ * \inqmlmodule QuickIOS
+ */
+
 QIAlertView::QIAlertView(QQuickItem *parent) :
     QQuickItem(parent)
 {
@@ -86,6 +90,26 @@ void QIAlertView::show()
     dialog->show();
 
 #endif
+}
+
+/*! \qmlmethod AlertView::dismiss(int clickedButtonIndex, bool animated)
+
+   Dismisses the AlertView, optionally with animation.
+
+   clickedButtonIndex: The index of the button that was clicked just before invoking this method.
+
+   animated: Enable/disable animation
+ */
+
+void QIAlertView::dismiss(int clickedButtonIndex, bool animated)
+{
+    QISystemMessenger* system = QISystemMessenger::instance();
+
+    QVariantMap message;
+    message["index"] = clickedButtonIndex;
+    message["animated"] = animated;
+
+    system->sendMessage("alertViewDismissWithClickedButtonIndex",message);
 }
 
 void QIAlertView::onReceived(QString name, QVariantMap data)

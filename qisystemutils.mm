@@ -74,31 +74,41 @@ static UIViewController* rootViewController() {
     return app.keyWindow.rootViewController;
 }
 
+static UIAlertView* alertView = nil;
+
+static QIViewDelegate* alertViewDelegate = nil;
+
+static void alertViewDismiss(int buttonIndex) {
+    QString name = "alertViewClickedButtonAtIndex";
+    QVariantMap data;
+    data["buttonIndex"] = buttonIndex;
+    QISystemMessenger* m_instance = QISystemMessenger::instance();
+    QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
+                              Q_ARG(QString , name),
+                              Q_ARG(QVariantMap,data));
+    alertViewDelegate = nil;
+    alertView = nil;
+}
+
 static bool alertViewCreate(QVariantMap& data) {
     Q_UNUSED(data);
 
-    static QIViewDelegate *delegate = 0;
-    delegate = [QIViewDelegate alloc];
+    alertViewDelegate = [QIViewDelegate alloc];
 
-    delegate->alertViewClickedButtonAtIndex = ^(int buttonIndex) {
-        QString name = "alertViewClickedButtonAtIndex";
-        QVariantMap data;
-        data["buttonIndex"] = buttonIndex;
-        QISystemMessenger* m_instance = QISystemMessenger::instance();
-        QMetaObject::invokeMethod(m_instance,"received",Qt::DirectConnection,
-                                  Q_ARG(QString , name),
-                                  Q_ARG(QVariantMap,data));
-        delegate = nil;
+    alertViewDelegate->alertViewClickedButtonAtIndex = ^(int buttonIndex) {
+        alertViewDismiss(buttonIndex);
     };
 
     NSString* title = data["title"].toString().toNSString();
     NSString* message = data["message"].toString().toNSString();
     QStringList buttons = data["buttons"].toStringList();
 
-    UIAlertView *alert = [UIAlertView alloc ] ;
+    UIAlertView *alert = [UIAlertView alloc];
+    alertView = alert;
+
     [alert initWithTitle:title
         message:message
-        delegate:delegate
+        delegate:alertViewDelegate
         cancelButtonTitle:nil
         otherButtonTitles:nil
         ];
@@ -110,6 +120,19 @@ static bool alertViewCreate(QVariantMap& data) {
 
     [alert show];
 
+    return true;
+}
+
+static bool alertViewDismissWithClickedButtonIndex(QVariantMap& message) {
+    if (alertView == nil) {
+        return false;
+    }
+
+    int index = message["index"].toInt();
+    bool animated = message["animated"].toBool();
+
+    [alertView dismissWithClickedButtonIndex:index animated:animated];
+    alertViewDismiss(index);
     return true;
 }
 
@@ -360,6 +383,8 @@ public:
         QISystemMessenger* messenger = QISystemMessenger::instance();
 
         messenger->registerMessageHandler("alertViewCreate",alertViewCreate);
+        messenger->registerMessageHandler("alertViewDismissWithClickedButtonIndex", alertViewDismissWithClickedButtonIndex);
+
         messenger->registerMessageHandler("applicationSetStatusBarStyle",applicationSetStatusBarStyle);
         messenger->registerMessageHandler("applicationSetStatusBarHidden",applicationSetStatusBarHidden);
 

@@ -8,19 +8,24 @@ ViewController {
     color : "#ffffff"
     title : "Alert Example Code"
 
+    function show() {
+        alert.show();
+        timer.start();
+    }
+
     property var navigationItem : NavigationItem {
         rightBarButtonItems : VisualItemModel {
             BarButtonItem {
                 title: "Btn1"
                 onClicked: {
-                    alert.show();
+                    show();
                 }
             }
 
             BarButtonItem {
                 title: "Btn2"
                 onClicked: {
-                    alert.show();
+                    show();
                 }
             }
 
@@ -28,7 +33,7 @@ ViewController {
         leftBarButtonItem : BarButtonItem {
             title: "Alert"
             onClicked: {
-                alert.show();
+                show();
             }
         }
     }
@@ -36,7 +41,7 @@ ViewController {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            alert.show();
+            show();
         }
     }
 
@@ -52,6 +57,15 @@ ViewController {
         buttons : [qsTr("Cancel"),qsTr("OK")]
         onClicked : {
             console.log("Clicked button : ",clickedButtonIndex);
+        }
+    }
+
+    Timer {
+        id: timer
+        interval: 5000
+        onTriggered: {
+            // Dismiss a dialog after 5s idle.
+            alert.dismiss(1, true);
         }
     }
 }

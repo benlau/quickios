@@ -102,18 +102,4 @@ Item {
 
         }
     }
-
-    /*
-    onInitialViewControllerChanged: {
-        if (initialViewController) {
-            var container = containerFactory.createObject(navigationView);
-            initialViewController.parent = container;
-            initialViewController.anchors.fill = container;
-            stack.initialItem = container;
-            views.append({ object: initialViewController })
-            pushed(initialViewController);
-        }
-    }
-    */
-
 }
