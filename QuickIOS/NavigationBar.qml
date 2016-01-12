@@ -91,7 +91,6 @@ Rectangle {
 
   Item {
       anchors.left: parent.left
-//      anchors.top : parent.top
       anchors.bottom: parent.bottom
 
       width: 22 + 16;

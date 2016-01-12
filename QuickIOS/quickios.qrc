@@ -7,7 +7,6 @@
         <file>TabBarItem.qml</file>
         <file>TabView.qml</file>
         <file>ITextField.qml</file>
-        <file>IButton.qml</file>
         <file>ProgressHUD.qml</file>
         <file>ProgressView.qml</file>
         <file>Application.qml</file>
