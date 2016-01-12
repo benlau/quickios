@@ -99,7 +99,7 @@ Rectangle {
 
       NavigationBackButton {
           id: backButton
-          enabled: views.count > 1
+          enabled: views.count > 1 && navigationItem.backButtonVisible
           tintColor: navigationBar.tintColor
           anchors.fill: parent
 
