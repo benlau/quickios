@@ -33,15 +33,8 @@ ios {
         $$PWD/qiviewdelegate.mm \
         $$PWD/qidevice.mm
 
-    #Qt Quick Controls
-    QTPLUGIN += qtquickcontrolsplugin modelsplugin
-
-    # Fix for linking issues for Qt 5.3.2
-    QTQUICKCONTROLS_LIBS = -L$$clean_path($$QMAKESPEC/../../qml/QtQuick/Controls)
-    QTQMLMODELS_LIBS = -L$$clean_path($$QMAKESPEC/../../qml/QtQml/Models.2)
-    LIBS += $$QTQUICKCONTROLS_LIBS $$QTQMLMODELS_LIBS
+    # QuickIOS do not link static plugin since Qt 5.7
 
     QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Add :UIViewControllerBasedStatusBarAppearance bool false\" $${OUT_PWD}/Info.plist
-
 }
 

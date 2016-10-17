@@ -10,5 +10,6 @@
         <file>statusBar/StatusBarDemo.qml</file>
         <file>actionSheet/ActionSheetDemo.qml</file>
         <file>segment/SegmentedControlDemo.qml</file>
+        <file>imports.qml</file>
     </qresource>
 </RCC>
