@@ -7,6 +7,8 @@
 class QuickIOS
 {
 public:
+
+    /// @deprecated
     static void registerTypes();
 
     /// Setup the QQuickWindow instance of the application according to the environment

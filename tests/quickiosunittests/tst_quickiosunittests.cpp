@@ -24,7 +24,6 @@ QuickIOSUnitTests::QuickIOSUnitTests()
 
 void QuickIOSUnitTests::initTestCase()
 {
-    QuickIOS::registerTypes();
 }
 
 void QuickIOSUnitTests::cleanupTestCase()

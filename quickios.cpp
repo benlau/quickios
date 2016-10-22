@@ -34,13 +34,6 @@ static QJSValue deviceProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
 
 void QuickIOS::registerTypes()
 {
-  qmlRegisterSingletonType("QuickIOS", 0, 1, "SystemMessenger", systemProvider);
-  qmlRegisterSingletonType("QuickIOS", 0, 1, "QIDevice", deviceProvider);
-
-  qmlRegisterType<QIAlertView>("QuickIOS",0,1,"AlertView");
-  qmlRegisterType<QIActionSheet>("QuickIOS",0,1,"ActionSheet");
-  qmlRegisterType<QIImagePicker>("QuickIOS",0,1,"ImagePicker");
-  qmlRegisterType<QIActivityIndicator>("QuickIOS",0,1,"ActivityIndicator");
 
 }
 
@@ -63,3 +56,15 @@ void QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyle style)
 
     system->sendMessage("applicationSetStatusBarStyle",data);
 }
+
+static void registerTypes() {
+    qmlRegisterSingletonType("QuickIOS", 0, 1, "SystemMessenger", systemProvider);
+    qmlRegisterSingletonType("QuickIOS", 0, 1, "QIDevice", deviceProvider);
+
+    qmlRegisterType<QIAlertView>("QuickIOS",0,1,"AlertView");
+    qmlRegisterType<QIActionSheet>("QuickIOS",0,1,"ActionSheet");
+    qmlRegisterType<QIImagePicker>("QuickIOS",0,1,"ImagePicker");
+    qmlRegisterType<QIActivityIndicator>("QuickIOS",0,1,"ActivityIndicator");
+}
+
+Q_COREAPP_STARTUP_FUNCTION(registerTypes)
