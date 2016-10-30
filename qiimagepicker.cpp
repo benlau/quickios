@@ -7,7 +7,7 @@
 #include <QThreadPool>
 #include <QImageWriter>
 #include <QImageReader>
-#include "qisystemmessenger.h"
+#include "qisystemdispatcher.h"
 #include "qiimagepicker.h"
 
 class QIImagePickerSaver : public QRunnable {
@@ -61,16 +61,16 @@ void QIImagePicker::show(bool animated)
     }
 
 #ifdef Q_OS_IOS
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
 
     QVariantMap data;
     data["sourceType"] = m_sourceType;
     data["animated"] = animated;
 
-    connect(system,SIGNAL(received(QString,QVariantMap)),
+    connect(system,SIGNAL(dispatched(QString,QVariantMap)),
             this,SLOT(onReceived(QString,QVariantMap)));
 
-    bool res = system->sendMessage("imagePickerControllerPresent",data);
+    bool res = system->dispatch("imagePickerControllerPresent",data);
 
     if (res) {
         setStatus(Running);
@@ -112,11 +112,11 @@ void QIImagePicker::show(bool animated)
 
 void QIImagePicker::close(bool animated)
 {
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
     QVariantMap data;
     data["animated"] = animated;
 
-    system->sendMessage("imagePickerControllerDismiss",data);
+    system->dispatch("imagePickerControllerDismiss",data);
 }
 
 void QIImagePicker::save(QString fileName)
@@ -177,7 +177,7 @@ void QIImagePicker::setStatus(const Status &status)
 
 void QIImagePicker::onReceived(QString name, QVariantMap data)
 {
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
 
     if (name == "imagePickerControllerDidCancel") {
         setStatus(Null);
@@ -255,12 +255,12 @@ void QIImagePicker::setBusy(bool busy)
         return;
 
     m_busy = busy;
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
 
     QVariantMap data;
     data["active"] = m_busy;
 
-    system->sendMessage("imagePickerControllerSetIndicator",data);
+    system->dispatch("imagePickerControllerSetIndicator",data);
     emit busyChanged();
 }
 

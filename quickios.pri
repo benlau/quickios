@@ -13,7 +13,7 @@ HEADERS += $$PWD/quickios.h \
     $$PWD/qiactionsheet.h \
     $$PWD/qiimagepicker.h \
     $$PWD/qiactivityindicator.h \
-    $$PWD/qisystemmessenger.h
+    $$PWD/qisystemdispatcher.h
 
 SOURCES += $$PWD/quickios.cpp \
     $$PWD/qialertview.cpp \
@@ -21,7 +21,7 @@ SOURCES += $$PWD/quickios.cpp \
     $$PWD/qiactionsheet.cpp \
     $$PWD/qiimagepicker.cpp \
     $$PWD/qiactivityindicator.cpp \
-    $$PWD/qisystemmessenger.cpp
+    $$PWD/qisystemdispatcher.cpp
 
 ios {
     QT += gui-private

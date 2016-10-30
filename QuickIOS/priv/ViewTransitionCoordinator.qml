@@ -36,7 +36,7 @@ Item {
     function setStatusBarHidden(view) {
         var hidden = view.prefersStatusBarHidden;
         var animation = view.preferredStatusBarUpdateAnimation;
-        SystemMessenger.sendMessage("applicationSetStatusBarHidden", {
+        SystemMessenger.dispatch("applicationSetStatusBarHidden", {
                                  hidden: hidden,
                                  animation : animation
                              });

@@ -112,7 +112,7 @@ Rectangle {
   function setNeedsStatusBarAppearanceUpdate() {
       var hidden = prefersStatusBarHidden;
       var animation = preferredStatusBarUpdateAnimation;
-      SystemMessenger.sendMessage("applicationSetStatusBarHidden", {
+      SystemMessenger.dispatch("applicationSetStatusBarHidden", {
                                hidden: hidden,
                                animation : animation
                            });

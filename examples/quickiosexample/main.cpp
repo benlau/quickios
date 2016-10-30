@@ -4,7 +4,7 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QtCore>
-#include "qisystemmessenger.h"
+#include "qisystemdispatcher.h"
 #include "quickios.h"
 #include "qidevice.h"
 
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
     QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyleDefault);
 
-    QISystemMessenger::instance()->sendMessage("activityIndicatorStart",QVariantMap());
+    QISystemDispatcher::instance()->dispatch("activityIndicatorStart",QVariantMap());
 
     printSystemInformation();
 

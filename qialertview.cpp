@@ -1,5 +1,5 @@
 #include "qialertview.h"
-#include "qisystemmessenger.h"
+#include "qisystemdispatcher.h"
 #ifndef Q_OS_IOS
 
 #endif
@@ -55,7 +55,7 @@ void QIAlertView::show()
         return;
 
 #ifdef Q_OS_IOS
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
 
     QVariantMap data;
     data["title"] = m_title;
@@ -63,10 +63,10 @@ void QIAlertView::show()
     data["buttons"] = m_buttons;
 
     m_opened = true;
-    connect(system,SIGNAL(received(QString,QVariantMap)),
+    connect(system,SIGNAL(dispatched(QString,QVariantMap)),
             this,SLOT(onReceived(QString,QVariantMap)));
 
-    system->sendMessage("alertViewCreate",data);
+    system->dispatch("alertViewCreate",data);
 #else
 
     dialog = new QMessageBox();
@@ -103,13 +103,13 @@ void QIAlertView::show()
 
 void QIAlertView::dismiss(int clickedButtonIndex, bool animated)
 {
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
 
     QVariantMap message;
     message["index"] = clickedButtonIndex;
     message["animated"] = animated;
 
-    system->sendMessage("alertViewDismissWithClickedButtonIndex",message);
+    system->dispatch("alertViewDismissWithClickedButtonIndex",message);
 }
 
 void QIAlertView::onReceived(QString name, QVariantMap data)
@@ -118,7 +118,7 @@ void QIAlertView::onReceived(QString name, QVariantMap data)
         return;
     }
 
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
     system->disconnect(this);
 
     int buttonIndex = data["buttonIndex"].toInt();

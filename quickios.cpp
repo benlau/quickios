@@ -4,7 +4,7 @@
 #include <QPointer>
 #include "quickios.h"
 #include "qialertview.h"
-#include "qisystemmessenger.h"
+#include "qisystemdispatcher.h"
 #include "qidevice.h"
 #include "qiactionsheet.h"
 #include "qiimagepicker.h"
@@ -12,7 +12,7 @@
 
 static QJSValue systemProvider(QQmlEngine* engine , QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
-    QISystemMessenger *system = QISystemMessenger::instance();
+    QISystemDispatcher *system = QISystemDispatcher::instance();
 
     QJSValue value = scriptEngine->newQObject(system);
     return value;
@@ -50,11 +50,11 @@ void QuickIOS::setupWindow(QQuickWindow *window)
 
 void QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyle style)
 {
-    QISystemMessenger *system = QISystemMessenger::instance();
+    QISystemDispatcher *system = QISystemDispatcher::instance();
     QVariantMap data;
     data["style"] = style;
 
-    system->sendMessage("applicationSetStatusBarStyle",data);
+    system->dispatch("applicationSetStatusBarStyle",data);
 }
 
 static void registerTypes() {

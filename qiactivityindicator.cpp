@@ -1,4 +1,4 @@
-#include "qisystemmessenger.h"
+#include "qisystemdispatcher.h"
 #include "qiactivityindicator.h"
 
 QIActivityIndicator::QIActivityIndicator(QQuickItem* parent) : QQuickItem(parent)
@@ -20,7 +20,7 @@ void QIActivityIndicator::startAnimation()
     QVariantMap map;
     map["style"] = m_style;
 
-    QISystemMessenger::instance()->sendMessage("activityIndicatorStartAnimation",map);
+    QISystemDispatcher::instance()->dispatch("activityIndicatorStartAnimation",map);
     setIsAnimating(true);
 }
 
@@ -29,7 +29,7 @@ void QIActivityIndicator::stopAnimation()
     if (!m_isAnimating)
         return;
 
-    QISystemMessenger::instance()->sendMessage("activityIndicatorStopAnimation",QVariantMap());
+    QISystemDispatcher::instance()->dispatch("activityIndicatorStopAnimation",QVariantMap());
     setIsAnimating(false);
 }
 

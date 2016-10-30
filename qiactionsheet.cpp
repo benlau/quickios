@@ -1,4 +1,4 @@
-#include "qisystemmessenger.h"
+#include "qisystemdispatcher.h"
 #include "qiactionsheet.h"
 
 QIActionSheet::QIActionSheet(QQuickItem* parent) : QQuickItem(parent)
@@ -42,7 +42,7 @@ void QIActionSheet::show()
 
     running = true;
 
-    QISystemMessenger* system = QISystemMessenger::instance();
+    QISystemDispatcher* system = QISystemDispatcher::instance();
 
     QVariantMap data;
     data["title"] = m_title;
@@ -54,10 +54,10 @@ void QIActionSheet::show()
     data["sourceRect"] = mapRectToScene(rect);
 
     running = true;
-    connect(system,SIGNAL(received(QString,QVariantMap)),
+    connect(system,SIGNAL(dispatched(QString,QVariantMap)),
             this,SLOT(onReceived(QString,QVariantMap)));
 
-    system->sendMessage("actionSheetCreate",data);
+    system->dispatch("actionSheetCreate",data);
 }
 
 void QIActionSheet::onReceived(QString name, QVariantMap data)
@@ -78,7 +78,7 @@ void QIActionSheet::onReceived(QString name, QVariantMap data)
     } else {
         running = false;
 
-        QISystemMessenger* system = QISystemMessenger::instance();
+        QISystemDispatcher* system = QISystemDispatcher::instance();
         system->disconnect(this);
         emit dismissed(buttonIndex);
     }
