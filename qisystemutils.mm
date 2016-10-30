@@ -393,7 +393,6 @@ static void registerTypes() {
 
     dispatcher->addListener("activityIndicatorStartAnimation",activityIndicatorStartAniamtion);
     dispatcher->addListener("activityIndicatorStopAnimation",activityIndicatorStopAnimation);
-};
+}
 
-static QISystemUtilsRegisterHelper registerHelper;
 Q_COREAPP_STARTUP_FUNCTION(registerTypes)
