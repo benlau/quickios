@@ -377,26 +377,23 @@ static bool activityIndicatorStopAnimation(QVariantMap& data) {
     return true;
 }
 
-class QISystemUtilsRegisterHelper {
-public:
-    QISystemUtilsRegisterHelper() {
-        QISystemDispatcher* messenger = QISystemDispatcher::instance();
+static void registerTypes() {
+    QISystemDispatcher* dispatcher = QISystemDispatcher::instance();
 
-        messenger->addListener("alertViewCreate",alertViewCreate);
-        messenger->addListener("alertViewDismissWithClickedButtonIndex", alertViewDismissWithClickedButtonIndex);
+    dispatcher->addListener("alertViewCreate",alertViewCreate);
+    dispatcher->addListener("alertViewDismissWithClickedButtonIndex", alertViewDismissWithClickedButtonIndex);
 
-        messenger->addListener("applicationSetStatusBarStyle",applicationSetStatusBarStyle);
-        messenger->addListener("applicationSetStatusBarHidden",applicationSetStatusBarHidden);
+    dispatcher->addListener("applicationSetStatusBarStyle",applicationSetStatusBarStyle);
+    dispatcher->addListener("applicationSetStatusBarHidden",applicationSetStatusBarHidden);
 
-        messenger->addListener("actionSheetCreate",actionSheetCreate);
-        messenger->addListener("imagePickerControllerPresent",imagePickerControllerPresent);
-        messenger->addListener("imagePickerControllerDismiss",imagePickerControllerDismiss);
-        messenger->addListener("imagePickerControllerSetIndicator",imagePickerControllerSetIndicator);
+    dispatcher->addListener("actionSheetCreate",actionSheetCreate);
+    dispatcher->addListener("imagePickerControllerPresent",imagePickerControllerPresent);
+    dispatcher->addListener("imagePickerControllerDismiss",imagePickerControllerDismiss);
+    dispatcher->addListener("imagePickerControllerSetIndicator",imagePickerControllerSetIndicator);
 
-        messenger->addListener("activityIndicatorStartAnimation",activityIndicatorStartAniamtion);
-        messenger->addListener("activityIndicatorStopAnimation",activityIndicatorStopAnimation);
-    }
-
+    dispatcher->addListener("activityIndicatorStartAnimation",activityIndicatorStartAniamtion);
+    dispatcher->addListener("activityIndicatorStopAnimation",activityIndicatorStopAnimation);
 };
 
 static QISystemUtilsRegisterHelper registerHelper;
+Q_COREAPP_STARTUP_FUNCTION(registerTypes)
