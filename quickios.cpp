@@ -57,6 +57,15 @@ void QuickIOS::setStatusBarStyle(QuickIOS::StatusBarStyle style)
     system->dispatch("applicationSetStatusBarStyle",data);
 }
 
+void QuickIOS::setStatusBarHidden(bool hidden, int animation)
+{
+    QISystemDispatcher* dispatcher = QISystemDispatcher::instance();
+    QVariantMap message;
+    message["hidden"] = hidden;
+    message["animation"] = animation;
+    dispatcher->dispatch("applicationSetStatusBarHidden", message);
+}
+
 static void registerTypes() {
     qmlRegisterSingletonType("QuickIOS", 0, 1, "SystemMessenger", systemProvider);
     qmlRegisterSingletonType("QuickIOS", 0, 1, "QIDevice", deviceProvider);

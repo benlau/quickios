@@ -28,6 +28,8 @@ public:
 
     static void setStatusBarStyle(StatusBarStyle style);
 
+    static void setStatusBarHidden(bool hidden, int animation);
+
 };
 
 #endif // QUICKIOS_H
